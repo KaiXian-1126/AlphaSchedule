@@ -1,3 +1,4 @@
+import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: EventEditScreen("Title 1", TimeOfDay(hour: 9, minute: 36),
+          TimeOfDay(hour: 16, minute: 36), "A description"),
     );
   }
 }
