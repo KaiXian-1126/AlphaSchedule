@@ -1,6 +1,8 @@
+import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:alpha_schedule/profile/event/event_create_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:alpha_schedule/profile/event/event_search_screen.dart';
+import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
       /*home: EventEditScreen("Title 1", TimeOfDay(hour: 9, minute: 36),
           TimeOfDay(hour: 16, minute: 36), "A description"),*/
       //home: EventCreateScreen(),
-      home: EventSearchScreen(),
+      //home: EventSearchScreen(),
+      home: ProfileEditScreen(mockData),
     );
   }
 }
