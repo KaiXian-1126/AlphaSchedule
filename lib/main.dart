@@ -1,3 +1,4 @@
+import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:alpha_schedule/profile/event/calendar_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/event_create_screen.dart';
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
           TimeOfDay(hour: 16, minute: 36), "A description"),*/
       //home: EventCreateScreen(),
       //home: EventSearchScreen(),
-      home: CalendarCollaboratorScreen(),
+      //home: CalendarCollaboratorScreen(),
+      home: AlphaSplashScreen(),
     );
   }
 }
