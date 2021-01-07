@@ -1,3 +1,6 @@
+import 'package:alpha_schedule/auth/account_create_screen.dart';
+import 'package:alpha_schedule/auth/login_screen.dart';
+import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -24,7 +27,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: BuildFlatButton(
                   text: 'Login',
                   color: Colors.white,
-                  onpressedcallback: () {},
+                  onpressedcallback: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoginScreen(mockData)));
+                  },
                 ),
               ),
               Container(
@@ -35,7 +43,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: BuildFlatButton(
                   text: 'Get Started',
                   color: Colors.white,
-                  onpressedcallback: () {},
+                  onpressedcallback: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                AccountCreateScreen(mockData)));
+                  },
                 ),
               )
             ])));
