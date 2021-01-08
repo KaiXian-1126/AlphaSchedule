@@ -4,6 +4,7 @@ import 'package:alpha_schedule/profile/event/calendar_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/event_create_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:alpha_schedule/profile/event/event_search_screen.dart';
+import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
       //home: EventCreateScreen(),
       //home: EventSearchScreen(),
       //home: CalendarCollaboratorScreen(),
-      home: AlphaSplashScreen(),
+      //home: AlphaSplashScreen(),
+      home: PasswordEditScreen(mockData),
     );
   }
 }
