@@ -6,10 +6,17 @@ import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:alpha_schedule/profile/event/event_search_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
+import 'profile/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'profile/home_screen.dart';
+import 'profile/user/user_profile_screen.dart';
+import 'profile/event/calendar_settings_screen.dart';
+
+import 'profile/home_screen.dart';
+import 'profile/user/user_profile_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(home: DrawerScreen()));
 }
 
 class MyApp extends StatelessWidget {
