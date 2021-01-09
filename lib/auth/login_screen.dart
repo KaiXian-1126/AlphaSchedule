@@ -1,5 +1,6 @@
 import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
+import 'package:alpha_schedule/profile/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -90,7 +91,10 @@ class _LoginScreen extends State<LoginScreen> {
                       onPressed: () {
                         if (_nameFormKey.currentState.validate()) {
                           if (_passwordFormKey.currentState.validate()) {
-                            //Navigate to home screen
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DrawerScreen()));
                           }
                         }
                       },

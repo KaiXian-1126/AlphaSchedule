@@ -1,3 +1,4 @@
+import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:alpha_schedule/profile/event/calendar_collaborator_screen.dart';
@@ -6,6 +7,7 @@ import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:alpha_schedule/profile/event/event_search_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
+
 import 'profile/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'profile/home_screen.dart';
@@ -16,7 +18,7 @@ import 'profile/home_screen.dart';
 import 'profile/user/user_profile_screen.dart';
 
 void main() {
-  runApp(MaterialApp(home: DrawerScreen()));
+  runApp(MaterialApp(home: LogoutScreen()));
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +49,8 @@ class MyApp extends StatelessWidget {
       //home: EventSearchScreen(),
       //home: CalendarCollaboratorScreen(),
       //home: AlphaSplashScreen(),
-      home: PasswordEditScreen(mockData),
+      //home: PasswordEditScreen(mockData),
+      //home: LogoutScreen(),
     );
   }
 }

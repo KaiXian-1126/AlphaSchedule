@@ -1,3 +1,4 @@
+import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/mockdata.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -118,7 +119,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
               height: 50,
               margin: EdgeInsets.only(top: 30),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LogoutScreen()));
+                },
                 child: Text("Logout", style: TextStyle(color: Colors.white)),
                 color: Colors.blue,
               ),
