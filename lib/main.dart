@@ -13,12 +13,13 @@ import 'package:flutter/material.dart';
 import 'profile/home_screen.dart';
 import 'profile/user/user_profile_screen.dart';
 import 'profile/event/calendar_settings_screen.dart';
+import 'profile/event/calendar_create_screen.dart';
 
 import 'profile/home_screen.dart';
 import 'profile/user/user_profile_screen.dart';
 
 void main() {
-  runApp(MaterialApp(home: LogoutScreen()));
+  runApp(MaterialApp(home: CalendarCreateScreen()));
 }
 
 class MyApp extends StatelessWidget {
