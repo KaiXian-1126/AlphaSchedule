@@ -15,7 +15,7 @@ class _AlphaSplashScreen extends State<AlphaSplashScreen> {
     super.initState();
 
     Timer(
-        Duration(seconds: 5),
+        Duration(seconds: 0),
         () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => WelcomeScreen())));
   }

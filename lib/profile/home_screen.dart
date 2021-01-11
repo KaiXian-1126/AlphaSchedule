@@ -1,4 +1,5 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
+import 'package:alpha_schedule/constants.dart';
 import 'package:flutter/material.dart';
 import '../models/mockdata.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -84,7 +85,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.only(bottom: 30, left: 20),
-                      child: Icon(Icons.edit),
+                      child: IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () async {
+                            final response = await Navigator.pushNamed(
+                                context, profileEditRoute);
+                            if (response != null) {
+                              setState(() {});
+                            }
+                          }),
                     ),
                   ],
                 ),
@@ -112,7 +121,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
             ),
             FloatingActionButton(
-              onPressed: () {},
+              onPressed: () async {
+                final res =
+                    await Navigator.pushNamed(context, calendarCreateRoute);
+                if (res != null) {
+                  setState(() {});
+                }
+              },
               child: Icon(Icons.add),
             ),
             Container(

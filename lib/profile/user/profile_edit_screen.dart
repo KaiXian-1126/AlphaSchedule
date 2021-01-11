@@ -27,7 +27,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Edit Profile'),
-          leading: Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: Container(
           // set margin of body
@@ -152,7 +155,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 widget._data.phone +
                 ", " +
                 widget._data.gender);
-            // Navigator.pop(context, widget._data);
+            Navigator.pop(context, widget._data);
           },
         ),
       ),

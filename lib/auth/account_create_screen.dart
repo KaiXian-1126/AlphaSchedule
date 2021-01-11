@@ -27,7 +27,10 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Create an Account'),
-          leading: Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: Container(
           // set margin of body

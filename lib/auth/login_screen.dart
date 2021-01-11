@@ -1,4 +1,5 @@
 import 'package:alpha_schedule/auth/account_create_screen.dart';
+import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:alpha_schedule/profile/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,9 @@ class _LoginScreen extends State<LoginScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Login With Your Account'),
-          leading: Icon(
-            Icons.arrow_back,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
         body: Container(
@@ -90,11 +92,9 @@ class _LoginScreen extends State<LoginScreen> {
                       child: Text('Login'),
                       onPressed: () {
                         if (_nameFormKey.currentState.validate()) {
+                          print("Yes");
                           if (_passwordFormKey.currentState.validate()) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DrawerScreen()));
+                            Navigator.pushNamed(context, homeRoute);
                           }
                         }
                       },

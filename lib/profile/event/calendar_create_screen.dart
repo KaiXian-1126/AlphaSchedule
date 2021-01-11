@@ -1,3 +1,6 @@
+import 'package:alpha_schedule/constants.dart';
+import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:flutter/material.dart';
 
 class CalendarCreateScreen extends StatefulWidget {
@@ -10,13 +13,14 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
   String calendarDescription;
   List<Color> _colorTheme = [Colors.blue, Colors.red];
   Color _currentColor = Colors.blue;
-
+  //TextEditingController calendarNameController = TextEditingController(), descriptionController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
 
   Widget _buildCalendarName() {
     return Container(
       margin: EdgeInsets.only(bottom: 25),
       child: TextFormField(
+        //controller: calendarNameController,
         maxLines: null,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
@@ -86,7 +90,10 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
         appBar: AppBar(
           backgroundColor: _currentColor,
           title: Text('Create Calendar'),
-          leading: Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: Container(
           margin: EdgeInsets.only(top: 20, left: 30, right: 30),
@@ -113,10 +120,13 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                         ),
                         onPressed: () {
                           if (_formkey.currentState.validate()) {
-                            return;
+                            _formkey.currentState.save();
+                            print(calendarName + calendarDescription);
+                            calendar.add(Calendar(
+                                calendarName: calendarName,
+                                description: calendarDescription));
+                            Navigator.pushNamed(context, homeRoute);
                           }
-
-                          _formkey.currentState.save();
                         },
                       ),
                       Container(
@@ -128,7 +138,9 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                           'Cancel',
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ],
                   ),
