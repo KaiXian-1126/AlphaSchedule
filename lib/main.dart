@@ -5,9 +5,11 @@ import 'package:alpha_schedule/profile/event/calendar_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/event_create_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:alpha_schedule/profile/event/event_search_screen.dart';
+import 'package:alpha_schedule/profile/event/event_summary_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
 
+import 'models/mockdata.dart';
 import 'profile/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'profile/home_screen.dart';
@@ -19,7 +21,7 @@ import 'profile/home_screen.dart';
 import 'profile/user/user_profile_screen.dart';
 
 void main() {
-  runApp(MaterialApp(home: CalendarCreateScreen()));
+  runApp(MaterialApp(home: EventSummaryScreen(mycalender)));
 }
 
 class MyApp extends StatelessWidget {
