@@ -1,3 +1,5 @@
+import 'package:alpha_schedule/constants.dart';
+import 'package:alpha_schedule/models/Event.dart';
 import 'package:flutter/material.dart';
 
 class EventEditScreen extends StatefulWidget {
@@ -92,7 +94,8 @@ class _EventEditScreenState extends State<EventEditScreen> {
                   highlightColor: Colors.blue,
                   child: Text("Update"),
                   onPressed: () {
-                    //Update to database code
+                    Navigator.pushNamed(context, homeRoute,
+                        arguments: Event(eventName: "A event"));
                   },
                 ),
               ),
@@ -102,7 +105,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
                   color: Colors.grey,
                   child: Text("Cancel"),
                   onPressed: () {
-                    //Back to event_details_screen
+                    Navigator.pop(context);
                   },
                 ),
               ),
