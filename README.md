@@ -1,16 +1,9 @@
 # alpha_schedule
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Project title: AlphaSchedule
+Brief description about the project: This application is called Alpha Schedule Management System. AlphaSchedule Management System is a management system focus on the time and scheduling management.
+Video links: **Not Available Now**
+Group Members:  
+* Tok Kai Xian (A18CS0267)
+* Tan Zhi Quan (A18CS0260)
+* Cheng Shin Wei (A18CS0246)
+* Tan Wei Kok (A18CS0258)
