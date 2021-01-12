@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import "../../models/Event.dart";
+
+import '../../constants.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   @override
@@ -7,7 +10,10 @@ class EventDetailsScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Project discussion  1'),
-          leading: Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context, homeRoute),
+          ),
         ),
         body: Container(
           // set margin of body
@@ -47,12 +53,12 @@ class EventDetailsScreen extends StatelessWidget {
                   BuildFlatButton(
                     text: 'Delete',
                     color: Colors.red,
-                    onPressedCallback: () {},
+                    onPressedCallback: () => Navigator.pop(context, homeRoute),
                   ),
                   BuildFlatButton(
                     text: 'Edit',
                     color: Colors.blue,
-                    onPressedCallback: () {},
+                    onPressedCallback: () => Navigator.pop(context, homeRoute),
                   ),
                 ],
               ),

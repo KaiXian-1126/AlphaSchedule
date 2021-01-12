@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../constants.dart';
 import '../../models/mockdata.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -12,7 +13,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text("My profile"),
-          leading: Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
           backgroundColor: Colors.blue,
         ),
         body: Container(
@@ -81,7 +85,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   RaisedButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.pushNamed(context, passwordEditRoute),
                     child:
                         Text("Change password", style: TextStyle(fontSize: 20)),
                     color: Colors.blue,
@@ -89,7 +94,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 10),
                   RaisedButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.pushNamed(context, profileEditRoute),
                     child: Text("Edit Profile", style: TextStyle(fontSize: 20)),
                     color: Colors.blue,
                     textColor: Colors.white,

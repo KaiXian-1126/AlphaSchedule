@@ -11,7 +11,10 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Calender 1"),
-          leading: Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: Container(
           margin: EdgeInsets.all(8.0),

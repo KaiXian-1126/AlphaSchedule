@@ -21,7 +21,10 @@ class _CalendarCollaboratorScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text("Calendar 1"),
-        leading: Icon(Icons.arrow_back),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: ListView.separated(
         separatorBuilder: (_, index) => Divider(),

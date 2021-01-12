@@ -86,7 +86,10 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
         appBar: AppBar(
           backgroundColor: calendar[1].color,
           title: Text('Calendar Setting'),
-          leading: Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: Container(
           margin: EdgeInsets.only(top: 20, left: 30, right: 30),
@@ -109,7 +112,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                   ),
                   onPressed: () {
                     if (_formkey.currentState.validate()) {
-                      return;
+                      Navigator.pop(context);
                     }
 
                     _formkey.currentState.save();

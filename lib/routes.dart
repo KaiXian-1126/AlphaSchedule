@@ -19,6 +19,9 @@ import 'package:alpha_schedule/profile/user/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
+import 'models/mockdata.dart';
+import 'models/mockdata.dart';
+import 'models/mockdata.dart';
 
 Route<dynamic> createRoute(settings) {
   print(settings.name);
@@ -84,11 +87,11 @@ Route<dynamic> createRoute(settings) {
       );
     case eventSummaryRoute:
       return MaterialPageRoute(
-        builder: (context) => EventSummaryScreen(context),
+        builder: (context) => EventSummaryScreen(mycalender),
       );
     case passwordEditRoute:
       return MaterialPageRoute(
-        builder: (context) => PasswordEditScreen(context),
+        builder: (context) => PasswordEditScreen(mockData),
       );
     case profileEditRoute:
       return MaterialPageRoute(

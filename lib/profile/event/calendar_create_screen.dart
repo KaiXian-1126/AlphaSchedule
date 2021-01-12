@@ -125,7 +125,8 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                             calendar.add(Calendar(
                                 calendarName: calendarName,
                                 description: calendarDescription));
-                            Navigator.pushNamed(context, homeRoute);
+                            onPressed:
+                            Navigator.pop(context);
                           }
                         },
                       ),

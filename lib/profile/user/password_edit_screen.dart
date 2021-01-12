@@ -32,7 +32,12 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Change Password'),
-          leading: Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: Container(
           // set margin of body
@@ -87,6 +92,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
                 }
               }
             }
+            Navigator.pop(context);
           },
         ),
       ),

@@ -1,8 +1,11 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:flutter/material.dart';
+import '../constants.dart';
 import '../models/mockdata.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../models/mockdata.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ class DrawerScreen extends StatefulWidget {
 class _DrawerScreenState extends State<DrawerScreen> {
   List<DateTime> _events;
   CalendarController _controller;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -44,6 +48,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   Divider(color: Colors.black),
               itemBuilder: (context, index) => ListTile(
                 title: Text(event[index].eventName),
+                onTap: () => Navigator.pushNamed(context, eventDetailsRoute,
+                    arguments: event[index]),
               ),
             ),
           )
@@ -67,9 +73,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           color: Colors.blue,
                           shape: BoxShape.circle,
                         ),
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage('assets/me.jpg'),
-                          maxRadius: 40,
+                        child: GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, userProfileRoute),
+                          child: CircleAvatar(
+                            backgroundImage: AssetImage('assets/me.jpg'),
+                            maxRadius: 40,
+                          ),
                         ),
                       ),
                     ),
@@ -117,6 +127,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     maxRadius: 30,
                   ),
                   title: Text(calendar[index].calendarName),
+                  onTap: () => Navigator.pushNamed(context, homeRoute),
                 ),
               ),
             ),
@@ -146,8 +157,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("home")),
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today), title: Text("Summary")),
           BottomNavigationBarItem(
@@ -158,6 +171,25 @@ class _DrawerScreenState extends State<DrawerScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), title: Text("Setting")),
         ],
+        onTap: (index) async {
+          _currentIndex = index;
+          if (index == 1) {
+            final response =
+                await Navigator.pushNamed(context, eventSummaryRoute);
+          } else if (index == 2) {
+            final response =
+                await Navigator.pushNamed(context, calendarCollaboratorRoute);
+          } else if (index == 3) {
+            final response =
+                await Navigator.pushNamed(context, eventCreateRoute);
+          } else if (index == 4) {
+            final response =
+                await Navigator.pushNamed(context, eventSearchRoute);
+          } else if (index == 5) {
+            final response =
+                await Navigator.pushNamed(context, calendarSettingsRoute);
+          }
+        },
       ),
     );
   }

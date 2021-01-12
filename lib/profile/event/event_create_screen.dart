@@ -24,7 +24,12 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Event"),
-        leading: Icon(Icons.arrow_back),
+        leading: IconButton(
+          icon: IconButton(
+            icon: Icon(Icons.arrow_back),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: ListView(
         children: [
@@ -86,7 +91,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
               BuildFlatButton(
                 text: "Cancel",
                 color: Colors.grey,
-                onPressedCallback: () {},
+                onPressedCallback: () => Navigator.pop(context),
               ),
             ],
           )
