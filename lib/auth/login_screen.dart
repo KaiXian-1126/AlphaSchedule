@@ -1,12 +1,13 @@
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
-import 'package:alpha_schedule/profile/home_screen.dart';
+import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  final _data;
-  LoginScreen(this._data);
+  LoginScreen();
 
   @override
   _LoginScreen createState() => _LoginScreen();
@@ -17,7 +18,9 @@ class _LoginScreen extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   final _nameFormKey = GlobalKey<FormState>();
   final _passwordFormKey = GlobalKey<FormState>();
-
+  bool validated = false;
+  User user;
+  UserServiceMock dependency = di.dependency();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +52,6 @@ class _LoginScreen extends State<LoginScreen> {
                           validator: (value) {
                             if (value.isEmpty) {
                               return "User Name cannot be empty";
-                            } else if (value != widget._data.name) {
-                              return "Not a valid user name";
                             } else {
                               return null;
                             }
@@ -73,8 +74,6 @@ class _LoginScreen extends State<LoginScreen> {
                           validator: (value) {
                             if (value.isEmpty) {
                               return "Password cannot be empty";
-                            } else if (value != widget._data.password) {
-                              return "Did not found username or password";
                             } else {
                               return null;
                             }
@@ -90,11 +89,24 @@ class _LoginScreen extends State<LoginScreen> {
                       textColor: Colors.white,
                       color: Colors.black,
                       child: Text('Login'),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_nameFormKey.currentState.validate()) {
-                          print("Yes");
                           if (_passwordFormKey.currentState.validate()) {
-                            Navigator.pushNamed(context, homeRoute);
+                            final userList = await dependency.getUserList();
+                            if (userList != null) {
+                              userList.forEach((e) {
+                                if (e.name == nameController.text &&
+                                    e.password == passwordController.text) {
+                                  validated = true;
+                                  user = e;
+                                }
+                              });
+                              if (validated) {
+                                validated = false;
+                                Navigator.popAndPushNamed(context, homeRoute,
+                                    arguments: user);
+                              }
+                            }
                           }
                         }
                       },

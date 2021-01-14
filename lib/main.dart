@@ -1,6 +1,5 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/routes.dart';
-
 import 'package:flutter/material.dart';
 
 void main() {

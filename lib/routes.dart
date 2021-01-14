@@ -44,7 +44,7 @@ Route<dynamic> createRoute(settings) {
       );
     case loginRoute:
       return MaterialPageRoute(
-        builder: (context) => LoginScreen(context),
+        builder: (context) => LoginScreen(),
       );
     case logoutRoute:
       return MaterialPageRoute(

@@ -28,10 +28,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   text: 'Login',
                   color: Colors.white,
                   onpressedcallback: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LoginScreen(mockData)));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()));
                   },
                 ),
               ),

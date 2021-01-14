@@ -12,7 +12,16 @@ User mockData = User(
     phone: '0123456789',
     gender: 'Male',
     calendarList: calendar);
-
+List<User> mockUsers = [
+  User(
+      userId: 1,
+      name: 'sw',
+      email: 'shinwei@gmail.com',
+      password: '1234',
+      phone: '0123456789',
+      gender: 'Male',
+      calendarList: calendar)
+];
 List<Calendar> calendar = [
   Calendar(
     calendarId: 1,
