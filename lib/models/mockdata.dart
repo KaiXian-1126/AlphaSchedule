@@ -49,7 +49,15 @@ List<Calendar> calendar = [
     calendarName: "Calendar 4",
     description: "This is Calendar 4",
     color: Colors.blue,
-    eventList: event,
+    eventList: [
+      Event(
+          eventId: 1,
+          eventName: "Event1",
+          calendar: DateTime(2021),
+          startTime: TimeOfDay(hour: 9, minute: 36),
+          endTime: TimeOfDay(hour: 16, minute: 44),
+          description: "This is a description")
+    ],
   )
 ];
 List<Event> event = [

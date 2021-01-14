@@ -41,9 +41,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
         backgroundColor: widget.user.calendarList[currentCalendarIndex].color,
       ),
       body: ListView.separated(
-          itemCount: dependency
-              .getEventList(widget.user.calendarList[currentCalendarIndex])
-              .length,
+          itemCount: 1 +
+              dependency
+                  .getEventList(widget.user.calendarList[currentCalendarIndex])
+                  .length,
           separatorBuilder: (_, index) => Divider(),
           itemBuilder: (_, index) {
             Calendar tempCalendar =
@@ -136,8 +137,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       setState(() {
                         currentCalendarIndex = index;
                       });
-                      Navigator.pushNamed(context, homeRoute,
-                          arguments: widget.user);
+                      Navigator.pop(context);
                     }),
               ),
             ),

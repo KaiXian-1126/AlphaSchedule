@@ -13,7 +13,8 @@ class CalendarSettingScreen extends StatefulWidget {
 class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
   String calendarName;
   String calendarDescription;
-  Color tempColor;
+
+  Color tempColor, tempColor1;
   List<Color> _colorTheme = [Colors.blue, Colors.red];
 
   final _formkey = GlobalKey<FormState>();
@@ -78,7 +79,6 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
           isExpanded: true,
           value: widget.calender.color,
           onChanged: (value) => setState(() {
-            widget.calender.color = value;
             tempColor = value;
           }),
           items: _colorTheme.map((value) {
@@ -91,6 +91,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    tempColor1 = widget.calender.color;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -124,8 +125,13 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                     if (_formkey.currentState.validate()) {
                       widget.calender.description = calendarDescription;
                       widget.calender.calendarName = calendarName;
+                      if (tempColor1 != tempColor && tempColor != null) {
+                        widget.calender.color = tempColor;
+                      }
 
                       Navigator.pop(context, widget.calender);
+                      print(tempColor);
+                      print(tempColor1);
                     }
 
                     _formkey.currentState.save();
