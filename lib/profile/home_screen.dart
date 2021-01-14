@@ -5,12 +5,17 @@ import 'package:alpha_schedule/models/user.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service_mock.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models/mockdata.dart';
+// import '../models/mockdata.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 
+import '../constants.dart';
+
+// import '../models/mockdata.dart';
+
 class DrawerScreen extends StatefulWidget {
   User user;
+
   DrawerScreen(this.user);
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
@@ -18,9 +23,9 @@ class DrawerScreen extends StatefulWidget {
 
 class _DrawerScreenState extends State<DrawerScreen> {
   User user;
-
+  int currentCalendarIndex = 0;
   CalendarController _controller;
-  int _currentIndex = 0, currentCalendarIndex = 0;
+  int _currentIndex = 0;
   CalendarServiceMock dependency = di.dependency();
   @override
   void initState() {
@@ -32,14 +37,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text(widget.user.calendarList[currentCalendarIndex].calendarName),
+        title: Text(dependency.getCalendar(currentCalendarIndex).calendarName),
+        backgroundColor: widget.user.calendarList[currentCalendarIndex].color,
       ),
       body: ListView.separated(
-          itemCount: 1 +
-              dependency
-                  .getEventList(widget.user.calendarList[currentCalendarIndex])
-                  .length,
+          itemCount: dependency
+              .getEventList(widget.user.calendarList[currentCalendarIndex])
+              .length,
           separatorBuilder: (_, index) => Divider(),
           itemBuilder: (_, index) {
             Calendar tempCalendar =
@@ -87,10 +91,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     Container(
                       margin: EdgeInsets.only(top: 40, left: 25),
                       child: Column(children: <Widget>[
-                        Text("${mockData.name}\n",
+                        Text("${widget.user.name}\n",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
-                        Text("${mockData.email}",
+                        Text("${widget.user.email}",
                             style: TextStyle(fontSize: 10)),
                       ]),
                     ),
@@ -119,17 +123,22 @@ class _DrawerScreenState extends State<DrawerScreen> {
               height: 250,
               child: ListView.separated(
                 padding: EdgeInsets.zero,
-                itemCount: calendar.length,
+                itemCount: dependency.getCalendarList(widget.user).length,
                 separatorBuilder: (context, index) =>
                     Divider(color: Colors.black),
                 itemBuilder: (context, index) => ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: AssetImage('assets/calendar.png'),
-                    maxRadius: 30,
-                  ),
-                  title: Text(calendar[index].calendarName),
-                  onTap: () => Navigator.pushNamed(context, homeRoute),
-                ),
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('assets/calendar.png'),
+                      maxRadius: 30,
+                    ),
+                    title: Text(dependency.getCalendar(index).calendarName),
+                    onTap: () {
+                      setState(() {
+                        currentCalendarIndex = index;
+                      });
+                      Navigator.pushNamed(context, homeRoute,
+                          arguments: widget.user);
+                    }),
               ),
             ),
             FloatingActionButton(
@@ -185,8 +194,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             final response =
                 await Navigator.pushNamed(context, eventSearchRoute);
           } else if (index == 5) {
-            final response =
-                await Navigator.pushNamed(context, calendarSettingsRoute);
+            final response = await Navigator.pushNamed(
+                context, calendarSettingsRoute,
+                arguments: dependency.getCalendar(currentCalendarIndex));
+            if (response != null) {
+              setState(() {});
+            }
           }
         },
       ),

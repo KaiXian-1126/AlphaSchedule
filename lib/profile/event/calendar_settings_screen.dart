@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../app/dependencies.dart';
+import '../../models/Calendar.dart';
 import '../../models/mockdata.dart';
 
 class CalendarSettingScreen extends StatefulWidget {
+  final calender;
+  CalendarSettingScreen({this.calender});
   @override
   _CalendarSettingScreenState createState() => _CalendarSettingScreenState();
 }
@@ -9,6 +13,7 @@ class CalendarSettingScreen extends StatefulWidget {
 class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
   String calendarName;
   String calendarDescription;
+  Color tempColor;
   List<Color> _colorTheme = [Colors.blue, Colors.red];
 
   final _formkey = GlobalKey<FormState>();
@@ -17,7 +22,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
     return Container(
       margin: EdgeInsets.only(bottom: 25),
       child: TextFormField(
-        initialValue: "${calendar[1].calendarName}",
+        initialValue: "${widget.calender.calendarName}",
         maxLines: null,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
@@ -26,6 +31,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
           if (value.isEmpty) {
             return "Calendar name is required";
           } else {
+            calendarName = value;
             return null;
           }
         },
@@ -40,7 +46,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
     return Container(
       margin: EdgeInsets.only(bottom: 25),
       child: TextFormField(
-        initialValue: "${calendar[1].description}",
+        initialValue: "${widget.calender.description}",
         maxLines: null,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
@@ -49,6 +55,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
           if (value.isEmpty) {
             return "Description is required";
           } else {
+            calendarDescription = value;
             return null;
           }
         },
@@ -69,8 +76,11 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
           elevation: 2,
           icon: Icon(Icons.arrow_drop_down),
           isExpanded: true,
-          value: calendar[1].color,
-          onChanged: (value) => setState(() => calendar[1].color = value),
+          value: widget.calender.color,
+          onChanged: (value) => setState(() {
+            widget.calender.color = value;
+            tempColor = value;
+          }),
           items: _colorTheme.map((value) {
             return DropdownMenuItem(
                 value: value,
@@ -84,7 +94,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: calendar[1].color,
+          backgroundColor: widget.calender.color,
           title: Text('Calendar Setting'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -112,7 +122,10 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                   ),
                   onPressed: () {
                     if (_formkey.currentState.validate()) {
-                      Navigator.pop(context);
+                      widget.calender.description = calendarDescription;
+                      widget.calender.calendarName = calendarName;
+
+                      Navigator.pop(context, widget.calender);
                     }
 
                     _formkey.currentState.save();
