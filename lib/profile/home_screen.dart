@@ -133,11 +133,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
             ),
             FloatingActionButton(
               onPressed: () async {
-                final res =
-                    await Navigator.pushNamed(context, calendarCreateRoute);
-                if (res != null) {
-                  setState(() {});
-                }
+                await Navigator.pushNamed(context, calendarCreateRoute);
+
+                setState(() {});
               },
               child: Icon(Icons.add),
             ),

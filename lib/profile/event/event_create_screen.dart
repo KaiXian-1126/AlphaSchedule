@@ -25,9 +25,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
       appBar: AppBar(
         title: Text("Add Event"),
         leading: IconButton(
-          icon: IconButton(
-            icon: Icon(Icons.arrow_back),
-          ),
+          icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
       ),

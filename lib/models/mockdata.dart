@@ -5,41 +5,80 @@ import 'Event.dart';
 import 'calener_task.dart';
 
 User mockData = User(
+    userId: 1,
     name: 'shinwei',
     email: 'shinwei@gmail.com',
     password: '1234567',
     phone: '0123456789',
-    gender: 'Male');
+    gender: 'Male',
+    calendarList: calendar);
 
 List<Calendar> calendar = [
   Calendar(
+    calendarId: 1,
     calendarName: "Calendar 1",
     description: "This is Calendar 1",
     color: Colors.blue,
+    eventList: event,
   ),
   Calendar(
+    calendarId: 2,
     calendarName: "Calendar 2",
     description: "This is Calendar 2",
     color: Colors.blue,
+    eventList: event,
   ),
   Calendar(
+    calendarId: 3,
     calendarName: "Calendar 3",
     description: "This is Calendar 3",
     color: Colors.blue,
+    eventList: event,
   ),
   Calendar(
+    calendarId: 4,
     calendarName: "Calendar 4",
     description: "This is Calendar 4",
     color: Colors.blue,
+    eventList: event,
   )
 ];
 List<Event> event = [
-  Event(eventName: "Event1"),
-  Event(eventName: "Event2"),
-  Event(eventName: "Event3"),
-  Event(eventName: "Event4"),
-  Event(eventName: "Event5"),
-  Event(eventName: "Event6")
+  Event(
+      eventId: 1,
+      eventName: "Event1",
+      calendar: DateTime(2021),
+      startTime: TimeOfDay(hour: 9, minute: 36),
+      endTime: TimeOfDay(hour: 16, minute: 44),
+      description: "This is a description"),
+  Event(
+      eventId: 2,
+      eventName: "Event2",
+      calendar: DateTime(2021),
+      startTime: TimeOfDay(hour: 9, minute: 36),
+      endTime: TimeOfDay(hour: 16, minute: 44),
+      description: "This is a description"),
+  Event(
+      eventId: 3,
+      eventName: "Event3",
+      calendar: DateTime(2021),
+      startTime: TimeOfDay(hour: 9, minute: 36),
+      endTime: TimeOfDay(hour: 16, minute: 44),
+      description: "This is a description"),
+  Event(
+      eventId: 4,
+      eventName: "Event4",
+      calendar: DateTime(2021),
+      startTime: TimeOfDay(hour: 9, minute: 36),
+      endTime: TimeOfDay(hour: 16, minute: 44),
+      description: "This is a description"),
+  Event(
+      eventId: 5,
+      eventName: "Event5",
+      calendar: DateTime(2021),
+      startTime: TimeOfDay(hour: 9, minute: 36),
+      endTime: TimeOfDay(hour: 16, minute: 44),
+      description: "This is a description"),
 ];
 List<Task> mycalender = [
   Task(

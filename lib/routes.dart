@@ -20,8 +20,6 @@ import 'package:flutter/material.dart';
 
 import 'constants.dart';
 import 'models/mockdata.dart';
-import 'models/mockdata.dart';
-import 'models/mockdata.dart';
 
 Route<dynamic> createRoute(settings) {
   print(settings.name);
