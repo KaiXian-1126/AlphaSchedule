@@ -1,12 +1,9 @@
-import 'package:alpha_schedule/app/dependencies.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:alpha_schedule/models/user.dart';
-import 'package:alpha_schedule/services/user/user_service.dart';
 
-class UserServiceMock implements UserServive {
-  Future<List<User>> getUserList() async {
-    final mockData = await mockUsers;
-    return mockData;
+class UserServiceMock {
+  List<User> getUserList() {
+    return mockUsers;
   }
 
   Future<List<User>> getUser() {

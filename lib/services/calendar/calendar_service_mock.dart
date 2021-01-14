@@ -1,8 +1,7 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
-import 'calendar_service.dart';
 
-class CalendarServiceMock implements CalendarService {
+class CalendarServiceMock {
   Future<List<Calendar>> getCalendarList() {
     return null;
   }
@@ -19,12 +18,16 @@ class CalendarServiceMock implements CalendarService {
     return null;
   }
 
-  Future<List<Event>> getEventList() {
-    return null;
+  List<Event> getEventList(Calendar c) {
+    return c.eventList;
   }
 
-  Future<Event> getEvent() {
-    return null;
+  Event getEvent(Calendar c, int index) {
+    return c.eventList[index];
+  }
+
+  String getEventName(Calendar c, int index) {
+    return c.eventList[index].eventName;
   }
 
   Future<Event> addEvent() {

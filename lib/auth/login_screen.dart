@@ -89,23 +89,18 @@ class _LoginScreen extends State<LoginScreen> {
                       textColor: Colors.white,
                       color: Colors.black,
                       child: Text('Login'),
-                      onPressed: () async {
+                      onPressed: () {
                         if (_nameFormKey.currentState.validate()) {
                           if (_passwordFormKey.currentState.validate()) {
-                            final userList = await dependency.getUserList();
+                            final userList = dependency.getUserList();
                             if (userList != null) {
                               userList.forEach((e) {
                                 if (e.name == nameController.text &&
                                     e.password == passwordController.text) {
-                                  validated = true;
-                                  user = e;
+                                  Navigator.popAndPushNamed(context, homeRoute,
+                                      arguments: e);
                                 }
                               });
-                              if (validated) {
-                                validated = false;
-                                Navigator.popAndPushNamed(context, homeRoute,
-                                    arguments: user);
-                              }
                             }
                           }
                         }

@@ -35,7 +35,7 @@ Route<dynamic> createRoute(settings) {
       );
     case homeRoute:
       return MaterialPageRoute(
-        builder: (context) => DrawerScreen(),
+        builder: (context) => DrawerScreen(settings.arguments),
       );
     //Auth routes
     case accountCreateRoute:
@@ -69,15 +69,11 @@ Route<dynamic> createRoute(settings) {
       );
     case eventDetailsRoute:
       return MaterialPageRoute(
-        builder: (context) => EventDetailsScreen(),
+        builder: (context) => EventDetailsScreen(event: settings.arguments),
       );
     case eventEditRoute:
       return MaterialPageRoute(
-        builder: (context) => EventEditScreen(
-            "title",
-            TimeOfDay(hour: 9, minute: 36),
-            TimeOfDay(hour: 16, minute: 44),
-            "This is a description"),
+        builder: (context) => EventEditScreen(event: settings.arguments),
       );
     case eventSearchRoute:
       return MaterialPageRoute(

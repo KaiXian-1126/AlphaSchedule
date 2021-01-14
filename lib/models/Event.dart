@@ -13,4 +13,14 @@ class Event {
       this.startTime,
       this.endTime,
       this.description});
+  String timeToStringConverter(TimeOfDay time) {
+    String stringTime = time.toString();
+    stringTime = stringTime.substring(10, 15);
+    if (int.parse(stringTime.substring(0, 2)) >= 12)
+      stringTime = "$stringTime PM";
+    else
+      stringTime = "$stringTime AM";
+    print(stringTime);
+    return stringTime;
+  }
 }

@@ -1,60 +1,61 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
+import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service_mock.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../models/mockdata.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-import '../models/mockdata.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 
 class DrawerScreen extends StatefulWidget {
+  User user;
+  DrawerScreen(this.user);
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
-  List<DateTime> _events;
-  CalendarController _controller;
-  int _currentIndex = 0;
+  User user;
 
+  CalendarController _controller;
+  int _currentIndex = 0, currentCalendarIndex = 0;
+  CalendarServiceMock dependency = di.dependency();
   @override
   void initState() {
     super.initState();
     _controller = CalendarController();
-    _events = [];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calendar 1"),
+        title:
+            Text(widget.user.calendarList[currentCalendarIndex].calendarName),
       ),
-      body: Container(
-        child: ListView(children: <Widget>[
-          TableCalendar(
-            calendarController: _controller,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            height: 150,
-            width: 300,
-            child: ListView.separated(
-              itemCount: event.length,
-              separatorBuilder: (context, index) =>
-                  Divider(color: Colors.black),
-              itemBuilder: (context, index) => ListTile(
-                title: Text(event[index].eventName),
+      body: ListView.separated(
+          itemCount: 1 +
+              dependency
+                  .getEventList(widget.user.calendarList[currentCalendarIndex])
+                  .length,
+          separatorBuilder: (_, index) => Divider(),
+          itemBuilder: (_, index) {
+            Calendar tempCalendar =
+                widget.user.calendarList[currentCalendarIndex];
+            if (index == 0) {
+              return TableCalendar(
+                calendarController: _controller,
+              );
+            } else {
+              return ListTile(
+                title: Text(dependency.getEventName(tempCalendar, index - 1)),
                 onTap: () => Navigator.pushNamed(context, eventDetailsRoute,
-                    arguments: event[index]),
-              ),
-            ),
-          )
-        ]),
-      ),
+                    arguments: dependency.getEvent(tempCalendar, index - 1)),
+              );
+            }
+          }),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical

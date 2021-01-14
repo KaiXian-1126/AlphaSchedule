@@ -1,15 +1,23 @@
+import 'package:alpha_schedule/models/Event.dart';
 import 'package:flutter/material.dart';
-import "../../models/Event.dart";
 
 import '../../constants.dart';
 
-class EventDetailsScreen extends StatelessWidget {
+class EventDetailsScreen extends StatefulWidget {
+  final event;
+  EventDetailsScreen({this.event});
+
+  @override
+  _EventDetailsScreenState createState() => _EventDetailsScreenState();
+}
+
+class _EventDetailsScreenState extends State<EventDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Project discussion  1'),
+          title: Text(widget.event.eventName),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context, homeRoute),
@@ -27,8 +35,10 @@ class EventDetailsScreen extends StatelessWidget {
                 child: Form(
                   child: TextFormField(
                     maxLines: 1,
+                    enabled: false,
                     decoration: InputDecoration(
-                      hintText: "08:00 AM until 11:00 AM",
+                      hintText:
+                          "${widget.event.timeToStringConverter(widget.event.startTime)} to ${widget.event.timeToStringConverter(widget.event.endTime)}",
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -39,9 +49,10 @@ class EventDetailsScreen extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 15),
                 child: Form(
                   child: TextFormField(
+                    enabled: false,
                     maxLines: 15,
                     decoration: InputDecoration(
-                      hintText: "Need to discuss with friend",
+                      hintText: widget.event.description,
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -51,13 +62,19 @@ class EventDetailsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   BuildFlatButton(
-                    text: 'Delete',
-                    color: Colors.red,
-                    onPressedCallback: () => Navigator.pop(context, homeRoute),
-                  ),
+                      text: 'Edit',
+                      color: Colors.blue,
+                      onPressedCallback: () async {
+                        final res = await Navigator.pushNamed(
+                            context, eventEditRoute,
+                            arguments: widget.event);
+                        if (res != null) {
+                          setState(() {});
+                        }
+                      }),
                   BuildFlatButton(
-                    text: 'Edit',
-                    color: Colors.blue,
+                    text: 'Cancel',
+                    color: Colors.red,
                     onPressedCallback: () => Navigator.pop(context, homeRoute),
                   ),
                 ],
