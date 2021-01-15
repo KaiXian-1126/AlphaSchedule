@@ -8,6 +8,8 @@ import '../constants.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 
+import '../models/Event.dart';
+
 class DrawerScreen extends StatefulWidget {
   User user;
 
@@ -29,6 +31,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> a;
+    List<dynamic> b;
+    DateTime time = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         title: Text(dependency.getCalendar(currentCalendarIndex).calendarName),
@@ -37,24 +42,31 @@ class _DrawerScreenState extends State<DrawerScreen> {
       body: ListView.separated(
           itemCount: 1 +
               dependency
-                  .getEventList(widget.user.calendarList[currentCalendarIndex])
+                  .getEventList(widget.user.calendarList[currentCalendarIndex],
+                      _controller.selectedDay, time)
                   .length,
           separatorBuilder: (_, index) => Divider(),
           itemBuilder: (_, index) {
-            Calendar tempCalendar =
-                widget.user.calendarList[currentCalendarIndex];
+            List<Event> tempCalendarList = dependency.getEventList(
+                widget.user.calendarList[currentCalendarIndex],
+                _controller.selectedDay,
+                time);
             if (index == 0) {
               return TableCalendar(
                 calendarController: _controller,
+                onDaySelected: (selectedDay, a, b) {
+                  setState(() {});
+                },
               );
             } else {
               return ListTile(
-                  title: Text(dependency.getEventName(tempCalendar, index - 1)),
+                  title: Text(
+                      dependency.getEventName(tempCalendarList[index - 1])),
                   onTap: () async {
                     final respond = await Navigator.pushNamed(
                         context, eventDetailsRoute,
                         arguments:
-                            dependency.getEvent(tempCalendar, index - 1));
+                            dependency.getEvent(tempCalendarList[index - 1]));
                     if (respond != null) {
                       setState(() {});
                     }

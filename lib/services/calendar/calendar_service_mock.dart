@@ -21,16 +21,37 @@ class CalendarServiceMock {
     return null;
   }
 
-  List<Event> getEventList(Calendar c) {
-    return c.eventList;
+  List<Event> getEventList(Calendar c, DateTime date, DateTime currentTime) {
+    List<Event> event = [];
+    if (date == null) {
+      for (int i = 0; i < c.eventList.length; i++) {
+        if (c.eventList[i].calendar.year.toString() ==
+                currentTime.year.toString() &&
+            c.eventList[i].calendar.month.toString() ==
+                currentTime.month.toString() &&
+            c.eventList[i].calendar.day.toString() ==
+                currentTime.day.toString()) {
+          event.add(c.eventList[i]);
+        }
+      }
+    } else {
+      for (int i = 0; i < c.eventList.length; i++) {
+        if (c.eventList[i].calendar.year.toString() == date.year.toString() &&
+            c.eventList[i].calendar.month.toString() == date.month.toString() &&
+            c.eventList[i].calendar.day.toString() == date.day.toString()) {
+          event.add(c.eventList[i]);
+        }
+      }
+    }
+    return event;
   }
 
-  Event getEvent(Calendar c, int index) {
-    return c.eventList[index];
+  Event getEvent(Event c) {
+    return c;
   }
 
-  String getEventName(Calendar c, int index) {
-    return c.eventList[index].eventName;
+  String getEventName(Event c) {
+    return c.eventName;
   }
 
   Future<Event> addEvent() {
