@@ -1,5 +1,6 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
+import 'package:alpha_schedule/models/calener_task.dart';
 import '../../models/mockdata.dart';
 import '../../models/user.dart';
 
@@ -42,5 +43,9 @@ class CalendarServiceMock {
 
   Future deleteEvent() {
     return null;
+  }
+
+  List<Task> getTaskList() {
+    return mycalender;
   }
 }

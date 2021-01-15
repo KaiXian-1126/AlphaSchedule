@@ -174,8 +174,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
         onTap: (index) async {
           _currentIndex = index;
           if (index == 1) {
-            final response =
-                await Navigator.pushNamed(context, eventSummaryRoute);
+            final response = await Navigator.pushNamed(
+                context, eventSummaryRoute,
+                arguments:
+                    widget.user.calendarList[currentCalendarIndex].color);
           } else if (index == 2) {
             final response =
                 await Navigator.pushNamed(context, calendarCollaboratorRoute);
