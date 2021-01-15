@@ -49,10 +49,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
               );
             } else {
               return ListTile(
-                title: Text(dependency.getEventName(tempCalendar, index - 1)),
-                onTap: () => Navigator.pushNamed(context, eventDetailsRoute,
-                    arguments: dependency.getEvent(tempCalendar, index - 1)),
-              );
+                  title: Text(dependency.getEventName(tempCalendar, index - 1)),
+                  onTap: () async {
+                    final respond = await Navigator.pushNamed(
+                        context, eventDetailsRoute,
+                        arguments:
+                            dependency.getEvent(tempCalendar, index - 1));
+                    if (respond != null) {
+                      setState(() {});
+                    }
+                  });
             }
           }),
       drawer: Drawer(
@@ -74,8 +80,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           shape: BoxShape.circle,
                         ),
                         child: GestureDetector(
-                          onTap: () =>
-                              Navigator.pushNamed(context, userProfileRoute),
+                          onTap: () async {
+                            final respond = await Navigator.pushNamed(
+                                context, userProfileRoute,
+                                arguments: widget.user);
+                            if (respond != null) {
+                              setState(() {});
+                            }
+                          },
                           child: CircleAvatar(
                             backgroundImage: AssetImage('assets/me.jpg'),
                             maxRadius: 40,
@@ -99,7 +111,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           icon: Icon(Icons.edit),
                           onPressed: () async {
                             final response = await Navigator.pushNamed(
-                                context, profileEditRoute);
+                                context, profileEditRoute,
+                                arguments: widget.user);
                             if (response != null) {
                               setState(() {});
                             }

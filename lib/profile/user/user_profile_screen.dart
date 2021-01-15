@@ -3,6 +3,9 @@ import '../../constants.dart';
 import '../../models/mockdata.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final user;
+  ProfileScreen(this.user);
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -15,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           title: Text("My profile"),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, widget.user),
           ),
           backgroundColor: Colors.blue,
         ),
@@ -46,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Container(
                       margin: EdgeInsets.only(top: 30),
                       child: Text(
-                        "${mockData.name}",
+                        "${widget.user.name}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
@@ -60,19 +63,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   ListTile(
-                      title: Text("Email: ${mockData.email}",
+                      title: Text("Email: ${widget.user.email}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ))),
                   ListTile(
-                      title: Text("Phone: ${mockData.phone}",
+                      title: Text("Phone: ${widget.user.phone}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ))),
                   ListTile(
-                      title: Text("Gender: ${mockData.gender}",
+                      title: Text("Gender: ${widget.user.gender}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -85,8 +88,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   RaisedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, passwordEditRoute),
+                    onPressed: () async {
+                      final response = await Navigator.pushNamed(
+                          context, passwordEditRoute,
+                          arguments: widget.user);
+                      if (response != null) {
+                        setState(() {});
+                      }
+                    },
                     child:
                         Text("Change password", style: TextStyle(fontSize: 20)),
                     color: Colors.blue,
@@ -94,8 +103,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 10),
                   RaisedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, profileEditRoute),
+                    onPressed: () async {
+                      final response = await Navigator.pushNamed(
+                          context, profileEditRoute,
+                          arguments: widget.user);
+                      if (response != null) setState(() {});
+                    },
                     child: Text("Edit Profile", style: TextStyle(fontSize: 20)),
                     color: Colors.blue,
                     textColor: Colors.white,

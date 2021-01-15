@@ -14,13 +14,14 @@ class EventDetailsScreen extends StatefulWidget {
 class _EventDetailsScreenState extends State<EventDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    print(widget.event);
     return Container(
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.event.eventName),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context, homeRoute),
+            onPressed: () => Navigator.pop(context, widget.event),
           ),
         ),
         body: Container(
@@ -75,7 +76,8 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                   BuildFlatButton(
                     text: 'Cancel',
                     color: Colors.red,
-                    onPressedCallback: () => Navigator.pop(context, homeRoute),
+                    onPressedCallback: () =>
+                        Navigator.pop(context, widget.event),
                   ),
                 ],
               ),
