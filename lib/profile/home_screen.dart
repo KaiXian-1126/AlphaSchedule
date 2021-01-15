@@ -49,10 +49,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
               );
             } else {
               return ListTile(
-                title: Text(dependency.getEventName(tempCalendar, index - 1)),
-                onTap: () => Navigator.pushNamed(context, eventDetailsRoute,
-                    arguments: dependency.getEvent(tempCalendar, index - 1)),
-              );
+                  title: Text(dependency.getEventName(tempCalendar, index - 1)),
+                  onTap: () async {
+                    final respond = await Navigator.pushNamed(
+                        context, eventDetailsRoute,
+                        arguments:
+                            dependency.getEvent(tempCalendar, index - 1));
+                    if (respond != null) {
+                      setState(() {});
+                    }
+                  });
             }
           }),
       drawer: Drawer(
