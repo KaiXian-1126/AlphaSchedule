@@ -98,10 +98,6 @@ Route<dynamic> createRoute(settings) {
       return MaterialPageRoute(
         builder: (context) => ProfileScreen(settings.arguments),
       );
-    case addCollaboratorRoute:
-      return MaterialPageRoute(
-        builder: (context) => ProfileScreen(),
-      );
     default:
       return MaterialPageRoute(
         builder: (context) => AlphaSplashScreen(),
