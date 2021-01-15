@@ -4,6 +4,7 @@ import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/landing/welcome_screen.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
+import 'package:alpha_schedule/profile/event/add_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/calendar_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/calendar_create_screen.dart';
 import 'package:alpha_schedule/profile/event/calendar_settings_screen.dart';
@@ -97,6 +98,10 @@ Route<dynamic> createRoute(settings) {
     case userProfileRoute:
       return MaterialPageRoute(
         builder: (context) => ProfileScreen(settings.arguments),
+      );
+    case addCollaboratorRoute:
+      return MaterialPageRoute(
+        builder: (context) => AddCollaboratorScreen(),
       );
     default:
       return MaterialPageRoute(

@@ -70,8 +70,14 @@ class _CalendarCollaboratorScreenState
                       style: TextStyle(color: Colors.white),
                     ),
                     color: Colors.blue,
-                    onPressed: () {
-                      Navigator.pushNamed(context, addCollaboratorRoute);
+                    onPressed: () async {
+                      final res = await Navigator.pushNamed(
+                          context, addCollaboratorRoute);
+                      if (res != null) {
+                        setState(() {
+                          widget.calendar.members.add(res);
+                        });
+                      }
                     },
                   ),
                 ),

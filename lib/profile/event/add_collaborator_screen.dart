@@ -1,3 +1,4 @@
+import 'package:alpha_schedule/models/user.dart';
 import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:flutter/material.dart';
@@ -10,21 +11,23 @@ class AddCollaboratorScreen extends StatefulWidget {
 class _AddCollaboratorScreenState extends State<AddCollaboratorScreen> {
   TextEditingController _emailController = TextEditingController();
   UserServiceMock dependency = di.dependency();
-
+  User invitedUser;
   final _emailFormKey = GlobalKey<FormState>();
 
   // check from list of user email.
   bool checkUserEmail(String email) {
     bool checkValue = false;
     final user = dependency.getUserList();
-    user.forEach((element) {
-      if (email.compareTo(element.email) == 0) {
-        print('123');
+    for (int i = 0; i < user.length; i++) {
+      if (email == user[i].email) {
         checkValue = true;
+        invitedUser = user[i];
+        break;
       } else {
+        invitedUser = null;
         checkValue = false;
       }
-    });
+    }
     return checkValue;
   }
 
@@ -107,9 +110,7 @@ class _AddCollaboratorScreenState extends State<AddCollaboratorScreen> {
                 onPressedCallback: () {
                   // form validation
                   if (_emailFormKey.currentState.validate()) {
-                    // test data
-                    print(_emailController.text);
-                    // Navigator.pop(context);
+                    Navigator.pop(context, invitedUser);
                   }
                 },
               ),

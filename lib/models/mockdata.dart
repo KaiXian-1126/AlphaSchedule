@@ -20,6 +20,30 @@ List<User> mockUsers = [
       password: '1234',
       phone: '0123456789',
       gender: 'Male',
+      calendarList: calendar),
+  User(
+      userId: 2,
+      name: 'kaixian',
+      email: 'kaixian@gmail.com',
+      password: '1234',
+      phone: '0123456789',
+      gender: 'Male',
+      calendarList: calendar),
+  User(
+      userId: 3,
+      name: 'Ali',
+      email: 'ali@gmail.com',
+      password: '1234',
+      phone: '0123456789',
+      gender: 'Male',
+      calendarList: calendar),
+  User(
+      userId: 4,
+      name: 'ahmad',
+      email: 'ahmad@gmail.com',
+      password: '1234',
+      phone: '0123456789',
+      gender: 'Male',
       calendarList: calendar)
 ];
 List<Calendar> calendar = [
