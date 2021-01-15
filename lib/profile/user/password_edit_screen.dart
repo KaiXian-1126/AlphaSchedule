@@ -36,7 +36,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
             icon: Icon(
               Icons.arrow_back,
             ),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, widget._data),
           ),
         ),
         body: Container(
@@ -87,12 +87,11 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
                 if (_pwComfirmFormKey.currentState.validate()) {
                   widget._data.password = _pwNewController.text;
                   // Navigator.pop(context, widget._data);
-
+                  Navigator.pop(context, widget._data);
                   // later make a alert box to prompt user
                 }
               }
             }
-            Navigator.pop(context);
           },
         ),
       ),

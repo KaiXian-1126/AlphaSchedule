@@ -86,15 +86,15 @@ Route<dynamic> createRoute(settings) {
       );
     case passwordEditRoute:
       return MaterialPageRoute(
-        builder: (context) => PasswordEditScreen(mockData),
+        builder: (context) => PasswordEditScreen(settings.arguments),
       );
     case profileEditRoute:
       return MaterialPageRoute(
-        builder: (context) => ProfileEditScreen(mockData),
+        builder: (context) => ProfileEditScreen(settings.arguments),
       );
     case userProfileRoute:
       return MaterialPageRoute(
-        builder: (context) => ProfileScreen(),
+        builder: (context) => ProfileScreen(settings.arguments),
       );
     default:
       return MaterialPageRoute(
