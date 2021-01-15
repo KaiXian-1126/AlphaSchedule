@@ -1,37 +1,58 @@
 import 'package:alpha_schedule/models/calener_task.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service_mock.dart';
+import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 
 class EventSummaryScreen extends StatefulWidget {
-  final _data;
-  EventSummaryScreen(this._data);
+  final bgColor;
+  EventSummaryScreen(this.bgColor);
 
   @override
   _EventSummaryScreenState createState() => _EventSummaryScreenState();
 }
 
 class _EventSummaryScreenState extends State<EventSummaryScreen> {
+  String todayDate;
   List<Task> todayEvent;
-  List<Task> onComingEvent;
   List<String> onComingEvent2;
+  CalendarServiceMock dependency = di.dependency();
+  UserServiceMock user = di.dependency();
 
   BoxDecoration myBoxDecoration() {
-    return BoxDecoration(border: Border.all(), color: Colors.grey[300]);
+    return BoxDecoration(border: Border.all(), color: widget.bgColor[100]);
+  }
+
+  String getTodayDate() {
+    var date = new DateTime.now().toString();
+    var dateParse = DateTime.parse(date);
+    String month = dateParse.month.toString();
+    String day = dateParse.day.toString();
+    if (month.length != 2) {
+      month = "0$month";
+    }
+    if (day.length != 2) {
+      day = "0$day";
+    }
+    String a = ("${dateParse.year}-$month-$day");
+    return a;
   }
 
   List<Task> getTodayEvent(String value) {
     List<Task> event = [];
-    widget._data.forEach((item) {
+    dependency.getTaskList().forEach((item) {
       if (item.date.compareTo(value) == 0) event.add(item);
     });
     event.sort((a, b) => a.startTime.compareTo(b.startTime));
     return event;
   }
 
+  // To get list of task's date that greater than today's date without repeat same date
   List<String> getOnComing2(String value) {
     List<String> event2 = [];
     List<String> temporary = [];
-    widget._data.forEach((item) {
-      if (item.date.compareTo('25/12/2012') == 1) {
+    dependency.getTaskList().forEach((item) {
+      if (item.date.compareTo(todayDate) > 0) {
         temporary.add(item.date);
       }
     });
@@ -44,7 +65,8 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
   @override
   void initState() {
     super.initState();
-    onComingEvent2 = getOnComing2('25/12/2012');
+    todayDate = getTodayDate();
+    onComingEvent2 = getOnComing2(todayDate);
   }
 
   @override
@@ -53,21 +75,21 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          color: Colors.black,
+          color: Colors.white,
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           "Calender 1",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: widget.bgColor,
       ),
       body: ListView(
         children: [
           Container(
             decoration: myBoxDecoration(),
             child: ListTile(
-              tileColor: Colors.blue,
+              tileColor: widget.bgColor[300],
               title: Container(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
@@ -81,11 +103,11 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
               ),
             ),
           ),
-          myList(getTodayEvent('25/12/2012')),
+          myList(getTodayEvent(todayDate.toString()), widget.bgColor[100]),
           Container(
             decoration: myBoxDecoration(),
             child: ListTile(
-              tileColor: Colors.blue,
+              tileColor: widget.bgColor[300],
               title: Container(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
@@ -99,10 +121,10 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
               ),
             ),
           ),
-          ////////////////////////////////////////////////////////////////////////////
+
           /// oncoming listview
           for (int i = 0; i < onComingEvent2.length; i++)
-            myList(getTodayEvent(onComingEvent2[i])),
+            myList(getTodayEvent(onComingEvent2[i]), widget.bgColor[100]),
         ],
       ),
     );
@@ -110,7 +132,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
 }
 
 // extract method for listview builder
-Widget myList(List<Task> a) {
+Widget myList(List<Task> a, Color color) {
   BoxDecoration myBoxDecoration() {
     return BoxDecoration(border: Border.all(), color: Colors.grey[300]);
   }
@@ -118,21 +140,22 @@ Widget myList(List<Task> a) {
   return Container(
     margin: EdgeInsets.only(left: 20, bottom: 20, right: 20),
     child: ListView.builder(
-      scrollDirection: Axis.vertical,
       shrinkWrap: true,
+      physics: ScrollPhysics(),
       itemCount: a.length,
       itemBuilder: (context, index) {
         return Column(
           children: [
             Center(
-              child: Container(child: myText(a[index].date, index)),
+              child:
+                  Container(child: myText(a[index].date, a[index].day, index)),
             ),
             Container(
                 decoration: myBoxDecoration(),
                 child: Card(
                   child: ListTile(
                     leading: Container(
-                      decoration: BoxDecoration(color: Colors.grey[200]),
+                      decoration: BoxDecoration(color: color),
                       child: Container(
                         width: 120,
                         child: Text(
@@ -156,12 +179,12 @@ Widget myList(List<Task> a) {
   );
 }
 
-Widget myText(String a, index) {
+Widget myText(String date, String day, index) {
   if (index == 0) {
     return Padding(
       padding: const EdgeInsets.only(right: 8, left: 20, top: 12, bottom: 12),
       child: Text(
-        "$a   Friday",
+        "$date   $day",
         style: TextStyle(fontSize: 20),
       ),
     );

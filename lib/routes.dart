@@ -82,7 +82,7 @@ Route<dynamic> createRoute(settings) {
       );
     case eventSummaryRoute:
       return MaterialPageRoute(
-        builder: (context) => EventSummaryScreen(mycalender),
+        builder: (context) => EventSummaryScreen(settings.arguments),
       );
     case passwordEditRoute:
       return MaterialPageRoute(
