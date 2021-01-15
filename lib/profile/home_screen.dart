@@ -192,8 +192,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 arguments:
                     widget.user.calendarList[currentCalendarIndex].color);
           } else if (index == 2) {
-            final response =
-                await Navigator.pushNamed(context, calendarCollaboratorRoute);
+            final response = await Navigator.pushNamed(
+                context, calendarCollaboratorRoute, arguments: [
+              widget.user.calendarList[currentCalendarIndex],
+              widget.user
+            ]);
           } else if (index == 3) {
             final response =
                 await Navigator.pushNamed(context, eventCreateRoute);
