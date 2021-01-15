@@ -11,34 +11,24 @@ class _LogoutScreenState extends State<LogoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            decoration: BoxDecoration(color: Colors.blue),
-            child:
-                ListView(padding: EdgeInsets.only(top: 150), children: <Widget>[
-              _Text("Alpha"),
-              _Text("Schedule Management"),
-              SizedBox(height: 30),
-              Image.asset('assets/logo.png', height: 250.0, width: 250.0),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                height: 170,
-                width: 300,
-                margin:
-                    EdgeInsets.only(top: 40, bottom: 20, left: 70, right: 70),
-                child: ListView(children: <Widget>[
-                  _Text("You Have"),
-                  _Text("Sucessfully Logout!"),
-                ]),
-              ),
-              Container(
-                width: 50,
-                height: 50,
-                margin:
-                    EdgeInsets.only(top: 10, bottom: 20, left: 70, right: 70),
-                child: BuildFlatButton(
+      body: Container(
+        child: ListView(padding: EdgeInsets.only(top: 50), children: <Widget>[
+          _Text("Alpha", 28.0),
+          _Text("Schedule Management", 28.0),
+          SizedBox(height: 30),
+          Image.asset('assets/logo.png', height: 100.0, width: 100.0),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            height: 300,
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
+            child: ListView(children: [
+              _Text("You Have", 16.0),
+              _Text("Sucessfully Logout!", 16.0),
+              BuildFlatButton(
                   text: 'Return to Home Page',
                   color: Colors.white,
                   onpressedcallback: () {
@@ -46,22 +36,24 @@ class _LogoutScreenState extends State<LogoutScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => WelcomeScreen()));
-                  },
-                ),
-              )
-            ])));
+                  }),
+            ]),
+          ),
+        ]),
+      ),
+    );
   }
 }
 
 class _Text extends StatelessWidget {
-  final text;
-  const _Text(this.text);
+  final text, fontSize;
+  const _Text(this.text, this.fontSize);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(color: Colors.black, fontSize: 30.0),
+      style: TextStyle(color: Colors.black, fontSize: fontSize),
       textAlign: TextAlign.center,
     );
   }
@@ -74,15 +66,19 @@ class BuildFlatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      color: Colors.white,
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 20),
+    return Container(
+      margin: EdgeInsets.only(top: 150),
+      child: FlatButton(
+        color: Colors.blue,
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 20),
+        ),
+        onPressed: onpressedcallback,
+        textColor: Colors.white,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       ),
-      onPressed: onpressedcallback,
-      textColor: Colors.blue,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
     );
   }
 }

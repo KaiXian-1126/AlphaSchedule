@@ -16,14 +16,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             decoration: BoxDecoration(color: Colors.blue),
             child:
                 ListView(padding: EdgeInsets.only(top: 150), children: <Widget>[
-              Image.asset('assets/logo.png', height: 250.0, width: 250.0),
+              Image.asset('assets/logo.png', height: 100.0, width: 100.0),
+              SizedBox(
+                height: 50,
+              ),
               _Text("Alpha"),
               _Text("Schedule Management"),
+              SizedBox(
+                height: 100,
+              ),
               Container(
                 width: 50,
                 height: 50,
                 margin:
-                    EdgeInsets.only(top: 40, bottom: 20, left: 70, right: 70),
+                    EdgeInsets.only(top: 50, left: 50, right: 50, bottom: 10),
                 child: BuildFlatButton(
                   text: 'Login',
                   color: Colors.white,
@@ -36,8 +42,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Container(
                 width: 50,
                 height: 50,
-                margin:
-                    EdgeInsets.only(top: 10, bottom: 20, left: 70, right: 70),
+                margin: EdgeInsets.only(top: 10, left: 50, right: 50),
                 child: BuildFlatButton(
                   text: 'Get Started',
                   color: Colors.white,
@@ -62,7 +67,7 @@ class _Text extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(color: Colors.white, fontSize: 30.0),
+      style: TextStyle(color: Colors.white, fontSize: 28.0),
       textAlign: TextAlign.center,
     );
   }
