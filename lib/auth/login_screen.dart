@@ -5,6 +5,7 @@ import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:alpha_schedule/models/user.dart';
 import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen();
@@ -95,11 +96,12 @@ class _LoginScreen extends State<LoginScreen> {
                             final userList = dependency.getUserList();
                             if (userList != null) {
                               userList.forEach((e) {
-                                print("${e.name} + ${e.password}");
                                 if (e.name == nameController.text &&
                                     e.password == passwordController.text) {
-                                  Navigator.popAndPushNamed(context, homeRoute,
-                                      arguments: e);
+                                  Provider.of<ValueNotifier<User>>(context,
+                                          listen: false)
+                                      .value = e;
+                                  Navigator.popAndPushNamed(context, homeRoute);
                                 }
                               });
                             }

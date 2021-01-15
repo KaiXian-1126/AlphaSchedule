@@ -4,14 +4,13 @@ import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/user.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service_mock.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../constants.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 
 class DrawerScreen extends StatefulWidget {
-  User user;
-
-  DrawerScreen(this.user);
+  DrawerScreen();
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
 }
@@ -21,6 +20,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   CalendarController _controller;
   int _currentIndex = 0;
   CalendarServiceMock dependency = di.dependency();
+
   @override
   void initState() {
     super.initState();
@@ -29,20 +29,20 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<ValueNotifier<User>>(context).value;
     return Scaffold(
       appBar: AppBar(
         title: Text(dependency.getCalendar(currentCalendarIndex).calendarName),
-        backgroundColor: widget.user.calendarList[currentCalendarIndex].color,
+        backgroundColor: user.calendarList[currentCalendarIndex].color,
       ),
       body: ListView.separated(
           itemCount: 1 +
               dependency
-                  .getEventList(widget.user.calendarList[currentCalendarIndex])
+                  .getEventList(user.calendarList[currentCalendarIndex])
                   .length,
           separatorBuilder: (_, index) => Divider(),
           itemBuilder: (_, index) {
-            Calendar tempCalendar =
-                widget.user.calendarList[currentCalendarIndex];
+            Calendar tempCalendar = user.calendarList[currentCalendarIndex];
             if (index == 0) {
               return TableCalendar(
                 calendarController: _controller,
@@ -83,7 +83,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           onTap: () async {
                             final respond = await Navigator.pushNamed(
                                 context, userProfileRoute,
-                                arguments: widget.user);
+                                arguments: user);
                             if (respond != null) {
                               setState(() {});
                             }
@@ -98,11 +98,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     Container(
                       margin: EdgeInsets.only(top: 40, left: 25),
                       child: Column(children: <Widget>[
-                        Text("${widget.user.name}\n",
+                        Text("${user.name}\n",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
-                        Text("${widget.user.email}",
-                            style: TextStyle(fontSize: 10)),
+                        Text("${user.email}", style: TextStyle(fontSize: 10)),
                       ]),
                     ),
                     Container(
@@ -112,7 +111,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           onPressed: () async {
                             final response = await Navigator.pushNamed(
                                 context, profileEditRoute,
-                                arguments: widget.user);
+                                arguments: user);
                             if (response != null) {
                               setState(() {});
                             }
@@ -131,7 +130,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               height: 250,
               child: ListView.separated(
                 padding: EdgeInsets.zero,
-                itemCount: dependency.getCalendarList(widget.user).length,
+                itemCount: dependency.getCalendarList(user).length,
                 separatorBuilder: (context, index) =>
                     Divider(color: Colors.black),
                 itemBuilder: (context, index) => ListTile(
@@ -189,27 +188,22 @@ class _DrawerScreenState extends State<DrawerScreen> {
           if (index == 1) {
             final response = await Navigator.pushNamed(
                 context, eventSummaryRoute,
-                arguments:
-                    widget.user.calendarList[currentCalendarIndex].color);
+                arguments: user.calendarList[currentCalendarIndex].color);
           } else if (index == 2) {
             final response = await Navigator.pushNamed(
-                context, calendarCollaboratorRoute, arguments: [
-              widget.user.calendarList[currentCalendarIndex],
-              widget.user
-            ]);
+                context, calendarCollaboratorRoute,
+                arguments: [user.calendarList[currentCalendarIndex], user]);
           } else if (index == 3) {
             final response =
                 await Navigator.pushNamed(context, eventCreateRoute);
             if (response != null) {
               setState(() {
-                widget.user.calendarList[currentCalendarIndex].eventList
-                    .add(response);
+                user.calendarList[currentCalendarIndex].eventList.add(response);
               });
             }
           } else if (index == 4) {
             Navigator.pushNamed(context, eventSearchRoute,
-                arguments:
-                    widget.user.calendarList[currentCalendarIndex].eventList);
+                arguments: user.calendarList[currentCalendarIndex].eventList);
           } else if (index == 5) {
             final response = await Navigator.pushNamed(
                 context, calendarSettingsRoute,
