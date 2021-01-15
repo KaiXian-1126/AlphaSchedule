@@ -1,3 +1,4 @@
+import 'package:alpha_schedule/models/Event.dart';
 import 'package:flutter/material.dart';
 
 class EventCreateScreen extends StatefulWidget {
@@ -19,6 +20,8 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
     return stringTime;
   }
 
+  TextEditingController titleController = TextEditingController(),
+      descController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,10 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
       body: ListView(
         children: [
           BuildText("Title"),
-          BuildTextField(),
+          BuildTextField(
+            controller: titleController,
+            textFieldContent: null,
+          ),
           BuildText("Start Time"),
           Container(
             margin: EdgeInsets.all(4.0),
@@ -77,15 +83,24 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
             ),
           ),
           BuildText("Description"),
-          BuildTextField(maxLines: 15),
+          BuildTextField(
+              maxLines: 15, controller: descController, textFieldContent: null),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               BuildFlatButton(
-                text: "Add",
-                color: Colors.blue,
-                onPressedCallback: () {},
-              ),
+                  text: "Add",
+                  color: Colors.blue,
+                  onPressedCallback: () {
+                    Navigator.pop(
+                        context,
+                        Event(
+                            eventId: null,
+                            eventName: titleController.text,
+                            startTime: startTime,
+                            endTime: endTime,
+                            description: descController.text));
+                  }),
               BuildFlatButton(
                 text: "Cancel",
                 color: Colors.grey,
@@ -118,14 +133,16 @@ class BuildFlatButton extends StatelessWidget {
 }
 
 class BuildTextField extends StatelessWidget {
-  final maxLines, textFieldContent;
-  BuildTextField({this.maxLines: 1, this.textFieldContent: ""});
+  final maxLines, textFieldContent, controller;
+  BuildTextField(
+      {this.maxLines: 1, this.textFieldContent: "", this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: controller,
         initialValue: textFieldContent,
         decoration: InputDecoration(
           border: OutlineInputBorder(),

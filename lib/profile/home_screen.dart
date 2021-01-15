@@ -5,13 +5,8 @@ import 'package:alpha_schedule/models/user.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service_mock.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
-// import '../models/mockdata.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
-
-import '../constants.dart';
-
-// import '../models/mockdata.dart';
 
 class DrawerScreen extends StatefulWidget {
   User user;
@@ -22,7 +17,6 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
-  User user;
   int currentCalendarIndex = 0;
   CalendarController _controller;
   int _currentIndex = 0;
@@ -144,8 +138,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
             FloatingActionButton(
               onPressed: () async {
                 await Navigator.pushNamed(context, calendarCreateRoute);
-
-                setState(() {});
               },
               child: Icon(Icons.add),
             ),
@@ -190,9 +182,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
           } else if (index == 3) {
             final response =
                 await Navigator.pushNamed(context, eventCreateRoute);
+            if (response != null) {
+              setState(() {
+                widget.user.calendarList[currentCalendarIndex].eventList
+                    .add(response);
+              });
+            }
           } else if (index == 4) {
-            final response =
-                await Navigator.pushNamed(context, eventSearchRoute);
+            Navigator.pushNamed(context, eventSearchRoute,
+                arguments:
+                    widget.user.calendarList[currentCalendarIndex].eventList);
           } else if (index == 5) {
             final response = await Navigator.pushNamed(
                 context, calendarSettingsRoute,
