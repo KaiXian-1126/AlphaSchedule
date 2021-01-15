@@ -23,4 +23,14 @@ class Event {
     print(stringTime);
     return stringTime;
   }
+
+  Event.copy(Event from)
+      : this(
+          eventId: from.eventId,
+          eventName: from.eventName,
+          calendar: from.calendar,
+          startTime: from.startTime,
+          endTime: from.endTime,
+          description: from.description,
+        );
 }

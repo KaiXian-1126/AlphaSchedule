@@ -78,7 +78,7 @@ Route<dynamic> createRoute(settings) {
       );
     case eventSearchRoute:
       return MaterialPageRoute(
-        builder: (context) => EventSearchScreen(),
+        builder: (context) => EventSearchScreen(eventList: settings.arguments),
       );
     case eventSummaryRoute:
       return MaterialPageRoute(
