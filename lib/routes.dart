@@ -53,7 +53,9 @@ Route<dynamic> createRoute(settings) {
     //Profile routes
     case calendarCollaboratorRoute:
       return MaterialPageRoute(
-        builder: (context) => CalendarCollaboratorScreen(),
+        builder: (context) => CalendarCollaboratorScreen(
+            calendar: settings.arguments[0],
+            calendarOwner: settings.arguments[1]),
       );
     case calendarCreateRoute:
       return MaterialPageRoute(
@@ -93,6 +95,10 @@ Route<dynamic> createRoute(settings) {
         builder: (context) => ProfileEditScreen(mockData),
       );
     case userProfileRoute:
+      return MaterialPageRoute(
+        builder: (context) => ProfileScreen(),
+      );
+    case addCollaboratorRoute:
       return MaterialPageRoute(
         builder: (context) => ProfileScreen(),
       );

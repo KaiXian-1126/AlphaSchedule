@@ -17,5 +17,6 @@ const String eventSummaryRoute = "/profile/event/eventSummary";
 const String passwordEditRoute = "/profile/user/passwordEdit";
 const String profileEditRoute = "/profile/user/profileEdit";
 const String userProfileRoute = "/profile/user/userProfile";
+const String addCollaboratorRoute = "/profile/event/collaboratorAdd";
 //Home route
 const String homeRoute = "/home";

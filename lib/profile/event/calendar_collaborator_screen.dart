@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../../constants.dart';
 
 class CalendarCollaboratorScreen extends StatefulWidget {
+  final calendar, calendarOwner;
+  CalendarCollaboratorScreen({this.calendar, this.calendarOwner});
   @override
   _CalendarCollaboratorScreenState createState() =>
       _CalendarCollaboratorScreenState();
@@ -9,13 +11,6 @@ class CalendarCollaboratorScreen extends StatefulWidget {
 
 class _CalendarCollaboratorScreenState
     extends State<CalendarCollaboratorScreen> {
-  String accessibility = "View Only",
-      shareLink = "https://Calendar1/1/Sharelink.com";
-  List memberList = [
-    "Tan Zhi Quan",
-    "Cheng Shin Wei",
-    "Tan Wei Kok",
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,12 +23,12 @@ class _CalendarCollaboratorScreenState
       ),
       body: ListView.separated(
         separatorBuilder: (_, index) => Divider(),
-        itemCount: memberList.length + 3,
+        itemCount: widget.calendar.members.length + 3,
         itemBuilder: (_, index) {
           if (index == 0) {
             return ListTile(
-              title: Text("Tok Kai Xian"),
-              subtitle: Text("kaixianp@gmail.com"),
+              title: Text(widget.calendarOwner.name),
+              subtitle: Text(widget.calendarOwner.email),
               leading: CircleAvatar(
                 child: Icon(Icons.portrait),
               ),
@@ -42,9 +37,9 @@ class _CalendarCollaboratorScreenState
           }
           if (index == 1)
             return ListTile(
-              title: Text("Member (${memberList.length})"),
+              title: Text("Member (${widget.calendar.members.length})"),
             );
-          if (index == memberList.length + 2) {
+          if (index == widget.calendar.members.length + 2) {
             return Column(
               children: [
                 ListTile(
@@ -56,10 +51,10 @@ class _CalendarCollaboratorScreenState
                   title: DropdownButton(
                     onChanged: (e) {
                       setState(() {
-                        accessibility = e;
+                        widget.calendar.accessibility = e;
                       });
                     },
-                    value: accessibility,
+                    value: widget.calendar.accessibility,
                     items: ['View Only', 'Editable'].map((String value) {
                       return DropdownMenuItem(
                         value: value,
@@ -69,18 +64,14 @@ class _CalendarCollaboratorScreenState
                   ),
                 ),
                 ListTile(
-                  title: TextFormField(
-                    initialValue: shareLink,
-                    readOnly: true,
-                  ),
                   trailing: FlatButton(
                     child: Text(
-                      "Copy",
+                      "Add New Member",
                       style: TextStyle(color: Colors.white),
                     ),
                     color: Colors.blue,
                     onPressed: () {
-                      Clipboard.setData(ClipboardData(text: shareLink));
+                      Navigator.pushNamed(context, addCollaboratorRoute);
                     },
                   ),
                 ),
@@ -94,12 +85,12 @@ class _CalendarCollaboratorScreenState
             trailing: OutlineButton(
               child: Icon(Icons.delete),
               onPressed: () {
-                memberList.removeAt(index - 2);
+                widget.calendar.members.removeAt(index - 2);
                 setState(() {});
               },
             ),
-            title: Text(memberList[index - 2]),
-            subtitle: Text("kaixianp@gmail.com"),
+            title: Text(widget.calendar.members[index - 2].name),
+            subtitle: Text(widget.calendar.members[index - 2].email),
           );
         },
       ),

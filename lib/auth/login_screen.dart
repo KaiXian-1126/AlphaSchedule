@@ -95,6 +95,7 @@ class _LoginScreen extends State<LoginScreen> {
                             final userList = dependency.getUserList();
                             if (userList != null) {
                               userList.forEach((e) {
+                                print("${e.name} + ${e.password}");
                                 if (e.name == nameController.text &&
                                     e.password == passwordController.text) {
                                   Navigator.popAndPushNamed(context, homeRoute,

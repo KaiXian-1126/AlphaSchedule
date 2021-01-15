@@ -1,4 +1,5 @@
 import 'package:alpha_schedule/models/Event.dart';
+import 'package:alpha_schedule/models/user.dart';
 import 'package:flutter/cupertino.dart';
 
 class Calendar {
@@ -7,10 +8,15 @@ class Calendar {
   String description;
   Color color;
   List<Event> eventList;
-  Calendar(
-      {this.calendarId,
-      this.calendarName,
-      this.description,
-      this.color,
-      this.eventList});
+  List<User> members;
+  String accessibility;
+  Calendar({
+    this.calendarId,
+    this.calendarName,
+    this.description,
+    this.color,
+    this.eventList,
+    this.members,
+    this.accessibility = "View Only",
+  });
 }

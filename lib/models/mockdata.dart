@@ -24,41 +24,45 @@ List<User> mockUsers = [
 ];
 List<Calendar> calendar = [
   Calendar(
-    calendarId: 1,
-    calendarName: "Calendar 1",
-    description: "This is Calendar 1",
-    color: Colors.blue,
-    eventList: event,
-  ),
+      calendarId: 1,
+      calendarName: "Calendar 1",
+      description: "This is Calendar 1",
+      color: Colors.blue,
+      eventList: event,
+      accessibility: "View Only",
+      members: calendarMembers),
   Calendar(
-    calendarId: 2,
-    calendarName: "Calendar 2",
-    description: "This is Calendar 2",
-    color: Colors.blue,
-    eventList: event,
-  ),
+      calendarId: 2,
+      calendarName: "Calendar 2",
+      description: "This is Calendar 2",
+      color: Colors.blue,
+      eventList: event,
+      accessibility: "Editable",
+      members: calendarMembers),
   Calendar(
-    calendarId: 3,
-    calendarName: "Calendar 3",
-    description: "This is Calendar 3",
-    color: Colors.blue,
-    eventList: event,
-  ),
+      calendarId: 3,
+      calendarName: "Calendar 3",
+      description: "This is Calendar 3",
+      color: Colors.blue,
+      eventList: event,
+      accessibility: "Editable",
+      members: calendarMembers),
   Calendar(
-    calendarId: 4,
-    calendarName: "Calendar 4",
-    description: "This is Calendar 4",
-    color: Colors.blue,
-    eventList: [
-      Event(
-          eventId: 1,
-          eventName: "Event1",
-          calendar: DateTime(2021),
-          startTime: TimeOfDay(hour: 9, minute: 36),
-          endTime: TimeOfDay(hour: 16, minute: 44),
-          description: "This is a description")
-    ],
-  )
+      calendarId: 4,
+      calendarName: "Calendar 4",
+      description: "This is Calendar 4",
+      color: Colors.blue,
+      eventList: [
+        Event(
+            eventId: 1,
+            eventName: "Event1",
+            calendar: DateTime(2021),
+            startTime: TimeOfDay(hour: 9, minute: 36),
+            endTime: TimeOfDay(hour: 16, minute: 44),
+            description: "This is a description")
+      ],
+      accessibility: "View Only",
+      members: calendarMembers)
 ];
 List<Event> event = [
   Event(
@@ -96,6 +100,29 @@ List<Event> event = [
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
+];
+List<User> calendarMembers = [
+  User(
+      name: "Tan Zhi Quan",
+      email: "tanzhiquan@gmail.com",
+      gender: "Male",
+      password: "123",
+      phone: "0123456789",
+      userId: 10),
+  User(
+      name: "Tok Kai Xian",
+      email: "tokkaixian@gmail.com",
+      gender: "Male",
+      password: "123",
+      phone: "0123456789",
+      userId: 11),
+  User(
+      name: "Tan Wei Kok",
+      email: "tanweikok@gmail.com",
+      gender: "Male",
+      password: "123",
+      phone: "0123456789",
+      userId: 12),
 ];
 List<Task> mycalender = [
   Task(
