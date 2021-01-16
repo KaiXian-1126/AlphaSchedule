@@ -201,7 +201,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           if (index == 1) {
             final response = await Navigator.pushNamed(
                 context, eventSummaryRoute,
-                arguments: user.calendarList[currentCalendarIndex].color);
+                arguments: user.calendarList[currentCalendarIndex]);
           } else if (index == 2) {
             final response = await Navigator.pushNamed(
                 context, calendarCollaboratorRoute,
