@@ -22,7 +22,7 @@ class _LogoutScreenState extends State<LogoutScreen> {
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(10),
             ),
-            height: 300,
+            height: 400,
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(10),
             child: ListView(children: [
