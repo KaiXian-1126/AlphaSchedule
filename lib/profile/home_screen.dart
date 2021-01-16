@@ -137,19 +137,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         Text("${user.email}", style: TextStyle(fontSize: 10)),
                       ]),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 30, left: 20),
-                      child: IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () async {
-                            final response = await Navigator.pushNamed(
-                                context, profileEditRoute,
-                                arguments: user);
-                            if (response != null) {
-                              setState(() {});
-                            }
-                          }),
-                    ),
                   ],
                 ),
               ),
@@ -171,7 +158,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       backgroundImage: AssetImage('assets/calendar.png'),
                       maxRadius: 30,
                     ),
-                    title: Text(dependency.getCalendar(index).calendarName),
+                    title: Text(user.calendarList[index].calendarName),
                     onTap: () {
                       setState(() {
                         currentCalendarIndex = index;
@@ -254,15 +241,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
               user.calendarList[currentCalendarIndex].eventList,
               _controller.selectedDay
             ]);
-            if (response != null) {
-              // Event e = response;
-              setState(() {
-                // print(user.calendarList[currentCalendarIndex].eventList.length);
-                // e.calendar = _controller.selectedDay;
-                // user.calendarList[currentCalendarIndex].eventList.add(e);
-                // print(user.calendarList[currentCalendarIndex].eventList.length);
-              });
-            }
+
+            // Event e = response;
+            setState(() {
+              // print(user.calendarList[currentCalendarIndex].eventList.length);
+              // e.calendar = _controller.selectedDay;
+              // user.calendarList[currentCalendarIndex].eventList.add(e);
+              // print(user.calendarList[currentCalendarIndex].eventList.length);
+            });
           } else if (index == 4) {
             Navigator.pushNamed(context, eventSearchRoute,
                 arguments: user.calendarList[currentCalendarIndex].eventList);

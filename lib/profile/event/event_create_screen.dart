@@ -93,15 +93,20 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                   text: "Add",
                   color: Colors.blue,
                   onPressedCallback: () {
-                    widget.event.add(
-                      Event(
-                          eventId: null,
-                          calendar: widget.date,
-                          startTime: startTime,
-                          endTime: endTime,
-                          eventName: titleController.text,
-                          description: descController.text),
-                    );
+                    if (titleController.text != "" &&
+                        startTime != null &&
+                        endTime != null &&
+                        description != "") {
+                      widget.event.add(
+                        Event(
+                            eventId: null,
+                            eventName: titleController.text,
+                            calendar: widget.date,
+                            startTime: startTime,
+                            endTime: endTime,
+                            description: descController.text),
+                      );
+                    }
                     Navigator.pop(
                       context,
                     );

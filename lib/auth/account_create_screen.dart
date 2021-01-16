@@ -224,7 +224,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                               gender: widget._data.gender,
                               calendarList: [
                             Calendar(
-                              calendarName: "untitled",
+                              calendarName: "Calendar 1",
                               description: "This is a Calendar",
                               color: Colors.blue[50],
                               eventList: [],
