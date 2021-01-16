@@ -34,7 +34,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
     DateTime time = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        title: Text(user.calendarList[currentCalendarIndex].calendarName),
+        title: Text(
+            dependency.getCalendar(currentCalendarIndex, user).calendarName),
       ),
       body: ListView.separated(
           itemCount: 1 +

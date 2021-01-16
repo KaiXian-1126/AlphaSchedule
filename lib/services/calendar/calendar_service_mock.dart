@@ -8,8 +8,8 @@ class CalendarServiceMock {
     return u.calendarList;
   }
 
-  Calendar getCalendar(int index) {
-    return calendar[index];
+  Calendar getCalendar(int index, User u) {
+    return u.calendarList[index];
   }
 
   Future<Calendar> updateCalendar() {
