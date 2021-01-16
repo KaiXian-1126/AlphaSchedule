@@ -36,7 +36,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
             icon: Icon(
               Icons.arrow_back,
             ),
-            onPressed: () => Navigator.pop(context, widget._data),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
         body: Container(
