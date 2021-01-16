@@ -19,7 +19,8 @@ class _LoginScreen extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   final _nameFormKey = GlobalKey<FormState>();
   final _passwordFormKey = GlobalKey<FormState>();
-  bool validated = false;
+  bool validated = true;
+
   User user;
   UserServiceMock dependency = di.dependency();
   @override
@@ -80,8 +81,17 @@ class _LoginScreen extends State<LoginScreen> {
                             }
                           }),
                     )),
-                SizedBox(
-                  height: 40,
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: SizedBox(
+                    child: validated
+                        ? null
+                        : Text(
+                            "User Name or Password is not correct.",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                    height: 40,
+                  ),
                 ),
                 Container(
                     height: 50,
@@ -95,15 +105,20 @@ class _LoginScreen extends State<LoginScreen> {
                           if (_passwordFormKey.currentState.validate()) {
                             final userList = dependency.getUserList();
                             if (userList != null) {
-                              userList.forEach((e) {
-                                if (e.name == nameController.text &&
-                                    e.password == passwordController.text) {
+                              for (int i = 0; i < userList.length; i++) {
+                                if (userList[i].name == nameController.text &&
+                                    userList[i].password ==
+                                        passwordController.text) {
                                   Provider.of<ValueNotifier<User>>(context,
                                           listen: false)
-                                      .value = e;
+                                      .value = userList[i];
                                   Navigator.popAndPushNamed(context, homeRoute);
+                                  break;
+                                } else {
+                                  validated = false;
+                                  setState(() {});
                                 }
-                              });
+                              }
                             }
                           }
                         }
