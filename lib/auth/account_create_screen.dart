@@ -1,4 +1,10 @@
+import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
+
+import '../constants.dart';
 
 class AccountCreateScreen extends StatefulWidget {
   final _data;
@@ -9,6 +15,7 @@ class AccountCreateScreen extends StatefulWidget {
 }
 
 class _AccountCreateScreen extends State<AccountCreateScreen> {
+  String username, uemail, uphone, upassword, ugender;
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
@@ -20,7 +27,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
   final _passwordFormKey = GlobalKey<FormState>();
   final _confirmpasswordFormKey = GlobalKey<FormState>();
   List _genderDropDown = ['Male', 'Female'];
-
+  UserServiceMock dependency = di.dependency();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,6 +63,9 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                         return null;
                       }
                     },
+                    onSaved: (String value) {
+                      username = value;
+                    },
                   ),
                 ),
               ),
@@ -82,6 +92,9 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                         return null;
                       }
                     },
+                    onSaved: (String value) {
+                      uemail = value;
+                    },
                   ),
                 ),
               ),
@@ -106,6 +119,9 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                         return null;
                       }
                     },
+                    onSaved: (String value) {
+                      uphone = value;
+                    },
                   ),
                 ),
               ),
@@ -120,8 +136,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                 icon: Icon(Icons.arrow_drop_down),
                 isExpanded: true,
                 value: widget._data.gender,
-                onChanged: (value) =>
-                    setState(() => widget._data.gender = value),
+                onChanged: (value) => setState(() => ugender = value),
                 items: _genderDropDown.map((value) {
                   return DropdownMenuItem(
                     value: value,
@@ -171,6 +186,9 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                         return null;
                       }
                     },
+                    onSaved: (String value) {
+                      upassword = value;
+                    },
                   ),
                 ),
               ),
@@ -187,7 +205,32 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                 if (_phoneFormKey.currentState.validate()) {
                   if (_passwordFormKey.currentState.validate()) {
                     if (_confirmpasswordFormKey.currentState.validate()) {
-                      // can go to the home screen.
+                      _nameFormKey.currentState.save();
+                      _emailFormKey.currentState.save();
+                      _phoneFormKey.currentState.save();
+                      _passwordFormKey.currentState.save();
+                      _confirmpasswordFormKey.currentState.save();
+                      print(username + uemail + uphone + upassword);
+                      dependency.createUser(
+                          user: User(
+                              userId: null,
+                              name: username,
+                              email: uemail,
+                              password: upassword,
+                              phone: uphone,
+                              gender: ugender,
+                              calendarList: [
+                            Calendar(
+                              calendarName: "untitled",
+                              description: "This is a Calendar",
+                              color: Colors.blue,
+                              eventList: [],
+                              members: [],
+                              accessibility: "View Only",
+                            )
+                          ]));
+                      // Navigator.pop(context, mockUsers);
+                      Navigator.popAndPushNamed(context, loginRoute);
                     }
                   }
                 }
