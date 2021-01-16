@@ -33,6 +33,8 @@ class CalendarServiceMock {
           event.add(c.eventList[i]);
         }
       }
+    } else if (c.eventList == null) {
+      return event;
     } else {
       for (int i = 0; i < c.eventList.length; i++) {
         if (c.eventList[i].calendar.year.toString() == date.year.toString() &&

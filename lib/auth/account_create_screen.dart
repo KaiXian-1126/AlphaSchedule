@@ -223,7 +223,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                             Calendar(
                               calendarName: "untitled",
                               description: "This is a Calendar",
-                              color: Colors.blue,
+                              color: Colors.blue[50],
                               eventList: [],
                               members: [],
                               accessibility: "View Only",

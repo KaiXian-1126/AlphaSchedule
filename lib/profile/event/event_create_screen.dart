@@ -2,7 +2,8 @@ import 'package:alpha_schedule/models/Event.dart';
 import 'package:flutter/material.dart';
 
 class EventCreateScreen extends StatefulWidget {
-  EventCreateScreen();
+  final event, date;
+  EventCreateScreen({this.event, this.date});
 
   @override
   _EventCreateScreenState createState() => _EventCreateScreenState();
@@ -92,14 +93,18 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                   text: "Add",
                   color: Colors.blue,
                   onPressedCallback: () {
+                    widget.event.add(
+                      Event(
+                          eventId: null,
+                          calendar: widget.date,
+                          startTime: startTime,
+                          endTime: endTime,
+                          eventName: titleController.text,
+                          description: descController.text),
+                    );
                     Navigator.pop(
-                        context,
-                        Event(
-                            eventId: null,
-                            eventName: titleController.text,
-                            startTime: startTime,
-                            endTime: endTime,
-                            description: descController.text));
+                      context,
+                    );
                   }),
               BuildFlatButton(
                 text: "Cancel",

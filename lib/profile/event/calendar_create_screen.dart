@@ -1,9 +1,12 @@
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
-import 'package:alpha_schedule/models/mockdata.dart';
+
 import 'package:flutter/material.dart';
 
 class CalendarCreateScreen extends StatefulWidget {
+  final calendar;
+  CalendarCreateScreen({this.calendar});
+
   @override
   _CalendarCreateScreenState createState() => _CalendarCreateScreenState();
 }
@@ -11,8 +14,8 @@ class CalendarCreateScreen extends StatefulWidget {
 class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
   String calendarName;
   String calendarDescription;
-  List<Color> _colorTheme = [Colors.blue, Colors.red];
-  Color _currentColor = Colors.blue;
+  List<Color> _colorTheme = [Colors.blue[50], Colors.green[50]];
+  Color _currentColor = Colors.blue[50];
   //TextEditingController calendarNameController = TextEditingController(), descriptionController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
 
@@ -71,14 +74,16 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
           elevation: 2,
           icon: Icon(Icons.arrow_drop_down),
           isExpanded: true,
-          value: Colors.blue,
+          value: Colors.blue[50],
           onChanged: (value) => setState(
             () => _currentColor = value,
           ),
           items: _colorTheme.map((value) {
             return DropdownMenuItem(
                 value: value,
-                child: (value == Colors.red) ? Text("red") : Text("blue"));
+                child: (value == Colors.blue[50])
+                    ? Text("Light blue")
+                    : Text("Light green"));
           }).toList(),
         ));
   }
@@ -88,7 +93,6 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: _currentColor,
           title: Text('Create Calendar'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -122,9 +126,12 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                           if (_formkey.currentState.validate()) {
                             _formkey.currentState.save();
                             print(calendarName + calendarDescription);
-                            calendar.add(Calendar(
+                            widget.calendar.add(Calendar(
                                 calendarName: calendarName,
-                                description: calendarDescription));
+                                description: calendarDescription,
+                                color: _currentColor,
+                                eventList: [],
+                                members: []));
                             Navigator.pop(context);
                           }
                         },

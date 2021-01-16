@@ -15,7 +15,7 @@ class _CalendarCollaboratorScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calendar 1"),
+        title: Text("${widget.calendar.calendarName}"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
