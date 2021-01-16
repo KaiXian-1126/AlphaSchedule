@@ -38,19 +38,23 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
               if (index == 0) {
                 return TextFormField(
                   onChanged: (text) {
+                    tileCount = 1;
+                    searchText = text;
+                    displayIndex.clear();
+                    int i = 0;
+
                     setState(() {
-                      int i = 0;
-                      searchText = text;
-                      tileCount = 1;
-                      displayIndex.clear();
                       widget.eventList.forEach((e) {
-                        if (text.toUpperCase() ==
-                            e.eventName
-                                .substring(0, text.length)
-                                .toUpperCase()) {
-                          tileCount++;
-                          displayIndex.add(i);
+                        if (text.length <= e.eventName.length) {
+                          if ((text.toUpperCase() ==
+                              e.eventName
+                                  .substring(0, text.length)
+                                  .toUpperCase())) {
+                            tileCount++;
+                            displayIndex.add(i);
+                          }
                         }
+
                         i++;
                       });
                     });
