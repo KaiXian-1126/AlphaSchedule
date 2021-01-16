@@ -136,7 +136,8 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                 icon: Icon(Icons.arrow_drop_down),
                 isExpanded: true,
                 value: widget._data.gender,
-                onChanged: (value) => setState(() => ugender = value),
+                onChanged: (value) =>
+                    setState(() => widget._data.gender = value),
                 items: _genderDropDown.map((value) {
                   return DropdownMenuItem(
                     value: value,
@@ -159,6 +160,8 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return "This field cannot be empty";
+                      } else if (value.length < 8) {
+                        return "The password length must be atleast 8 character";
                       } else {
                         return null;
                       }
@@ -218,12 +221,12 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                               email: uemail,
                               password: upassword,
                               phone: uphone,
-                              gender: ugender,
+                              gender: widget._data.gender,
                               calendarList: [
                             Calendar(
                               calendarName: "untitled",
                               description: "This is a Calendar",
-                              color: Colors.blue,
+                              color: Colors.blue[50],
                               eventList: [],
                               members: [],
                               accessibility: "View Only",

@@ -181,15 +181,20 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     trailing: OutlineButton(
                       child: Icon(Icons.delete),
                       onPressed: () {
-                        user.calendarList.removeAt(index);
+                        if (user.calendarList.length > 1) {
+                          user.calendarList.removeAt(index);
+                        }
                         setState(() {});
                       },
                     )),
               ),
             ),
             FloatingActionButton(
+              heroTag: null,
               onPressed: () async {
-                await Navigator.pushNamed(context, calendarCreateRoute);
+                await Navigator.pushNamed(context, calendarCreateRoute,
+                    arguments: user.calendarList);
+                setState(() {});
               },
               child: Icon(Icons.add),
             ),
@@ -208,6 +213,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
           ],
         ),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //     heroTag: null,
+      //     onPressed: () {
+      //       print(user.calendarList.length);
+      //       print(currentCalendarIndex);
+      //       print(user.calendarList[currentCalendarIndex].eventList.length);
+      //     }),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -237,13 +249,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 context, calendarCollaboratorRoute,
                 arguments: [user.calendarList[currentCalendarIndex], user]);
           } else if (index == 3) {
-            final response =
-                await Navigator.pushNamed(context, eventCreateRoute);
+            final response = await Navigator.pushNamed(
+                context, eventCreateRoute, arguments: [
+              user.calendarList[currentCalendarIndex].eventList,
+              _controller.selectedDay
+            ]);
             if (response != null) {
-              Event e = response;
+              // Event e = response;
               setState(() {
-                e.calendar = _controller.selectedDay;
-                user.calendarList[currentCalendarIndex].eventList.add(e);
+                // print(user.calendarList[currentCalendarIndex].eventList.length);
+                // e.calendar = _controller.selectedDay;
+                // user.calendarList[currentCalendarIndex].eventList.add(e);
+                // print(user.calendarList[currentCalendarIndex].eventList.length);
               });
             }
           } else if (index == 4) {
@@ -252,7 +269,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           } else if (index == 5) {
             final response = await Navigator.pushNamed(
                 context, calendarSettingsRoute,
-                arguments: dependency.getCalendar(currentCalendarIndex));
+                arguments: user.calendarList[currentCalendarIndex]);
             if (response != null) {
               setState(() {});
             }
