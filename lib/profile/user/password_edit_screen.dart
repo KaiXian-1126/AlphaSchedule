@@ -66,14 +66,28 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
               ),
               // Comfirm password
               BuildText("Comfirm new password"),
-              UserInputbar(
-                keys: _pwComfirmFormKey,
-                controllers: _pwComfirmController,
-                datas: _pwNewController.text,
-                secures: _secureComfirm,
-                index: 3,
-                states: this,
-              ),
+              Container(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: Form(
+                      key: _pwComfirmFormKey,
+                      child: TextFormField(
+                        obscureText: secureComfirm,
+                        controller: _pwComfirmController,
+                        maxLines: 1,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              icon: Icon(secureComfirm
+                                  ? Icons.remove_red_eye
+                                  : Icons.security),
+                              onPressed: () {
+                                secureComfirm = _secureComfirm;
+                              }),
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          return comfirmPassword(value, _pwNewController.text);
+                        },
+                      )))
             ],
           ),
         ),
@@ -125,7 +139,7 @@ String newPassword(value, userPassword) {
 String comfirmPassword(value, newPassword) {
   if (value.isEmpty) {
     return "This field cannot be empty";
-  } else if (value != newPassword) {
+  } else if (value.compareTo(newPassword) != 0) {
     return "You must enter the same password in order to confirm it";
   } else {
     return null;
@@ -159,20 +173,16 @@ class UserInputbar extends StatelessWidget {
                 onPressed: () {
                   if (index == 1)
                     states.secureCurrent = secures;
-                  else if (index == 2)
-                    states.secureNew = secures;
                   else
-                    states.secureComfirm = secures;
+                    states.secureNew = secures;
                 }),
             border: OutlineInputBorder(),
           ),
           validator: (value) {
             if (index == 1)
               return currentPassword(value, datas);
-            else if (index == 2)
-              return newPassword(value, datas);
             else
-              return comfirmPassword(value, datas);
+              return newPassword(value, datas);
           },
         ),
       ),

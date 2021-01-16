@@ -94,6 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           arguments: widget.user);
                       if (response != null) {
                         setState(() {});
+                        _alertbox(context);
                       }
                     },
                     child:
@@ -102,16 +103,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     textColor: Colors.white,
                   ),
                   SizedBox(height: 10),
-                  RaisedButton(
-                    onPressed: () async {
-                      final response = await Navigator.pushNamed(
-                          context, profileEditRoute,
-                          arguments: widget.user);
-                      if (response != null) setState(() {});
-                    },
-                    child: Text("Edit Profile", style: TextStyle(fontSize: 20)),
-                    color: Colors.blue,
-                    textColor: Colors.white,
+                  ButtonTheme(
+                    minWidth: 195,
+                    child: RaisedButton(
+                      onPressed: () async {
+                        final response = await Navigator.pushNamed(
+                            context, profileEditRoute,
+                            arguments: widget.user);
+                        if (response != null) {
+                          setState(() {});
+                          _alertbox(context);
+                        }
+                      },
+                      child:
+                          Text("Edit Profile", style: TextStyle(fontSize: 20)),
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -119,4 +127,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         )));
   }
+}
+
+void _alertbox(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Row(
+        children: [
+          Image.asset('assets/logo.png', height: 50.0, width: 50.0),
+          Text('Success')
+        ],
+      ),
+      content: Text(
+        'The changes had been saved',
+        // style: TextStyle(fontSize: 24),
+      ),
+      actions: [
+        FlatButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text("Okay"),
+        ),
+      ],
+    ),
+  );
 }
