@@ -109,12 +109,15 @@ class _LoginScreen extends State<LoginScreen> {
                                 if (userList[i].name == nameController.text &&
                                     userList[i].password ==
                                         passwordController.text) {
+                                  validated = true;
                                   Provider.of<ValueNotifier<User>>(context,
                                           listen: false)
                                       .value = userList[i];
+
                                   Navigator.popAndPushNamed(context, homeRoute);
                                   break;
-                                } else {
+                                }
+                                if (i == userList.length - 1) {
                                   validated = false;
                                   setState(() {});
                                 }
