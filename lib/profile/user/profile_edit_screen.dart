@@ -1,4 +1,3 @@
-import 'package:alpha_schedule/constants.dart';
 import 'package:flutter/material.dart';
 
 class ProfileEditScreen extends StatefulWidget {
@@ -144,19 +143,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   widget._data.name = _nameController.text;
                   widget._data.email = _emailController.text;
                   widget._data.phone = _phoneController.text;
+                  Navigator.pop(context, widget._data);
                 }
               }
             }
-
-            // test data
-            print(widget._data.name +
-                ", " +
-                widget._data.email +
-                ", " +
-                widget._data.phone +
-                ", " +
-                widget._data.gender);
-            Navigator.pop(context, widget._data);
           },
         ),
       ),
