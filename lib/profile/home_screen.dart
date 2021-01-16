@@ -157,7 +157,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         currentCalendarIndex = index;
                       });
                       Navigator.pop(context);
-                    }),
+                    },
+                    trailing: OutlineButton(
+                      child: Icon(Icons.delete),
+                      onPressed: () {
+                        user.calendarList.removeAt(index - 1);
+                        setState(() {});
+                      },
+                    )),
               ),
             ),
             FloatingActionButton(
