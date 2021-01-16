@@ -18,12 +18,9 @@ import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/user_profile_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'constants.dart';
-import 'models/mockdata.dart';
 
 Route<dynamic> createRoute(settings) {
-  print(settings.name);
   switch (settings.name) {
     //Landing routes
     case splashRoute:

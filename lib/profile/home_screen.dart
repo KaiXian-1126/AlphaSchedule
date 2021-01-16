@@ -1,6 +1,5 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
-import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/user.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service_mock.dart';
 import 'package:flutter/material.dart';
@@ -205,7 +204,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 context, calendarCollaboratorRoute,
                 arguments: [user.calendarList[currentCalendarIndex], user]);
           } else if (index == 3) {
-            print(_controller.selectedDay);
             final response =
                 await Navigator.pushNamed(context, eventCreateRoute);
             if (response != null) {
