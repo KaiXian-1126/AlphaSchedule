@@ -34,7 +34,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
     DateTime time = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        title: Text(user.calendarList[currentCalendarIndex].calendarName),
+        title: Text(
+            dependency.getCalendar(currentCalendarIndex, user).calendarName),
       ),
       body: ListView.separated(
           itemCount: 1 +
@@ -208,6 +209,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       //       print(user.calendarList[currentCalendarIndex].eventList.length);
       //     }),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.black54,
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         items: [

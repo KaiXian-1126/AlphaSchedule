@@ -8,17 +8,9 @@ class UserServiceMock {
     return mockUsers;
   }
 
-  Future<List<User>> getUser() {
-    return null;
-  }
-
   User createUser({User user}) {
     user.userId = _nextId++;
     mockUsers.add(user);
     return user;
-  }
-
-  Future<User> updateUser() {
-    return null;
   }
 }
