@@ -32,8 +32,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<ValueNotifier<User>>(context).value;
-    List<dynamic> a;
-    List<dynamic> b;
     DateTime time = DateTime.now();
     return Scaffold(
       appBar: AppBar(
@@ -157,7 +155,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         currentCalendarIndex = index;
                       });
                       Navigator.pop(context);
-                    }),
+                    },
+                    trailing: OutlineButton(
+                      child: Icon(Icons.delete),
+                      onPressed: () {
+                        user.calendarList.removeAt(index - 1);
+                        setState(() {});
+                      },
+                    )),
               ),
             ),
             FloatingActionButton(
@@ -207,11 +212,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 context, calendarCollaboratorRoute,
                 arguments: [user.calendarList[currentCalendarIndex], user]);
           } else if (index == 3) {
+            print(_controller.selectedDay);
             final response =
                 await Navigator.pushNamed(context, eventCreateRoute);
             if (response != null) {
+              Event e = response;
               setState(() {
-                user.calendarList[currentCalendarIndex].eventList.add(response);
+                e.calendar = _controller.selectedDay;
+                user.calendarList[currentCalendarIndex].eventList.add(e);
               });
             }
           } else if (index == 4) {
