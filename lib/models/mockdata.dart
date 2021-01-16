@@ -124,6 +124,20 @@ List<Event> eventList1 = [
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
+  Event(
+      eventId: 6,
+      eventName: "Event6",
+      calendar: DateTime(2021, 1, 16),
+      startTime: TimeOfDay(hour: 8, minute: 20),
+      endTime: TimeOfDay(hour: 9, minute: 30),
+      description: "This is a description"),
+  Event(
+      eventId: 7,
+      eventName: "Event7",
+      calendar: DateTime(2021, 1, 30),
+      startTime: TimeOfDay(hour: 7, minute: 00),
+      endTime: TimeOfDay(hour: 12, minute: 44),
+      description: "This is a description"),
 ];
 List<Event> eventList2 = [
   Event(
