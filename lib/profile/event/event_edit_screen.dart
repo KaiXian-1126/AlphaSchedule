@@ -62,7 +62,6 @@ class _EventEditScreenState extends State<EventEditScreen> {
                       context: context,
                     );
                     if (selectedTime != null) {
-                      print(selectedTime);
                       setState(() {
                         tempStartTime = selectedTime;
                       });

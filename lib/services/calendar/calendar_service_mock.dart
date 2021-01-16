@@ -12,14 +12,6 @@ class CalendarServiceMock {
     return u.calendarList[index];
   }
 
-  Future<Calendar> updateCalendar() {
-    return null;
-  }
-
-  Future deleteCalendar() {
-    return null;
-  }
-
   List<Event> getEventList(Calendar c, DateTime date, DateTime currentTime) {
     List<Event> event = [];
     if (date == null) {
@@ -53,17 +45,5 @@ class CalendarServiceMock {
 
   String getEventName(Event c) {
     return c.eventName;
-  }
-
-  Future<Event> addEvent() {
-    return null;
-  }
-
-  Future<Event> updateEvent() {
-    return null;
-  }
-
-  Future deleteEvent() {
-    return null;
   }
 }

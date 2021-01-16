@@ -125,7 +125,6 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                         onPressed: () {
                           if (_formkey.currentState.validate()) {
                             _formkey.currentState.save();
-                            print(calendarName + calendarDescription);
                             widget.calendar.add(Calendar(
                                 calendarName: calendarName,
                                 description: calendarDescription,
