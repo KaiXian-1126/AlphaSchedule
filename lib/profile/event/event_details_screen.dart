@@ -1,6 +1,5 @@
-import 'package:alpha_schedule/models/Event.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import '../../constants.dart';
 
 class EventDetailsScreen extends StatefulWidget {
@@ -26,10 +25,28 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         ),
         body: Container(
           // set margin of body
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 12),
           child: ListView(
             children: [
-              // user name
+              // Event date
+              BuildText("Date"),
+              Container(
+                padding: EdgeInsets.only(bottom: 15),
+                child: Form(
+                  child: TextFormField(
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      hintText: "${getDate(widget.event.calendar)}" +
+                          "\t     " +
+                          "${getDay(widget.event.calendar)}",
+                      hintStyle: TextStyle(color: Colors.black),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+              ),
+              // Event Time
               BuildText("Time"),
               Container(
                 padding: EdgeInsets.only(bottom: 15),
@@ -40,11 +57,13 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                     decoration: InputDecoration(
                       hintText:
                           "${widget.event.timeToStringConverter(widget.event.startTime)} to ${widget.event.timeToStringConverter(widget.event.endTime)}",
+                      hintStyle: TextStyle(color: Colors.black),
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
               ),
+              // Event Description
               BuildText("Description"),
               Container(
                 padding: EdgeInsets.only(bottom: 15),
@@ -54,6 +73,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                     maxLines: 15,
                     decoration: InputDecoration(
                       hintText: widget.event.description,
+                      hintStyle: TextStyle(color: Colors.black),
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -130,4 +150,22 @@ class BuildFlatButton extends StatelessWidget {
       ),
     );
   }
+}
+
+String getDay(DateTime date) {
+  return DateFormat('EEEE').format(date);
+}
+
+String getDate(DateTime value) {
+  var dateParse = DateTime.parse(value.toString());
+  String month = dateParse.month.toString();
+  String day = dateParse.day.toString();
+  if (month.length != 2) {
+    month = "0$month";
+  }
+  if (day.length != 2) {
+    day = "0$day";
+  }
+  String a = ("${dateParse.year}-$month-$day");
+  return a;
 }

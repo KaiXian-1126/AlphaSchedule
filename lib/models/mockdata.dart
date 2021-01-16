@@ -2,7 +2,6 @@ import 'package:alpha_schedule/models/user.dart';
 import 'package:flutter/material.dart';
 import 'Calendar.dart';
 import 'Event.dart';
-import 'calener_task.dart';
 
 User mockData = User(
     userId: 1,
@@ -200,41 +199,4 @@ List<User> calendarMembers = [
       password: "123",
       phone: "0123456789",
       userId: 12),
-];
-List<Task> mycalender = [
-  Task(
-      title: 'MAP Presentation',
-      description: 'Discuss for teammate',
-      startTime: '11.00 AM',
-      endTime: '12.00 PM',
-      date: '2021-12-29',
-      day: 'Tuesday'),
-  Task(
-      title: 'Project discussion 2',
-      description: 'Prepare Project Proposal',
-      startTime: '14.00 PM',
-      endTime: '16.00 PM',
-      date: '2021-12-25',
-      day: 'Friday'),
-  Task(
-      title: 'Project discussion 1',
-      description: 'Meet with friend',
-      startTime: '08.00 AM',
-      endTime: '09.00 AM',
-      date: '2021-12-25',
-      day: 'Friday'),
-  Task(
-      title: 'AD Meeting',
-      description: 'Meet with friend',
-      startTime: '12.00 PM',
-      endTime: '4.00 PM',
-      date: '2021-12-31',
-      day: 'Friday'),
-  Task(
-      title: 'AD Meeting',
-      description: 'Meet with friend',
-      startTime: '12.00 PM',
-      endTime: '4.00 PM',
-      date: '2021-05-31',
-      day: 'Monday'),
 ];

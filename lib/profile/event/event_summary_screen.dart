@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../constants.dart';
 import '../../models/Event.dart';
 
 class EventSummaryScreen extends StatefulWidget {
@@ -63,7 +64,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context, widget.calender),
         ),
         title: Text(
           widget.calender.calendarName,
@@ -116,54 +117,63 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
       ),
     );
   }
-}
 
 // extract method for listview builder
-Widget myList(List<Event> a, Color color) {
-  BoxDecoration myBoxDecoration() {
-    return BoxDecoration(border: Border.all(), color: Colors.grey[300]);
-  }
+  Widget myList(List<Event> a, Color color) {
+    BoxDecoration myBoxDecoration() {
+      return BoxDecoration(border: Border.all(), color: Colors.grey[300]);
+    }
 
-  return Container(
-    margin: EdgeInsets.only(left: 20, bottom: 20, right: 20),
-    child: ListView.builder(
-      shrinkWrap: true,
-      physics: ScrollPhysics(),
-      itemCount: a.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Center(
-              child: Container(child: myText(a[index].calendar, index)),
-            ),
-            Container(
-                decoration: myBoxDecoration(),
-                child: Card(
-                  child: ListTile(
-                    leading: Container(
-                      decoration: BoxDecoration(color: color),
-                      child: Container(
-                        width: 120,
-                        child: Text(
-                          // "${widget.event.timeToStringConverter(widget.event.startTime)} to ${widget.event.timeToStringConverter(widget.event.endTime)}",
-                          '${a[index].timeToStringConverter(a[index].startTime)}' +
-                              "\nto\n" +
-                              '${a[index].timeToStringConverter(a[index].endTime)}',
-                          textAlign: TextAlign.center,
+    return Container(
+      margin: EdgeInsets.only(left: 20, bottom: 20, right: 20),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: ScrollPhysics(),
+        itemCount: a.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Center(
+                child: Container(child: myText(a[index].calendar, index)),
+              ),
+              Container(
+                  decoration: myBoxDecoration(),
+                  child: Card(
+                    child: ListTile(
+                        leading: Container(
+                          decoration: BoxDecoration(color: color),
+                          child: Container(
+                            width: 120,
+                            child: Text(
+                              // "${widget.event.timeToStringConverter(widget.event.startTime)} to ${widget.event.timeToStringConverter(widget.event.endTime)}",
+                              '${a[index].timeToStringConverter(a[index].startTime)}' +
+                                  "\nto\n" +
+                                  '${a[index].timeToStringConverter(a[index].endTime)}',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    title: Text(
-                      a[index].eventName,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                )),
-          ],
-        );
-      },
-    ),
-  );
+                        title: Text(
+                          a[index].eventName,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        onTap: () async {
+                          final respond = await Navigator.pushNamed(
+                            context,
+                            eventDetailsRoute,
+                            arguments: a[index],
+                          );
+                          if (respond != null) {
+                            setState(() {});
+                          }
+                        }),
+                  )),
+            ],
+          );
+        },
+      ),
+    );
+  }
 }
 
 Widget myText(DateTime date, index) {
