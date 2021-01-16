@@ -35,7 +35,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(dependency.getCalendar(currentCalendarIndex).calendarName),
-        backgroundColor: user.calendarList[currentCalendarIndex].color,
       ),
       body: ListView.separated(
           itemCount: 1 +
@@ -51,7 +50,31 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 time);
             if (index == 0) {
               return TableCalendar(
+                availableCalendarFormats: {CalendarFormat.month: 'Month'},
                 calendarController: _controller,
+                calendarStyle: CalendarStyle(
+                    contentDecoration: BoxDecoration(
+                      color: user.calendarList[currentCalendarIndex].color,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black54,
+                          offset: const Offset(
+                            5.0,
+                            5.0,
+                          ),
+                          blurRadius: 5.0,
+                          spreadRadius: 1.0,
+                        ), //BoxShadow
+                      ],
+                    ),
+                    weekendStyle: TextStyle(color: Colors.blue),
+                    selectedColor: Colors.blue[300],
+                    todayColor: Colors.green[300],
+                    selectedStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    )),
                 onDaySelected: (selectedDay, a, b) {
                   setState(() {});
                 },

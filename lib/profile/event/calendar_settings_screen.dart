@@ -15,7 +15,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
   String calendarDescription;
 
   Color tempColor, tempColor1;
-  List<Color> _colorTheme = [Colors.blue, Colors.red];
+  List<Color> _colorTheme = [Colors.blue[50], Colors.green[50]];
 
   final _formkey = GlobalKey<FormState>();
 
@@ -84,7 +84,9 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
           items: _colorTheme.map((value) {
             return DropdownMenuItem(
                 value: value,
-                child: (value == Colors.red) ? Text("red") : Text("blue"));
+                child: (value == Colors.green[50])
+                    ? Text("Light Green")
+                    : Text("Light Blue"));
           }).toList(),
         ));
   }
@@ -95,7 +97,6 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: widget.calender.color,
           title: Text('Calendar Setting'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
