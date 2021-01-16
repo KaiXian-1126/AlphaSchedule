@@ -209,6 +209,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       //       print(user.calendarList[currentCalendarIndex].eventList.length);
       //     }),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.black54,
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         items: [
