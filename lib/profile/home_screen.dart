@@ -181,7 +181,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     trailing: OutlineButton(
                       child: Icon(Icons.delete),
                       onPressed: () {
-                        user.calendarList.removeAt(index - 1);
+                        user.calendarList.removeAt(index);
                         setState(() {});
                       },
                     )),
