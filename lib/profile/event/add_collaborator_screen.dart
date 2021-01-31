@@ -1,4 +1,4 @@
-import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:flutter/material.dart';

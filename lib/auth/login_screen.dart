@@ -2,7 +2,7 @@ import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
-import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

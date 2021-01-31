@@ -1,5 +1,5 @@
 import 'package:alpha_schedule/models/Event.dart';
-import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/models/User.dart';
 import 'package:flutter/cupertino.dart';
 
 class Calendar {
