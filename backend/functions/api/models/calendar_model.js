@@ -10,6 +10,9 @@ class CalendarModel {
     get(id) {
         return database.get("calendar", id);
     }
+    delete(id) {
+        return database.delete("calendar", id);
+    }
 }
 
 module.exports = new CalendarModel();

@@ -10,6 +10,9 @@ class UserModel {
     get(id) {
         return database.get("user", id);
     }
+    update(id, document) {
+        return database.set("user", id, document);
+    }
 }
 
 module.exports = new UserModel();

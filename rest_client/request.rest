@@ -7,9 +7,10 @@ Content-Type: application/json
     "calendarName": "Calendar Name",
     "description" : "This is a calendar",
     "color" : "Colors.blue[50]",
-    "eventList": ["", ""],
+    "eventList": [],
     "accessibility": "View Only",
-    "members": ["", ""]
+    "owner": "eLasE3Yq7d8RmcmBvJXg",
+    "members": []
 }
 
 ### Get calendar by id
@@ -17,6 +18,9 @@ GET {{baseUrl}}/calendar/get/9gxEEO1kZYlFQOyxsur0
 
 ### Get calendar list by userid
 GET {{baseUrl}}/calendar/getList/qjoFiAZkIXKa2aYCAJNO
+
+### Delete the calendar
+DELETE {{baseUrl}}/calendar/delete/pQbGI86X2HWht1p5dOLQ
 
 ### Create a new user
 POST {{baseUrl}}/user/create
@@ -28,7 +32,7 @@ Content-Type: application/json
     "phone" : "Colors.blue[50]",
     "gender": "Male",
     "password": "123",
-    "calendarList": ["iF5Az8lUS5NgRl2G15fC", "9gxEEO1kZYlFQOyxsur0"],
+    "calendarList": [""],
     "collaboratorCalendarList": []
 }
 
