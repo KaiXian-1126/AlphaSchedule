@@ -7,6 +7,9 @@ class CalendarModel {
     create(document) {
         return database.create("calendar", document);
     }
+    get(id) {
+        return database.get("calendar", id);
+    }
 }
 
 module.exports = new CalendarModel();
