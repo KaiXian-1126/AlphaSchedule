@@ -4,7 +4,7 @@ const userModel = require("../models/user_model");
 const router = express.Router();
 
 //For add new calendar
-router.post("/create", createCalendar);
+router.post("/create/:userid", createCalendar);
 //For get specific calendar
 router.get("/get/:calendarid", getCalendar);
 //For get the calender list of user
@@ -13,10 +13,20 @@ router.get("/getList/:userid", getCalendarList);
 router.delete("/delete/:calendarid", deleteCalendar);
 
 async function createCalendar(req, res, next) {
+    const userid = req.params.userid;
+    const data = req.body;
+
     try {
-        const data = req.body;
+        //Get user information
+        const user = await userModel.get(userid);
+        if (!user) return res.sendStatus(404);
+        //If get user, create calender
         const result = await calendarModel.create(data);
         if (!result) return res.sendStatus(409);
+        //Successfully create calender, add the id to user
+        user.calendarList.push(result.id);
+        const updatedUser = await userModel.update(userid, user);
+        if (!updatedUser) return res.sendStatus(404);
         return res.status(201).json(result);
 
     } catch (e) {

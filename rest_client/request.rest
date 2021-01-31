@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
 ### Create a new calendar
-POST {{baseUrl}}/calendar/create
+POST {{baseUrl}}/calendar/create/S4JVOF9LGTYmkTpxsliA
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
     "color" : "Colors.blue[50]",
     "eventList": [],
     "accessibility": "View Only",
-    "owner": "eLasE3Yq7d8RmcmBvJXg",
+    "owner": "",
     "members": []
 }
 
@@ -20,7 +20,7 @@ GET {{baseUrl}}/calendar/get/9gxEEO1kZYlFQOyxsur0
 GET {{baseUrl}}/calendar/getList/qjoFiAZkIXKa2aYCAJNO
 
 ### Delete the calendar
-DELETE {{baseUrl}}/calendar/delete/pQbGI86X2HWht1p5dOLQ
+DELETE {{baseUrl}}/calendar/delete/PUFQmJ6uiASYrySOvhrh
 
 ### Create a new user
 POST {{baseUrl}}/user/create
@@ -29,7 +29,7 @@ Content-Type: application/json
 {
     "name": "Tok Kai Xian",
     "email" : "kaixianp@gmail.com",
-    "phone" : "Colors.blue[50]",
+    "phone" : "01113005114",
     "gender": "Male",
     "password": "123",
     "calendarList": [""],
