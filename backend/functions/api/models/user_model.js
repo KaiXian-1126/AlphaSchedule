@@ -13,6 +13,9 @@ class UserModel {
     update(id, document) {
         return database.set("user", id, document);
     }
+    getList() {
+        return database.getList("user");
+    }
 }
 
 module.exports = new UserModel();

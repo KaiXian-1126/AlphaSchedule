@@ -1,4 +1,5 @@
 @baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
+//@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
 ### Create a new calendar
 POST {{baseUrl}}/calendar/create/S4JVOF9LGTYmkTpxsliA
 Content-Type: application/json
@@ -35,6 +36,9 @@ Content-Type: application/json
     "calendarList": [""],
     "collaboratorCalendarList": []
 }
+
+### Get user list
+GET {{baseUrl}}/user
 
 ### Create a new event
 POST {{baseUrl}}/event/create
