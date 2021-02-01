@@ -1,4 +1,3 @@
-import 'package:alpha_schedule/models/user.dart';
 import 'package:flutter/material.dart';
 
 class Event {

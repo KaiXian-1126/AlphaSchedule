@@ -8,6 +8,7 @@ class User {
   String phone;
   String gender;
   List<Calendar> calendarList;
+  List<Calendar> collaboratorCalendarList;
   User(
       {this.userId,
       this.name,
@@ -15,7 +16,8 @@ class User {
       this.password,
       this.phone,
       this.gender,
-      this.calendarList});
+      this.calendarList,
+      this.collaboratorCalendarList});
   User.clone(User from)
       : this(
             userId: from.userId,
@@ -24,5 +26,16 @@ class User {
             password: from.password,
             phone: from.phone,
             gender: from.gender,
-            calendarList: from.calendarList);
+            calendarList: from.calendarList,
+            collaboratorCalendarList: from.collaboratorCalendarList);
+  User.fromJson(Map<String, dynamic> json)
+      : this(
+            userId: json['id'],
+            name: json['name'],
+            email: json['email'],
+            phone: json['phone'],
+            gender: json['gender'],
+            password: json['password'],
+            calendarList: json['calendarList'],
+            collaboratorCalendarList: json['collaboratorCalendarList']);
 }
