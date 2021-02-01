@@ -1,5 +1,7 @@
-@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
+//@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
 //@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
+//@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
+@baseUrl = https://us-central1-wk-backend-firebase-alpha.cloudfunctions.net/api
 ### Create a new calendar
 POST {{baseUrl}}/calendar/create/S4JVOF9LGTYmkTpxsliA
 Content-Type: application/json
@@ -51,3 +53,21 @@ Content-Type: application/json
     "endTime": "TimeOfDay(hour: 16, minute: 44)",
     "description": "This is a description"
 }
+
+### Get a User list
+GET {{baseUrl}}/user/
+
+### Get a User by Id
+GET {{baseUrl}}/user/jtCjtuOowozN64OyGgXV
+
+### Update the user
+PATCH {{baseUrl}}/user/D2mAeYekIv0JNPtepX65
+Content-Type: application/json
+
+{
+    "name": "Tan Wei Kok",
+    "email": "wktan@graduate.utm.my"
+}
+
+### Delete the user
+DELETE {{baseUrl}}/user/delete/jtCjtuOowozN64OyGgXV
