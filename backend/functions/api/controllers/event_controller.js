@@ -10,7 +10,7 @@ router.get("/get/:eventid", getEvent);
 //For get specific calendar
 router.get("/getList/:calendarid", getEventList);
 //For get specific calendar
-router.patch("/update/:calendarid", updateEvent);
+router.patch("/update/:eventid", updateEvent);
 //For delete the calendar
 router.delete("/delete/:eventid", deleteEvent);
 
@@ -64,17 +64,16 @@ async function getEventList(req, res, next) {
 }
 
 async function updateEvent(req, res, next) {
+    const id = req.params.eventid;
+    const data = req.body;
     try {
-        const id = req.params.eventid;
-        const data = req.body;
-
         const event = await eventModel.getById(id);
         if (!event) return res.sendStatus(404);
 
         // Merge existing fields with the ones to be updated
         Object.keys(data).forEach((key) => (event[key] = data[key]));
 
-        const updateResult = await todosModel.update(id, event);
+        const updateResult = await eventModel.update(id, event);
         if (!updateResult) return res.sendStatus(404);
 
         return res.json(event);
@@ -86,7 +85,7 @@ async function updateEvent(req, res, next) {
 async function deleteEvent(req, res, next) {
     const id = req.params.eventid;
     try {
-        const event = await eventModel.getEvent(id);
+        const event = await eventModel.getById(id);
         if (!event) return res.sendStatus(404);
         //get calendar
         const calendar = await calendarModel.get(event.calendarId);
@@ -109,14 +108,4 @@ async function deleteEvent(req, res, next) {
 
 }
 
-
-router.delete("/:id", async (req, res, next) => {
-    try {
-        const result = await todosModel.delete(req.params.id);
-        if (!result) return res.sendStatus(404);
-        return res.sendStatus(200);
-    } catch (e) {
-        return next(e);
-    }
-});
 module.exports = router;
