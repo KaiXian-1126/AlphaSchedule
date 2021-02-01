@@ -1,48 +1,33 @@
-##############################################################
-# Mobile Application Programming (SCSJ3623)
-# Semester 2, 2019/2020
-##############################################################
-
-# REST API Server on Local Firebase
- #@baseUrl = http://localhost:5001/shinwei-alphaschedult/us-central1/api
-
 # REST API Server on Live Firebase
 @baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
 
-### Getting the list of event
-GET {{baseUrl}}/event
-
-###  Getting a todo of given id
-GET {{baseUrl}}/event/6
-
-###  Create a new todo
-POST {{baseUrl}}/event
+###  Create a new event
+POST {{baseUrl}}/event/create/yLdsTOJHaE5fWhmnzoGA
 Content-Type: application/json
 
 {
-    "eventName": "Event5",
+    "eventName": "Event1",
     "calendar": "DateTime(2021, 1, 30)",
     "startTime": "TimeOfDay(hour: 9, minute: 36)",
     "endTime": "TimeOfDay(hour: 16, minute: 44)",
-    "description": "This is a description"
+    "description": "This is a description",
+    "calenderId": "yLdsTOJHaE5fWhmnzoGA"
 }
 
-### Update the status of a given todo (whether is completed or not)
-PATCH {{baseUrl}}/event/HXHpok2n641QmTJEvREm
+### Get event by id
+GET {{baseUrl}}/event/get/ixSn5CtwFc1ZqLOlkL2c
+
+### Get event list from the calendar
+GET {{baseUrl}}/event/getList/yLdsTOJHaE5fWhmnzoGA
+
+### Update event
+PATCH {{baseUrl}}/event/update/ixSn5CtwFc1ZqLOlkL2c
 Content-Type: application/json
 
 {
-    "completed":true
+    "eventName": "Event12345",
+    "description": "Hello world"
 }
 
-
-### Replace the entire fields of a given todo
-PUT {{baseUrl}}/event/H7kv4nPyQKXodwAui0qu
-Content-Type: application/json
-
-{
-    "completed": true
-}
-
-### Deleting a given todo
-DELETE {{baseUrl}}/event/H7kv4nPyQKXodwAui0qu
+### Delete event
+DELETE {{baseUrl}}/event/delete/5PpNEXxo5gVnjvzuggBo

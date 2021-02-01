@@ -3,7 +3,7 @@ const database = require("../database");
 class EventModel {
     constructor() {
         if (this.instance) return this.instance;
-        TodoModel.instance = this;
+        EventModel.instance = this;
     }
 
     get() {
@@ -22,8 +22,8 @@ class EventModel {
         return database.delete("event", id);
     }
 
-    update(id, todo) {
-        return database.set("event", id, todo);
+    update(id, document) {
+        return database.set("event", id, document);
     }
 }
 

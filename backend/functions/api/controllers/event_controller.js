@@ -1,99 +1,122 @@
-const eventModel = require('../modules/event_model');
+const eventModel = require('../models/event_model');
 const calendarModel = require("../models/calendar_model")
 const express = require('express');
 const router = express.Router();
 
-//add new event to calender
-router.post("/event/create/:calenderid", getEventList);
+//add new event to calendar
+router.post("/create/:calendarid", createEvent);
+//For get specific calendar
+router.get("/get/:eventid", getEvent);
+//For get specific calendar
+router.get("/getList/:calendarid", getEventList);
+//For get specific calendar
+router.patch("/update/:calendarid", updateEvent);
+//For delete the calendar
+router.delete("/delete/:eventid", deleteEvent);
 
-async function getEventList(req, res, next) {
-    const calenderid = req.params.calenderid;
+async function createEvent(req, res, next) {
+    const calendarid = req.params.calendarid;
     const data = req.body;
 
     try {
-        const calender = await calendarModel.get(calenderid);
-        if (!calender) return res.sendStatus(404);
+        const calendar = await calendarModel.get(calendarid);
+        if (!calendar) return res.sendStatus(404);
 
         const result = await eventModel.create(data);
         if (!result) return res.sendStatus(409);
 
-        calender.eventList.push(result.id);
-        const updateCaleder = await calendarModel.update()
-    } catch (e) {
-        return next(e);
-    }
-};
-
-router.post("/", async (req, res, next) => {
-    try {
-        const result = await eventModel.create(req.body);
-        if (!result) return res.sendStatus(409);
+        calendar.eventList.push(result.id);
+        const updateCalendar = await calendarModel.update(calendarid, calendar);
+        if (!updateCalendar) return res.sendStatus(404);
         return res.status(201).json(result);
     } catch (e) {
         return next(e);
     }
-});
+}
 
-router.get("/event", async (req, res, next) => {
+async function getEvent(req, res, next) {
+    const eventid = req.params.eventid;
     try {
-        const result = await eventModel.get();
-        return res.json(result);
-    } catch (e) {
-        return next(e);
-    }
-});
-
-router.get("/:id", async (req, res, next) => {
-    try {
-        const result = await eventModel.getById(req.params.id);
+        const result = await eventModel.getById(eventid);
         if (!result) return res.sendStatus(404);
         return res.json(result);
     } catch (e) {
         return next(e);
     }
-});
+}
+
+async function getEventList(req, res, next) {
+    const calendarid = req.params.calendarid;
+    try {
+        const calendar = await calendarModel.get(calendarid);
+        if (!calendar) return res.sendStatus(404);
+        const getList = calendar.eventList;
+        var eventList = [];
+        for (i = 0; i < getList.length; i++) {
+            const event = await eventModel.getById(getList[i]);
+            if (!event) return res.sendStatus(404);
+            eventList.push(event);
+        }
+        return res.json(eventList);
+    } catch (e) {
+        return next(e);
+    }
+}
+
+async function updateEvent(req, res, next) {
+    try {
+        const id = req.params.eventid;
+        const data = req.body;
+
+        const event = await eventModel.getById(id);
+        if (!event) return res.sendStatus(404);
+
+        // Merge existing fields with the ones to be updated
+        Object.keys(data).forEach((key) => (event[key] = data[key]));
+
+        const updateResult = await todosModel.update(id, event);
+        if (!updateResult) return res.sendStatus(404);
+
+        return res.json(event);
+    } catch (e) {
+        return next(e);
+    }
+}
+
+async function deleteEvent(req, res, next) {
+    const id = req.params.eventid;
+    try {
+        const event = await eventModel.getEvent(id);
+        if (!event) return res.sendStatus(404);
+        //get calendar
+        const calendar = await calendarModel.get(event.calendarId);
+        if (!calendar) return sendStatus(404);
+        //remove event from calendar
+        for (i = 0; i < calendar.eventList.length; i++) {
+            if (calendar.eventList[i] == id) {
+                calendar.eventList.splice(i, 1);
+            }
+        }
+        var result1 = calendarModel.update(event.calendarId, calendar);
+        if (!result1) return res.sendStatus(404);
+        // delete event from event collection
+        const result = await eventModel.delete(id);
+        if (!result) return res.sendStatus(404);
+        return res.sendStatus(200);
+    } catch (e) {
+        return next(e);
+    }
+
+}
 
 
 router.delete("/:id", async (req, res, next) => {
     try {
-        const result = await eventModel.delete(req.params.id);
+        const result = await todosModel.delete(req.params.id);
         if (!result) return res.sendStatus(404);
         return res.sendStatus(200);
     } catch (e) {
         return next(e);
     }
 });
-
-router.patch("/:id", async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const data = req.body;
-
-        const doc = await eventModel.getById(id);
-        if (!doc) return res.sendStatus(404);
-
-        // Merge existing fields with the ones to be updated
-        Object.keys(data).forEach((key) => (doc[key] = data[key]));
-
-        const updateResult = await eventModel.update(id, doc);
-        if (!updateResult) return res.sendStatus(404);
-
-        return res.json(doc);
-    } catch (e) {
-        return next(e);
-    }
-});
-
-router.put("/:id", async (req, res, next) => {
-    try {
-        const updateResult = await eventModel.update(req.params.id, req.body);
-        if (!updateResult) return res.sendStatus(404);
-
-        const result = await eventModel.getById(req.params.id);
-        return res.json(result);
-    } catch (e) {
-        return next(e);
-    }
-});
-
 module.exports = router;
