@@ -1,5 +1,6 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
@@ -27,7 +28,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
   final _passwordFormKey = GlobalKey<FormState>();
   final _confirmpasswordFormKey = GlobalKey<FormState>();
   List _genderDropDown = ['Male', 'Female'];
-  UserServiceMock dependency = di.dependency();
+  UserService dependency = di.dependency();
   @override
   Widget build(BuildContext context) {
     return Container(
