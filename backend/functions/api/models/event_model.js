@@ -2,7 +2,7 @@ const database = require("../database");
 
 // Here, we are implementing the class with Singleton design pattern
 
-class TodoModel {
+class EventModel {
     constructor() {
         if (this.instance) return this.instance;
         TodoModel.instance = this;
@@ -29,4 +29,4 @@ class TodoModel {
     }
 }
 
-module.exports = new TodoModel();
+module.exports = new EventModel();

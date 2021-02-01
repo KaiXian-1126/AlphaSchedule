@@ -4,24 +4,27 @@
 ##############################################################
 
 # REST API Server on Local Firebase
- @baseUrl = http://localhost:5001/shinwei-alphaschedult/us-central1/api
+ #@baseUrl = http://localhost:5001/shinwei-alphaschedult/us-central1/api
 
 # REST API Server on Live Firebase
-#@baseUrl = https://us-central1-jumail-backend-firebase-rest.cloudfunctions.net/api
+@baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
 
 ### Getting the list of event
 GET {{baseUrl}}/event
 
 ###  Getting a todo of given id
-GET {{baseUrl}}/event/HXHpok2n641QmTJEvREm
+GET {{baseUrl}}/event/6
 
 ###  Create a new todo
 POST {{baseUrl}}/event
 Content-Type: application/json
 
 {
-    "title": "Important event of Today",
-    "completed" : false
+    "eventName": "Event5",
+    "calendar": "DateTime(2021, 1, 30)",
+    "startTime": "TimeOfDay(hour: 9, minute: 36)",
+    "endTime": "TimeOfDay(hour: 16, minute: 44)",
+    "description": "This is a description"
 }
 
 ### Update the status of a given todo (whether is completed or not)
