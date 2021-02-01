@@ -16,5 +16,15 @@ class UserServiceRest implements UserServive {
     return User.fromJson(result);
   }
 
-  Future<User> updateUser() {}
+  Future<User> updateUserProfile(
+      {String id, String a, String b, int c, String d}) async {
+    final result = await rest.patch('user/$id',
+        data: {'name': a, 'email': b, 'phone': c, 'gender': d});
+    return User.fromJson(result);
+  }
+
+  Future<User> updateUserPassword({String id, String a}) async {
+    final result = await rest.patch('user/$id', data: {'password': a});
+    return User.fromJson(result);
+  }
 }
