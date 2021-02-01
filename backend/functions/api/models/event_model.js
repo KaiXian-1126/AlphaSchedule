@@ -1,7 +1,5 @@
 const database = require("../database");
 
-// Here, we are implementing the class with Singleton design pattern
-
 class EventModel {
     constructor() {
         if (this.instance) return this.instance;
@@ -16,8 +14,8 @@ class EventModel {
         return database.get("event", id);
     }
 
-    create(todo) {
-        return database.create("event", todo);
+    create(document) {
+        return database.create("event", document);
     }
 
     delete(id) {
