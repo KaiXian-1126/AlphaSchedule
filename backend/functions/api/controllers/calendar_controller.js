@@ -14,6 +14,14 @@ router.get("/getCollaboratorList/:userid", getCollaboratorCalendarList);
 //For delete the calendar
 router.delete("/:calendarid", deleteCalendar);
 
+router.patch("/update/:calendarid", updateCalendar);
+
+router.patch("/add/:calendarid/:memberid", addColaborator);
+
+router.patch("/delete/:calendarid/:memberid", deleteColaborator);
+
+router
+
 async function createCalendar(req, res, next) {
     const userid = req.params.userid;
     const data = req.body;
@@ -119,4 +127,78 @@ async function deleteCalendar(req, res, next) {
         return next(e);
     }
 }
+
+async function updateCalendar(req, res, next) {
+    const calendarid = req.params.calendarid;
+    const data = req.body;
+    try {
+        const result = await calendarModel.get(calendarid);
+        if (!result) return res.sendStatus(404);
+        Object.keys(data).forEach((key) => (result[key] = data[key]));
+        const updateResult = await calendarModel.update(calendarid, result);
+        if (!updateResult) return res.sendStatus(404)
+        return res.json(result);
+    } catch (e) {
+        return next(e);
+    }
+
+}
+
+async function addColaborator(req, res, next) {
+    const calendarid = req.params.calendarid;
+    const memberid = req.params.memberid;
+
+    try {
+        const result = await calendarModel.get(calendarid);
+        if (!result) return res.sendStatus(404);
+        result.members.push(memberid);
+        const updateCalendar = await calendarModel.update(calendarid, result);
+        if (!updateCalendar) return res.sendStatus(404)
+
+        const member = await userModel.get(memberid);
+        if (!member) return res.sendStatus(404);
+        member.collaboratorCalendarList.push(calendarid);
+        const updatedUser = await userModel.update(memberid, member);
+        if (!updatedUser) return res.sendStatus(404)
+        return res.sendStatus(200);
+    }
+    catch (e) {
+        return next(e);
+    }
+}
+
+async function deleteColaborator(req, res, next) {
+    const calendarid = req.params.calendarid;
+    const memberid = req.params.memberid;
+
+    try {
+        const result = await calendarModel.get(calendarid);
+        if (!result) return res.sendStatus(404);
+        for (j = 0; j < result.members.length; j++) {
+            if (result.members[j] === memberid) {
+                result.members.splice(j, 1);
+            }
+        }
+        const updateCalendar = await calendarModel.update(calendarid, result);
+        if (!updateCalendar) return res.sendStatus(404)
+
+        const member = await userModel.get(memberid);
+        if (!member) return res.sendStatus(404);
+        for (j = 0; j < member.collaboratorCalendarList.length; j++) {
+            if (member.collaboratorCalendarList[j] === calendarid) {
+                member.collaboratorCalendarList.splice(j, 1);
+            }
+        }
+        const updatedUser = await userModel.update(memberid, member);
+        if (!updatedUser) return res.sendStatus(404)
+        return res.sendStatus(200);
+    }
+    catch (e) {
+        return next(e);
+    }
+}
+
+
+
+
 module.exports = router;
