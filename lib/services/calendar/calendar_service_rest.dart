@@ -32,5 +32,11 @@ class CalendarServiceRest implements CalendarService {
     return Calendar.fromJson(result);
   }
 
+  Future<List<User>> getCalendarMembers({Calendar c}) async {
+    final result =
+        await rest.get("/calendar/getCalendarMembers/${c.calendarId}");
+    return (result as List).map((e) => User.fromJson(e)).toList();
+  }
+
   Future<Calendar> updateCalendar() {}
 }

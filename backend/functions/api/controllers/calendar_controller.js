@@ -1,6 +1,7 @@
 const calendarModel = require("../models/calendar_model")
 const express = require("express");
 const userModel = require("../models/user_model");
+const { database } = require("firebase-admin");
 const router = express.Router();
 
 //For add new calendar
@@ -13,6 +14,8 @@ router.get("/getCalendarList/:userid", getCalendarList);
 router.get("/getCollaboratorCalendarList/:userid", getCollaboratorCalendarList);
 //For delete the calendar
 router.delete("/:calendarid", deleteCalendar);
+// For get the calendar members
+router.get("/getCalendarMembers/:calendarid", getCalendarMembers);
 
 router.patch("/update/:calendarid", updateCalendar);
 
@@ -93,7 +96,7 @@ async function deleteCalendar(req, res, next) {
     try {
         const calendar = await calendarModel.get(calendarid);
         if (!calendar) return res.sendStatus(404);
-        const calendarOwnerId = calendar.owner;
+        const calendarOwnerId = calendar.ownerId;
         // To get the owner user information
         const calendarOwner = await userModel.get(calendarOwnerId);
         if (!calendarOwner) return res.sendStatus(404);
@@ -106,7 +109,7 @@ async function deleteCalendar(req, res, next) {
         var result = userModel.update(calendarOwnerId, calendarOwner);
         if (!result) return res.sendStatus(404);
         // To get the collaborator user information
-        const calendarCollaboratorsId = calendar.members;
+        const calendarCollaboratorsId = calendar.membersId;
 
         for (i = 0; i < calendarCollaboratorsId.length; i++) {
             const calendarCollaborator = await userModel.get(calendarCollaboratorsId[i]);
@@ -127,7 +130,23 @@ async function deleteCalendar(req, res, next) {
         return next(e);
     }
 }
-
+async function getCalendarMembers(req, res, next) {
+    const calendarid = req.params.calendarid;
+    try {
+        const calendar = await calendarModel.get(calendarid);
+        if (!calendar) return res.sendStatus(404);
+        const membersId = calendar.membersId;
+        var memberList = [];
+        for (i = 0; i < membersId.length; i++) {
+            var user = await userModel.get(membersId[i]);
+            if (!user) return res.sendStatus(404);
+            memberList.push(user);
+        }
+        return res.json(memberList);
+    } catch (e) {
+        return next(e);
+    }
+}
 async function updateCalendar(req, res, next) {
     const calendarid = req.params.calendarid;
     const data = req.body;
@@ -151,7 +170,7 @@ async function addColaborator(req, res, next) {
     try {
         const result = await calendarModel.get(calendarid);
         if (!result) return res.sendStatus(404);
-        result.members.push(memberid);
+        result.membersId.push(memberid);
         const updateCalendar = await calendarModel.update(calendarid, result);
         if (!updateCalendar) return res.sendStatus(404)
 
@@ -174,9 +193,9 @@ async function deleteColaborator(req, res, next) {
     try {
         const result = await calendarModel.get(calendarid);
         if (!result) return res.sendStatus(404);
-        for (j = 0; j < result.members.length; j++) {
-            if (result.members[j] === memberid) {
-                result.members.splice(j, 1);
+        for (j = 0; j < result.membersId.length; j++) {
+            if (result.membersId[j] === memberid) {
+                result.membersId.splice(j, 1);
             }
         }
         const updateCalendar = await calendarModel.update(calendarid, result);
