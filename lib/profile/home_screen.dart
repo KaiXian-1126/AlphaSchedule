@@ -1,7 +1,9 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service_mock.dart';
+import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -11,7 +13,9 @@ import 'package:alpha_schedule/app/dependencies.dart' as di;
 import '../models/Event.dart';
 
 class DrawerScreen extends StatefulWidget {
-  DrawerScreen();
+  final user;
+  DrawerScreen({this.user});
+
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
 }
@@ -20,7 +24,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
   int currentCalendarIndex = 0;
   CalendarController _controller;
   int _currentIndex = 0;
-  CalendarServiceMock dependency = di.dependency();
+  CalendarService calendarDependency = di.dependency();
+  EventService eventDependency = di.dependency();
+  //Required User Information
+  List calendarList, collaboratorCalendarList;
+  getRequiredUserInformation() async {
+    calendarList = await calendarDependency.getCalendarList(user: widget.user);
+    collaboratorCalendarList =
+        await calendarDependency.getCollaboratorCalendarList(user: widget.user);
+  }
 
   @override
   void initState() {
@@ -30,23 +42,23 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ValueNotifier<User>>(context).value;
+    //final user = Provider.of<ValueNotifier<User>>(context).value;
     DateTime time = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            dependency.getCalendar(currentCalendarIndex, user).calendarName),
+        title: Text(calendarList[currentCalendarIndex].calendarName),
       ),
       body: ListView.separated(
+          //Call event data service
           itemCount: 1 +
               dependency
-                  .getEventList(user.calendarList[currentCalendarIndex],
+                  .getEventList(widget.user.calendarList[currentCalendarIndex],
                       _controller.selectedDay, time)
                   .length,
           separatorBuilder: (_, index) => Divider(),
           itemBuilder: (_, index) {
             List<Event> tempCalendarList = dependency.getEventList(
-                user.calendarList[currentCalendarIndex],
+                widget.user.calendarList[currentCalendarIndex],
                 _controller.selectedDay,
                 time);
             if (index == 0) {
@@ -55,7 +67,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 calendarController: _controller,
                 calendarStyle: CalendarStyle(
                     contentDecoration: BoxDecoration(
-                      color: user.calendarList[currentCalendarIndex].color,
+                      color:
+                          widget.user.calendarList[currentCalendarIndex].color,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black54,
@@ -117,7 +130,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           onTap: () async {
                             final respond = await Navigator.pushNamed(
                                 context, userProfileRoute,
-                                arguments: user);
+                                arguments: widget.user);
                             if (respond != null) {
                               setState(() {});
                             }
@@ -132,10 +145,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     Container(
                       margin: EdgeInsets.only(top: 40, left: 25),
                       child: Column(children: <Widget>[
-                        Text("${user.name}\n",
+                        Text("${widget.user.name}\n",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
-                        Text("${user.email}", style: TextStyle(fontSize: 10)),
+                        Text("${widget.user.email}",
+                            style: TextStyle(fontSize: 10)),
                       ]),
                     ),
                   ],
@@ -151,7 +165,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               height: 250,
               child: ListView.separated(
                 padding: EdgeInsets.zero,
-                itemCount: dependency.getCalendarList(user).length,
+                itemCount: dependency.getCalendarList(widget.user).length,
                 separatorBuilder: (context, index) =>
                     Divider(color: Colors.black),
                 itemBuilder: (context, index) => ListTile(
@@ -159,7 +173,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       backgroundImage: AssetImage('assets/calendar.png'),
                       maxRadius: 30,
                     ),
-                    title: Text(user.calendarList[index].calendarName),
+                    title: Text(widget.user.calendarList[index].calendarName),
                     onTap: () {
                       setState(() {
                         currentCalendarIndex = index;
@@ -169,8 +183,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     trailing: OutlineButton(
                       child: Icon(Icons.delete),
                       onPressed: () {
-                        if (user.calendarList.length > 1) {
-                          user.calendarList.removeAt(index);
+                        if (widget.user.calendarList.length > 1) {
+                          widget.user.calendarList.removeAt(index);
                         }
                         setState(() {});
                       },
@@ -181,7 +195,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               heroTag: null,
               onPressed: () async {
                 await Navigator.pushNamed(context, calendarCreateRoute,
-                    arguments: user.calendarList);
+                    arguments: widget.user.calendarList);
                 setState(() {});
               },
               child: Icon(Icons.add),
@@ -229,20 +243,23 @@ class _DrawerScreenState extends State<DrawerScreen> {
           if (index == 1) {
             final response = await Navigator.pushNamed(
                 context, eventSummaryRoute,
-                arguments: user.calendarList[currentCalendarIndex]);
+                arguments: widget.user.calendarList[currentCalendarIndex]);
             if (response != null) {
               setState(() {});
             }
           } else if (index == 2) {
             final response = await Navigator.pushNamed(
-                context, calendarCollaboratorRoute,
-                arguments: [user.calendarList[currentCalendarIndex], user]);
+                context, calendarCollaboratorRoute, arguments: [
+              widget.user.calendarList[currentCalendarIndex],
+              widget.user
+            ]);
           } else if (index == 3) {
             final response = await Navigator.pushNamed(
-                context, eventCreateRoute, arguments: [
-              user.calendarList[currentCalendarIndex].eventList,
-              _controller.selectedDay
-            ]);
+                context, eventCreateRoute,
+                arguments: [
+                  widget.user.calendarList[currentCalendarIndex].eventList,
+                  _controller.selectedDay
+                ]);
 
             // Event e = response;
             setState(() {
@@ -253,11 +270,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             });
           } else if (index == 4) {
             Navigator.pushNamed(context, eventSearchRoute,
-                arguments: user.calendarList[currentCalendarIndex].eventList);
+                arguments:
+                    widget.user.calendarList[currentCalendarIndex].eventList);
           } else if (index == 5) {
             final response = await Navigator.pushNamed(
                 context, calendarSettingsRoute,
-                arguments: user.calendarList[currentCalendarIndex]);
+                arguments: widget.user.calendarList[currentCalendarIndex]);
             if (response != null) {
               setState(() {});
             }

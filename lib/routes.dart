@@ -33,12 +33,12 @@ Route<dynamic> createRoute(settings) {
       );
     case homeRoute:
       return MaterialPageRoute(
-        builder: (context) => DrawerScreen(),
+        builder: (context) => DrawerScreen(user: settings.arguments),
       );
     //Auth routes
     case accountCreateRoute:
       return MaterialPageRoute(
-        builder: (context) => AccountCreateScreen(context),
+        builder: (context) => AccountCreateScreen(),
       );
     case loginRoute:
       return MaterialPageRoute(

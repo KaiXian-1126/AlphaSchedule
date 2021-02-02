@@ -17,6 +17,7 @@ class UserServiceRest implements UserService {
   Future<User> createUser({User user}) async {
     final userInfo = await rest.post("user/", data: user.toJson());
     final tempUser = User.fromJson(userInfo);
+    // Create a new calendar for new user
     Calendar newCalendar = Calendar(
         calendarName: "Calendar 1",
         color: Colors.blue[50],
@@ -25,10 +26,8 @@ class UserServiceRest implements UserService {
         membersId: [],
         ownerId: "${tempUser.userId}",
         accessibility: "Editable");
-    final calendarInfo = await calendarService.createCalendar(
+    await calendarService.createCalendar(
         id: tempUser.userId, data: newCalendar);
-
-    print(calendarInfo);
     return User.fromJson(userInfo);
   }
 

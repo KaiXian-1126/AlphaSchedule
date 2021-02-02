@@ -1,8 +1,8 @@
-//@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
-@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
+@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
+//@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
 //@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
 ### Create a new calendar
-POST {{baseUrl}}/calendar/6ahENgv6bTMeG6pqysWQ
+POST {{baseUrl}}/calendar/1SZirlKOZmumW07Z29h8
 Content-Type: application/json
 
 {
@@ -16,10 +16,13 @@ Content-Type: application/json
 }
 
 ### Get calendar by id
-GET {{baseUrl}}/calendar/pZi1YqxFGOy0Nbmi2K99
+GET {{baseUrl}}/calendar/v0AUriLx5oqmqYoI04li
 
 ### Get calendar list by userid
 GET {{baseUrl}}/calendar/getList/6ahENgv6bTMeG6pqysWQ
+
+### Get collaborator calendar list by userid
+GET {{baseUrl}}/calendar/getCollaboratorList/1SZirlKOZmumW07Z29h8
 
 ### Delete the calendar
 DELETE {{baseUrl}}/calendar/pZi1YqxFGOy0Nbmi2K99

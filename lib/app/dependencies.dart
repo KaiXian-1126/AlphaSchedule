@@ -1,6 +1,7 @@
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
-import 'package:alpha_schedule/services/calendar/calendar_service_mock.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service_rest.dart';
+import 'package:alpha_schedule/services/event/event_service.dart';
+import 'package:alpha_schedule/services/event/event_service_rest.dart';
 import 'package:alpha_schedule/services/rest_service.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:alpha_schedule/services/user/user_service_rest.dart';
@@ -13,4 +14,5 @@ void init() {
   dependency.registerLazySingleton<UserService>(() => UserServiceRest());
   dependency
       .registerLazySingleton<CalendarService>(() => CalendarServiceRest());
+  dependency.registerLazySingleton<EventService>(() => EventServiceRest());
 }

@@ -1,10 +1,8 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/constants.dart';
-import 'package:alpha_schedule/models/mockdata.dart';
-import 'package:alpha_schedule/models/user_mock.dart';
+import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
-import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,9 +21,12 @@ class _LoginScreen extends State<LoginScreen> {
   bool validated = true;
 
   User user;
+
   UserService dependency = di.dependency();
   @override
   Widget build(BuildContext context) {
+    //print("print: ${Provider.of<ValueNotifier<User>>(context).value}");
+    //final _user = Provider.of<ValueNotifier<User>>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text('Login With Your Account'),
@@ -101,21 +102,21 @@ class _LoginScreen extends State<LoginScreen> {
                       textColor: Colors.white,
                       color: Colors.black,
                       child: Text('Login'),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_nameFormKey.currentState.validate()) {
                           if (_passwordFormKey.currentState.validate()) {
-                            /*final userList = dependency.getUserList();
+                            final userList = await dependency.getUserList();
                             if (userList != null) {
                               for (int i = 0; i < userList.length; i++) {
                                 if (userList[i].name == nameController.text &&
                                     userList[i].password ==
                                         passwordController.text) {
                                   validated = true;
-                                  Provider.of<ValueNotifier<User>>(context,
-                                          listen: false)
-                                      .value = userList[i];
 
-                                  Navigator.popAndPushNamed(context, homeRoute);
+                                  //_user.value = userList[i];
+
+                                  Navigator.popAndPushNamed(context, homeRoute,
+                                      arguments: userList[i]);
                                   break;
                                 }
                                 if (i == userList.length - 1) {
@@ -123,7 +124,7 @@ class _LoginScreen extends State<LoginScreen> {
                                   setState(() {});
                                 }
                               }
-                            }*/
+                            }
                           }
                         }
                       },
@@ -142,11 +143,7 @@ class _LoginScreen extends State<LoginScreen> {
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    AccountCreateScreen(mockData)));
+                        Navigator.pushNamed(context, accountCreateRoute);
                       },
                     )
                   ],

@@ -9,6 +9,8 @@ router.post("/:userid", createCalendar);
 router.get("/:calendarid", getCalendar);
 //For get the calender list of user
 router.get("/getList/:userid", getCalendarList);
+// For get the collaborator calendar list of user
+router.get("/getCollaboratorList/:userid", getCollaboratorCalendarList);
 //For delete the calendar
 router.delete("/:calendarid", deleteCalendar);
 
@@ -56,6 +58,23 @@ async function getCalendarList(req, res, next) {
             calendarList.push(calendar);
         }
         return res.json(calendarList);
+    } catch (e) {
+        return next(e);
+    }
+}
+async function getCollaboratorCalendarList(req, res, next) {
+    const userid = req.params.userid;
+    try {
+        const user = await userModel.get(userid);
+        if (!user) return res.sendStatus(404);
+        const collaboratorCalendarListId = user.collaboratorCalendarList;
+        var collaboratorCalendarList = [];
+        for (i = 0; i < collaboratorCalendarListId.length; i++) {
+            const calendar = await calendarModel.get(collaboratorCalendarListId[i]);
+            if (!calendar) return res.sendStatus(404);
+            collaboratorCalendarList.push(calendar);
+        }
+        return res.json(collaboratorCalendarList);
     } catch (e) {
         return next(e);
     }
