@@ -19,10 +19,10 @@ Content-Type: application/json
 GET {{baseUrl}}/calendar/v0AUriLx5oqmqYoI04li
 
 ### Get calendar list by userid
-GET {{baseUrl}}/calendar/getList/6ahENgv6bTMeG6pqysWQ
+GET {{baseUrl}}/calendar/getCalendarList/6ahENgv6bTMeG6pqysWQ
 
 ### Get collaborator calendar list by userid
-GET {{baseUrl}}/calendar/getCollaboratorList/1SZirlKOZmumW07Z29h8
+GET {{baseUrl}}/calendar/getCollaboratorCalendarList/1SZirlKOZmumW07Z29h8
 
 ### Delete the calendar
 DELETE {{baseUrl}}/calendar/pZi1YqxFGOy0Nbmi2K99

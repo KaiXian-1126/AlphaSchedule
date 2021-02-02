@@ -12,13 +12,13 @@ class CalendarServiceRest implements CalendarService {
   }
 
   Future<List<Calendar>> getCalendarList({User user}) async {
-    final result = await rest.get("/calendar/getList/${user.userId}");
+    final result = await rest.get("/calendar/getCalendarList/${user.userId}");
     return (result as List).map((e) => Calendar.fromJson(e)).toList();
   }
 
   Future<List<Calendar>> getCollaboratorCalendarList({User user}) async {
     final result =
-        await rest.get("/calendar/getCollaboratorList/${user.userId}");
+        await rest.get("/calendar/getCollaboratorCalendarList/${user.userId}");
     return (result as List).map((e) => Calendar.fromJson(e)).toList();
   }
 

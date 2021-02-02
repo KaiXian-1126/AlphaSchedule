@@ -8,9 +8,9 @@ router.post("/:userid", createCalendar);
 //For get specific calendar
 router.get("/:calendarid", getCalendar);
 //For get the calender list of user
-router.get("/getList/:userid", getCalendarList);
+router.get("/getCalendarList/:userid", getCalendarList);
 // For get the collaborator calendar list of user
-router.get("/getCollaboratorList/:userid", getCollaboratorCalendarList);
+router.get("/getCollaboratorCalendarList/:userid", getCollaboratorCalendarList);
 //For delete the calendar
 router.delete("/:calendarid", deleteCalendar);
 
