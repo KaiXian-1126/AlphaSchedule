@@ -14,6 +14,11 @@ class UserServiceRest implements UserService {
     return (result as List).map((e) => User.fromJson(e)).toList();
   }
 
+  Future<User> getUser({String id}) async {
+    final result = await rest.get('/user/$id');
+    return User.fromJson(result);
+  }
+
   Future<User> createUser({User user}) async {
     final userInfo = await rest.post("user/", data: user.toJson());
     final tempUser = User.fromJson(userInfo);

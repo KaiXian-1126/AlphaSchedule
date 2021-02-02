@@ -7,7 +7,6 @@ import 'package:alpha_schedule/services/rest_service.dart';
 class CalendarServiceRest implements CalendarService {
   RestService rest = di.dependency();
   Future<Calendar> createCalendar({String id, Calendar data}) async {
-    //here forgot to pass the data to create the calendar
     final result = await rest.post("calendar/$id", data: data.toJson());
     return Calendar.fromJson(result);
   }
@@ -23,7 +22,11 @@ class CalendarServiceRest implements CalendarService {
     return (result as List).map((e) => Calendar.fromJson(e)).toList();
   }
 
+  Future deleteCalendar({Calendar c}) async {
+    final result = await rest.delete("/calendar/${c.calendarId}");
+    return Calendar.fromJson(result);
+  }
+
   Future<Calendar> getCalendar() {}
   Future<Calendar> updateCalendar() {}
-  Future deleteCalendar() {}
 }
