@@ -13,6 +13,9 @@ class CalendarModel {
     delete(id) {
         return database.delete("calendar", id);
     }
+    update(id, document) {
+        return database.set("calendar", id, document);
+    }
 }
 
 module.exports = new CalendarModel();

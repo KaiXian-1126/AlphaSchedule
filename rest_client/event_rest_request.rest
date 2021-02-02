@@ -1,0 +1,33 @@
+# REST API Server on Live Firebase
+@baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
+
+###  Create a new event
+POST {{baseUrl}}/event/create/yLdsTOJHaE5fWhmnzoGA
+Content-Type: application/json
+
+{
+    "eventName": "Event1",
+    "calendar": "DateTime(2021, 1, 30)",
+    "startTime": "TimeOfDay(hour: 9, minute: 36)",
+    "endTime": "TimeOfDay(hour: 16, minute: 44)",
+    "description": "This is a description",
+    "calendarId": "yLdsTOJHaE5fWhmnzoGA"
+}
+
+### Get event by id
+GET {{baseUrl}}/event/get/ixSn5CtwFc1ZqLOlkL2c
+
+### Get event list from the calendar
+GET {{baseUrl}}/event/getList/yLdsTOJHaE5fWhmnzoGA
+
+### Update event
+PATCH {{baseUrl}}/event/update/ixSn5CtwFc1ZqLOlkL2c
+Content-Type: application/json
+
+{
+    "eventName": "Event12345",
+    "description": "Hello world"
+}
+
+### Delete event
+DELETE {{baseUrl}}/event/delete/rkippIBVBLjgu9IDKXMO
