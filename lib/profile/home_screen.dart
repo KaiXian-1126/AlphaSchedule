@@ -51,7 +51,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       body: ListView.separated(
           //Call event data service
           itemCount: 1 +
-              dependency
+              eventDependency
                   .getEventList(widget.user.calendarList[currentCalendarIndex],
                       _controller.selectedDay, time)
                   .length,

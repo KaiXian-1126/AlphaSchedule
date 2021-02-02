@@ -13,6 +13,7 @@ class Event {
       this.startTime,
       this.endTime,
       this.description});
+  //For front-end used
   String timeToStringConverter(TimeOfDay time) {
     String stringTime = time.toString();
     stringTime = stringTime.substring(10, 15);
@@ -20,7 +21,6 @@ class Event {
       stringTime = "$stringTime PM";
     else
       stringTime = "$stringTime AM";
-    print(stringTime);
     return stringTime;
   }
 
@@ -33,6 +33,7 @@ class Event {
           endTime: from.endTime,
           description: from.description,
         );
+  //How to store the data time and calendar
   Event.fromJson(Map<String, dynamic> json)
       : this(
             eventId: json['id'],
@@ -44,9 +45,9 @@ class Event {
   Map<String, dynamic> toJson(Event e) => {
         "id": eventId,
         "eventName": eventName,
-        "calendar": calendar,
-        "startTime": startTime,
-        "endTime": endTime,
+        "calendar": "$calendar",
+        "startTime": '$startTime',
+        "endTime": "$endTime",
         "description": description
       };
 }
