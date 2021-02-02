@@ -3,11 +3,11 @@ const express = require("express");
 const router = express.Router();
 
 //For add new user
-router.post("/create", createUser);
+router.post("/", createUser);
 //For get user list
 router.get('/', getUserList);
 //dekete user by id
-router.delete("/delete/:id", deleteUser);
+router.delete("/:id", deleteUser);
 //update user by id
 router.patch("/:id", updateUser);
 //get user by id

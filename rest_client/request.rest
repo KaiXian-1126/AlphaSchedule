@@ -1,9 +1,8 @@
 //@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
-//@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
+@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
 //@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
-@baseUrl = https://us-central1-wk-backend-firebase-alpha.cloudfunctions.net/api
 ### Create a new calendar
-POST {{baseUrl}}/calendar/create/S4JVOF9LGTYmkTpxsliA
+POST {{baseUrl}}/calendar/6ahENgv6bTMeG6pqysWQ
 Content-Type: application/json
 
 {
@@ -17,16 +16,16 @@ Content-Type: application/json
 }
 
 ### Get calendar by id
-GET {{baseUrl}}/calendar/get/9gxEEO1kZYlFQOyxsur0
+GET {{baseUrl}}/calendar/pZi1YqxFGOy0Nbmi2K99
 
 ### Get calendar list by userid
-GET {{baseUrl}}/calendar/getList/qjoFiAZkIXKa2aYCAJNO
+GET {{baseUrl}}/calendar/getList/6ahENgv6bTMeG6pqysWQ
 
 ### Delete the calendar
-DELETE {{baseUrl}}/calendar/delete/PUFQmJ6uiASYrySOvhrh
+DELETE {{baseUrl}}/calendar/pZi1YqxFGOy0Nbmi2K99
 
 ### Create a new user
-POST {{baseUrl}}/user/create
+POST {{baseUrl}}/user
 Content-Type: application/json
 
 {
@@ -35,7 +34,7 @@ Content-Type: application/json
     "phone" : "01113005114",
     "gender": "Male",
     "password": "123",
-    "calendarList": [""],
+    "calendarList": [],
     "collaboratorCalendarList": []
 }
 
@@ -43,7 +42,7 @@ Content-Type: application/json
 GET {{baseUrl}}/user
 
 ### Create a new event
-POST {{baseUrl}}/event/create
+POST {{baseUrl}}/event
 Content-Type: application/json
 
 {

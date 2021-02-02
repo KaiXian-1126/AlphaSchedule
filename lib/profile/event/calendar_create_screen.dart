@@ -130,7 +130,7 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                                 description: calendarDescription,
                                 color: _currentColor,
                                 eventList: [],
-                                members: []));
+                                membersId: []));
                             Navigator.pop(context);
                           }
                         },

@@ -4,13 +4,13 @@ const userModel = require("../models/user_model");
 const router = express.Router();
 
 //For add new calendar
-router.post("/create/:userid", createCalendar);
+router.post("/:userid", createCalendar);
 //For get specific calendar
-router.get("/get/:calendarid", getCalendar);
+router.get("/:calendarid", getCalendar);
 //For get the calender list of user
 router.get("/getList/:userid", getCalendarList);
 //For delete the calendar
-router.delete("/delete/:calendarid", deleteCalendar);
+router.delete("/:calendarid", deleteCalendar);
 
 async function createCalendar(req, res, next) {
     const userid = req.params.userid;

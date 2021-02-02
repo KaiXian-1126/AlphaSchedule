@@ -4,26 +4,39 @@ import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/rest_service.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
+import 'package:flutter/material.dart';
 
 class UserServiceRest implements UserService {
   RestService rest = di.dependency();
   CalendarService calendarService = di.dependency();
-  Future<List<User>> getUser() async {
+  Future<List<User>> getUserList() async {
     final result = await rest.get("user");
     return (result as List).map((e) => User.fromJson(e)).toList();
   }
 
   Future<User> createUser({User user}) async {
-    final userInfo = await rest.post("user/create", data: user);
-    final calendarInfo = await calendarService.createCalendar(id: userInfo.id);
-    //Update user with created calendar
-    //Need to do validation to ensure the email is unique.
-    //return User.fromJson(result);
+    final userInfo = await rest.post("user/", data: user.toJson());
+    final tempUser = User.fromJson(userInfo);
+    Calendar newCalendar = Calendar(
+        calendarName: "Calendar 1",
+        color: Colors.blue[50],
+        description: "This is a calendar.",
+        eventList: [],
+        membersId: [],
+        ownerId: "${tempUser.userId}",
+        accessibility: "Editable");
+    final calendarInfo = await calendarService.createCalendar(
+        id: tempUser.userId, data: newCalendar);
+
+    print(calendarInfo);
+    return User.fromJson(userInfo);
   }
 
-<<<<<<< HEAD
-  Future<User> updateUser() async {}
-=======
+  Future<User> updateUser({User user}) async {
+    final userInfo = await rest.patch("user/${user.userId}");
+    return User.fromJson(userInfo);
+  }
+
   Future<User> updateUserProfile(
       {String id, String a, String b, int c, String d}) async {
     final result = await rest.patch('user/$id',
@@ -35,5 +48,4 @@ class UserServiceRest implements UserService {
     final result = await rest.patch('user/$id', data: {'password': a});
     return User.fromJson(result);
   }
->>>>>>> origin/backend-weikok
 }

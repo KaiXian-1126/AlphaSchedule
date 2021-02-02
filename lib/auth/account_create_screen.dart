@@ -28,7 +28,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
   final _passwordFormKey = GlobalKey<FormState>();
   final _confirmpasswordFormKey = GlobalKey<FormState>();
   List _genderDropDown = ['Male', 'Female'];
-  UserService dependency = di.dependency();
+  UserService userService = di.dependency();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -214,27 +214,19 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                       _phoneFormKey.currentState.save();
                       _passwordFormKey.currentState.save();
                       _confirmpasswordFormKey.currentState.save();
-                      print(username + uemail + uphone + upassword);
-                      dependency.createUser(
-                          user: User(
-                              userId: null,
-                              name: username,
-                              email: uemail,
-                              password: upassword,
-                              phone: uphone,
-                              gender: widget._data.gender,
-                              calendarList: [
-                            Calendar(
-                              calendarName: "Calendar 1",
-                              description: "This is a Calendar",
-                              color: Colors.blue[50],
-                              eventList: [],
-                              members: [],
-                              accessibility: "View Only",
-                            )
-                          ]));
-                      // Navigator.pop(context, mockUsers);
-                      Navigator.popAndPushNamed(context, loginRoute);
+
+                      userService.createUser(
+                        user: User(
+                          name: username,
+                          email: uemail,
+                          password: upassword,
+                          phone: uphone,
+                          gender: widget._data.gender,
+                          calendarList: [],
+                          collaboratorCalendarList: [],
+                        ),
+                      );
+                      //Navigator.popAndPushNamed(context, loginRoute);
                     }
                   }
                 }

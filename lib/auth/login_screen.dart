@@ -2,7 +2,8 @@ import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
-import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/models/user_mock.dart';
+import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,7 @@ class _LoginScreen extends State<LoginScreen> {
   bool validated = true;
 
   User user;
-  UserServiceMock dependency = di.dependency();
+  UserService dependency = di.dependency();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +104,7 @@ class _LoginScreen extends State<LoginScreen> {
                       onPressed: () {
                         if (_nameFormKey.currentState.validate()) {
                           if (_passwordFormKey.currentState.validate()) {
-                            final userList = dependency.getUserList();
+                            /*final userList = dependency.getUserList();
                             if (userList != null) {
                               for (int i = 0; i < userList.length; i++) {
                                 if (userList[i].name == nameController.text &&
@@ -122,7 +123,7 @@ class _LoginScreen extends State<LoginScreen> {
                                   setState(() {});
                                 }
                               }
-                            }
+                            }*/
                           }
                         }
                       },

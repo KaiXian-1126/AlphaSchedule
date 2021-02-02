@@ -1,4 +1,4 @@
-import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/models/user_mock.dart';
 import 'package:flutter/material.dart';
 import 'Calendar.dart';
 import 'Event.dart';
@@ -47,31 +47,31 @@ List<User> mockUsers = [
 ];
 List<Calendar> calendar = [
   Calendar(
-      calendarId: 1,
+      calendarId: "1",
       calendarName: "Calendar 1",
       description: "This is Calendar 1",
       color: Colors.blue[50],
       eventList: eventList1,
       accessibility: "View Only",
-      members: calendarMembers),
+      membersId: calendarMembers),
   Calendar(
-      calendarId: 2,
+      calendarId: "2",
       calendarName: "Calendar 2",
       description: "This is Calendar 2",
       color: Colors.blue[50],
       eventList: eventList2,
       accessibility: "Editable",
-      members: calendarMembers),
+      membersId: calendarMembers),
   Calendar(
-      calendarId: 3,
+      calendarId: "3",
       calendarName: "Calendar 3",
       description: "This is Calendar 3",
       color: Colors.blue[50],
       eventList: eventList3,
       accessibility: "Editable",
-      members: calendarMembers),
+      membersId: calendarMembers),
   Calendar(
-      calendarId: 4,
+      calendarId: "4",
       calendarName: "Calendar 4",
       description: "This is Calendar 4",
       color: Colors.blue[50],
@@ -85,7 +85,7 @@ List<Calendar> calendar = [
             description: "This is a description")
       ],
       accessibility: "View Only",
-      members: calendarMembers)
+      membersId: calendarMembers)
 ];
 List<Event> eventList1 = [
   Event(

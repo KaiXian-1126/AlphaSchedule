@@ -1,14 +1,15 @@
+//This document is just created to fulfil the mock data requirement
 import 'package:alpha_schedule/models/Calendar.dart';
 
 class User {
-  String userId;
+  int userId;
   String name;
   String email;
   String password;
   String phone;
   String gender;
-  List calendarList;
-  List collaboratorCalendarList;
+  List<Calendar> calendarList;
+  List<Calendar> collaboratorCalendarList;
   User(
       {this.userId,
       this.name,
