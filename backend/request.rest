@@ -1,0 +1,75 @@
+@baseUrl = http://localhost:5001/map-deliver4/us-central1/api
+### Create a new calendar
+POST {{baseUrl}}/calendar/create/7pOaeTtEloSzEMxBDh95
+Content-Type: application/json
+
+{
+    "calendarName": "Calendar Name",
+    "description" : "This is a calendar",
+    "color" : "Colors.blue[50]",
+    "eventList": [],
+    "accessibility": "View Only",
+    "owner": "",
+    "members": []
+}
+
+### Get calendar by id
+GET {{baseUrl}}/calendar/get/HUyJoFxpBFYSWI564P1Y
+
+
+### Get calendar list by userid
+GET {{baseUrl}}/calendar/getList/qjoFiAZkIXKa2aYCAJNO
+
+### Delete the calendar
+DELETE {{baseUrl}}/calendar/delete/PUFQmJ6uiASYrySOvhrh
+
+### Create a new user
+POST {{baseUrl}}/user/create
+Content-Type: application/json
+
+{
+    "name": "Tok Kai Xian",
+    "email" : "kaixianp@gmail.com",
+    "phone" : "01113005114",
+    "gender": "Male",
+    "password": "123",
+    "calendarList": [""],
+    "collaboratorCalendarList": []
+}
+
+### Create a new event
+POST {{baseUrl}}/event/create
+Content-Type: application/json
+
+{
+    "eventName": "Event Name",
+    "calendar" : "DateTime(2021, 1, 12)",
+    "startTime" : "TimeOfDay(hour: 9, minute: 36)",
+    "endTime": "TimeOfDay(hour: 16, minute: 44)",
+    "description": "This is a description"
+}
+
+### Update a calendar
+PATCH {{baseUrl}}/calendar/update/69faontlu1Im268Im7wQ
+Content-Type: application/json
+
+{
+    "calendarName": "Calendar 2",
+    "description" : "This is a calendar 2",
+    "color" : "Colors.green[50]",
+    "eventList": [],
+    "accessibility": "Edit Only",
+    "owner": ""
+}
+
+### Add colaborator
+
+PATCH {{baseUrl}}/calendar/add/69faontlu1Im268Im7wQ/aczgfR860avKrcbtzQ8u
+
+### Delete colaborator
+
+PATCH {{baseUrl}}/calendar/delete/jsHTixTflXWkFCEEYWCs/AYYPYkxsWT3ZBrxWK9Fe
+
+
+
+
