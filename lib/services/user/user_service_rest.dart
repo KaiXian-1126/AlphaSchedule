@@ -32,7 +32,7 @@ class UserServiceRest implements UserService {
         ownerId: "${tempUser.userId}",
         accessibility: "Editable");
     await calendarService.createCalendar(
-        id: tempUser.userId, data: newCalendar);
+        id: tempUser.userId.toString(), data: newCalendar);
     return User.fromJson(userInfo);
   }
 

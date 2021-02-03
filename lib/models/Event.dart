@@ -42,7 +42,7 @@ class Event {
             startTime: json['startTime'],
             endTime: json['endTime'],
             description: json['description']);
-  Map<String, dynamic> toJson(Event e) => {
+  Map<String, dynamic> toJson() => {
         "id": eventId,
         "eventName": eventName,
         "calendar": "$calendar",

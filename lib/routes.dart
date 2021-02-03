@@ -3,7 +3,7 @@ import 'package:alpha_schedule/auth/login_screen.dart';
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/landing/welcome_screen.dart';
-import 'package:alpha_schedule/models/mockdata.dart';
+
 import 'package:alpha_schedule/profile/event/add_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/calendar_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/calendar_create_screen.dart';
