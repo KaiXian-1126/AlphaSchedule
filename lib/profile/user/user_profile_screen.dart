@@ -1,10 +1,11 @@
+import 'package:alpha_schedule/models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../models/mockdata.dart';
 
 class ProfileScreen extends StatefulWidget {
-  final user;
-  ProfileScreen(this.user);
+  ProfileScreen();
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -13,12 +14,13 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<ValueNotifier<User>>(context).value;
     return Scaffold(
         appBar: AppBar(
           title: Text("My profile"),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context, widget.user),
+            onPressed: () => Navigator.pop(context, user),
           ),
           backgroundColor: Colors.blue,
         ),
@@ -49,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Container(
                       margin: EdgeInsets.only(top: 30),
                       child: Text(
-                        "${widget.user.name}",
+                        "${user.name}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
@@ -63,19 +65,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   ListTile(
-                      title: Text("Email: ${widget.user.email}",
+                      title: Text("Email: ${user.email}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ))),
                   ListTile(
-                      title: Text("Phone: ${widget.user.phone}",
+                      title: Text("Phone: ${user.phone}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ))),
                   ListTile(
-                      title: Text("Gender: ${widget.user.gender}",
+                      title: Text("Gender: ${user.gender}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -91,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () async {
                       final response = await Navigator.pushNamed(
                           context, passwordEditRoute,
-                          arguments: widget.user);
+                          arguments: user);
                       if (response != null) {
                         setState(() {});
                         _alertbox(context);
@@ -109,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onPressed: () async {
                         final response = await Navigator.pushNamed(
                             context, profileEditRoute,
-                            arguments: widget.user);
+                            arguments: user);
                         if (response != null) {
                           setState(() {});
                           _alertbox(context);

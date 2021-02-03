@@ -22,7 +22,6 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
   String calendarDescription;
   List<Color> _colorTheme = [Colors.blue[50], Colors.green[50]];
   Color _currentColor = Colors.blue[50];
-  //TextEditingController calendarNameController = TextEditingController(), descriptionController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   CalendarService calendarDependency = di.dependency();
   Widget _buildCalendarName() {
