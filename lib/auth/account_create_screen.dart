@@ -1,5 +1,7 @@
 import 'package:alpha_schedule/models/Calendar.dart';
-import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/models/user_mock.dart';
+//import 'package:alpha_schedule/models/User.dart';
+
 import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';

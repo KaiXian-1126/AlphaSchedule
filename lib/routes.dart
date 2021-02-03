@@ -31,10 +31,10 @@ Route<dynamic> createRoute(settings) {
       return MaterialPageRoute(
         builder: (context) => WelcomeScreen(),
       );
-    case homeRoute:
-      return MaterialPageRoute(
-        builder: (context) => DrawerScreen(user: settings.arguments),
-      );
+    //   case homeRoute:
+    //     return MaterialPageRoute(
+    //       builder: (context) => DrawerScreen(user: settings.arguments),
+    //     );
     //Auth routes
     case accountCreateRoute:
       return MaterialPageRoute(

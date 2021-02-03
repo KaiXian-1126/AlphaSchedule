@@ -1,4 +1,6 @@
-import 'package:alpha_schedule/models/User.dart';
+//import 'package:alpha_schedule/models/user.dart';
+
+import 'package:alpha_schedule/models/user_mock.dart';
 
 abstract class UserService {
   Future<List<User>> getUserList();
