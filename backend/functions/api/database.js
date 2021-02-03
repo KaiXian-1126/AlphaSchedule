@@ -58,6 +58,7 @@ class Database {
 
         return { id }
     }
+
 }
 
 module.exports = new Database();

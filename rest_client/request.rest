@@ -1,9 +1,8 @@
-//@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
+@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
 //@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
 //@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
-@baseUrl = https://us-central1-wk-backend-firebase-alpha.cloudfunctions.net/api
-### Create a new calendar
-POST {{baseUrl}}/calendar/create/CQzaEvvTaXud458aKQyb
+### Create a new calendar with user id
+POST {{baseUrl}}/calendar/aK2ek3whHhUIYERtxc6k
 Content-Type: application/json
 
 {
@@ -12,30 +11,36 @@ Content-Type: application/json
     "color" : "Colors.blue[50]",
     "eventList": [],
     "accessibility": "View Only",
-    "owner": "",
-    "members": []
+    "ownersId": "",
+    "membersId": []
 }
 
 ### Get calendar by id
-GET {{baseUrl}}/calendar/get/9gxEEO1kZYlFQOyxsur0
+GET {{baseUrl}}/calendar/v0AUriLx5oqmqYoI04li
 
 ### Get calendar list by userid
-GET {{baseUrl}}/calendar/getList/qjoFiAZkIXKa2aYCAJNO
+GET {{baseUrl}}/calendar/getCalendarList/6ahENgv6bTMeG6pqysWQ
+
+### Get collaborator calendar list by userid
+GET {{baseUrl}}/calendar/getCollaboratorCalendarList/1SZirlKOZmumW07Z29h8
 
 ### Delete the calendar
-DELETE {{baseUrl}}/calendar/delete/PUFQmJ6uiASYrySOvhrh
+DELETE {{baseUrl}}/calendar/pZi1YqxFGOy0Nbmi2K99
+
+### Get calendar members by calendar id
+GET {{baseUrl}}/calendar/getCalendarMembers/SqTYznbGvnkKFPXlfTME
 
 ### Create a new user
-POST {{baseUrl}}/user/create
+POST {{baseUrl}}/user
 Content-Type: application/json
 
 {
-    "name": "Tok Kai Xian",
+    "name": "Cheng Shin Wei",
     "email" : "kaixianp@gmail.com",
     "phone" : "01113005114",
     "gender": "Male",
     "password": "123",
-    "calendarList": [""],
+    "calendarList": [],
     "collaboratorCalendarList": []
 }
 
@@ -43,7 +48,7 @@ Content-Type: application/json
 GET {{baseUrl}}/user
 
 ### Create a new event
-POST {{baseUrl}}/event/create
+POST {{baseUrl}}/event
 Content-Type: application/json
 
 {

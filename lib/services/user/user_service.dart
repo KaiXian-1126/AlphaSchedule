@@ -1,8 +1,10 @@
 import 'package:alpha_schedule/models/User.dart';
 
-abstract class UserServive {
-  Future<List<User>> getUser();
-  Future<User> createUser();
-  Future<User> updateUserProfile();
-  Future<User> updateUserPassword();
+abstract class UserService {
+  Future<List<User>> getUserList();
+  Future<User> getUser({String id});
+  Future<User> createUser({User user});
+  Future<User> updateUserProfile(
+      {String id, String a, String b, int c, String d});
+  Future<User> updateUserPassword({String id, String a});
 }

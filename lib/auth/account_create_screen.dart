@@ -1,21 +1,22 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
 class AccountCreateScreen extends StatefulWidget {
-  final _data;
-  AccountCreateScreen(this._data);
+  AccountCreateScreen();
 
   @override
   _AccountCreateScreen createState() => _AccountCreateScreen();
 }
 
 class _AccountCreateScreen extends State<AccountCreateScreen> {
-  String username, uemail, uphone, upassword, ugender;
+  String username, uemail, uphone, upassword, ugender = "Male";
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
@@ -27,7 +28,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
   final _passwordFormKey = GlobalKey<FormState>();
   final _confirmpasswordFormKey = GlobalKey<FormState>();
   List _genderDropDown = ['Male', 'Female'];
-  UserServiceMock dependency = di.dependency();
+  UserService userService = di.dependency();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -135,9 +136,8 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                 elevation: 2,
                 icon: Icon(Icons.arrow_drop_down),
                 isExpanded: true,
-                value: widget._data.gender,
-                onChanged: (value) =>
-                    setState(() => widget._data.gender = value),
+                value: ugender,
+                onChanged: (value) => setState(() => ugender = value),
                 items: _genderDropDown.map((value) {
                   return DropdownMenuItem(
                     value: value,
@@ -201,7 +201,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
         bottomNavigationBar: BuildFlatButton(
           text: 'Sign up',
           color: Colors.black,
-          onPressedCallback: () {
+          onPressedCallback: () async {
             // form validation
             if (_nameFormKey.currentState.validate()) {
               if (_emailFormKey.currentState.validate()) {
@@ -213,26 +213,18 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                       _phoneFormKey.currentState.save();
                       _passwordFormKey.currentState.save();
                       _confirmpasswordFormKey.currentState.save();
-                      print(username + uemail + uphone + upassword);
-                      dependency.createUser(
-                          user: User(
-                              userId: null,
-                              name: username,
-                              email: uemail,
-                              password: upassword,
-                              phone: uphone,
-                              gender: widget._data.gender,
-                              calendarList: [
-                            Calendar(
-                              calendarName: "Calendar 1",
-                              description: "This is a Calendar",
-                              color: Colors.blue[50],
-                              eventList: [],
-                              members: [],
-                              accessibility: "View Only",
-                            )
-                          ]));
-                      // Navigator.pop(context, mockUsers);
+
+                      await userService.createUser(
+                        user: User(
+                          name: username,
+                          email: uemail,
+                          password: upassword,
+                          phone: uphone,
+                          gender: ugender,
+                          calendarList: [],
+                          collaboratorCalendarList: [],
+                        ),
+                      );
                       Navigator.popAndPushNamed(context, loginRoute);
                     }
                   }

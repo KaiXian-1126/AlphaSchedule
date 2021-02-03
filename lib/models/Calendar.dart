@@ -1,14 +1,16 @@
 import 'package:alpha_schedule/models/Event.dart';
-import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/models/user_mock.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Calendar {
-  int calendarId;
+  String calendarId;
   String calendarName;
   String description;
   Color color;
-  List<Event> eventList;
-  List<User> members;
+  List eventList;
+  String ownerId;
+  List membersId;
   String accessibility;
   Calendar({
     this.calendarId,
@@ -16,7 +18,30 @@ class Calendar {
     this.description,
     this.color,
     this.eventList,
-    this.members,
+    this.ownerId,
+    this.membersId,
     this.accessibility = "View Only",
   });
+  Calendar.fromJson(Map<String, dynamic> json)
+      : this(
+            calendarId: json['id'],
+            calendarName: json['calendarName'],
+            description: json['description'],
+            color: json['color'] == "Light Blue"
+                ? Colors.blue[50]
+                : Colors.green[50],
+            eventList: json['eventList'],
+            ownerId: json['owner'],
+            membersId: json['members'],
+            accessibility: json['accessibility']);
+  Map<String, dynamic> toJson() => {
+        "id": calendarId,
+        "calendarName": calendarName,
+        "description": description,
+        "color": color == Colors.blue[50] ? "Light Blue" : "Light Green",
+        "eventList": eventList,
+        "owner": ownerId,
+        "members": membersId,
+        "accessibility": accessibility
+      };
 }

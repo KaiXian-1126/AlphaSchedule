@@ -1,14 +1,11 @@
 import 'package:alpha_schedule/models/Calendar.dart';
-import 'package:alpha_schedule/models/Event.dart';
+import 'package:alpha_schedule/models/User.dart';
 
 abstract class CalendarService {
-  Future<List<Calendar>> getCalendarList();
-  Future<Calendar> getCalendar();
+  Future<Calendar> createCalendar({String id, Calendar data});
+  Future<List<Calendar>> getCalendarList({User user});
+  Future<List<Calendar>> getCollaboratorCalendarList({User user});
+  Future<Calendar> getCalendar({String cid});
   Future<Calendar> updateCalendar();
   Future deleteCalendar();
-  Future<List<Event>> getEventList();
-  Future<Event> getEvent();
-  Future<Event> addEvent();
-  Future<Event> updateEvent();
-  Future deleteEvent();
 }

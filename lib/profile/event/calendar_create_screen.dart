@@ -1,5 +1,9 @@
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service.dart';
+import 'package:alpha_schedule/services/user/user_service.dart';
 
 import 'package:flutter/material.dart';
 
@@ -18,7 +22,7 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
   Color _currentColor = Colors.blue[50];
   //TextEditingController calendarNameController = TextEditingController(), descriptionController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
-
+  CalendarService calendarDependency = di.dependency();
   Widget _buildCalendarName() {
     return Container(
       margin: EdgeInsets.only(bottom: 25),
@@ -122,15 +126,36 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                           'Save',
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formkey.currentState.validate()) {
                             _formkey.currentState.save();
+
+                            /* Mock Calendar
                             widget.calendar.add(Calendar(
                                 calendarName: calendarName,
                                 description: calendarDescription,
                                 color: _currentColor,
                                 eventList: [],
-                                members: []));
+                                membersId: []));
+                            */
+
+                            //Mock to get a user/////////////////////////
+                            UserService mockDependency = di.dependency();
+                            User mockUser = await mockDependency.getUser(
+                                id: '7lJMgJy0yBlNsxy4BiIy');
+                            /////////////////////////////////////////////
+                            Calendar newCalendar = Calendar(
+                                calendarName: calendarName,
+                                description: calendarDescription,
+                                color: _currentColor,
+                                accessibility: "Editable",
+                                ownerId: "",
+                                eventList: [],
+                                membersId: []);
+                            final calendar =
+                                await calendarDependency.createCalendar(
+                                    id: "${mockUser.userId}",
+                                    data: newCalendar);
                             Navigator.pop(context);
                           }
                         },
