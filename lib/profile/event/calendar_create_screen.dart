@@ -131,21 +131,10 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                         onPressed: () async {
                           if (_formkey.currentState.validate()) {
                             _formkey.currentState.save();
-
-                            /* Mock Calendar
-                            widget.calendar.add(Calendar(
-                                calendarName: calendarName,
-                                description: calendarDescription,
-                                color: _currentColor,
-                                eventList: [],
-                                membersId: []));
-                            */
-
-                            //Mock to get a user/////////////////////////
-                            User user =
-                                Provider.of<ValueNotifier<User>>(context).value;
-
-                            /////////////////////////////////////////////
+                            User user = Provider.of<ValueNotifier<User>>(
+                                    context,
+                                    listen: false)
+                                .value;
                             Calendar newCalendar = Calendar(
                                 calendarName: calendarName,
                                 description: calendarDescription,
