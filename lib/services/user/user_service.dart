@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import 'package:alpha_schedule/models/user.dart';
-=======
 //import 'package:alpha_schedule/models/user.dart';
 
 import 'package:alpha_schedule/models/User.dart';
->>>>>>> remotes/origin/backend-kaixian
 
 abstract class UserService {
   Future<List<User>> getUserList();

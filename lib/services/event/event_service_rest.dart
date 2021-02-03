@@ -21,7 +21,7 @@ class EventServiceRest implements EventService {
         }
       }
     } else if (list == null) {
-      return eventList;
+      return null;
     } else {
       for (int i = 0; i < eventList.length; i++) {
         if (list[i].calendar.year.toString() == date.year.toString() &&
