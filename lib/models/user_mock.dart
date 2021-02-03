@@ -1,4 +1,3 @@
-//This document is just created to fulfil the mock data requirement
 import 'package:alpha_schedule/models/Calendar.dart';
 
 class User {
@@ -8,8 +7,8 @@ class User {
   String password;
   String phone;
   String gender;
-  List<Calendar> calendarList;
-  List<Calendar> collaboratorCalendarList;
+  List calendarList;
+  List collaboratorCalendarList;
   User(
       {this.userId,
       this.name,

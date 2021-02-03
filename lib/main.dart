@@ -6,13 +6,23 @@ import 'package:provider/provider.dart';
 
 void main() {
   di.init();
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ValueNotifier<User>>(
+          create: (_) => ValueNotifier<User>(null),
+        )
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return ChangeNotifierProvider<ValueNotifier<User>>(
       create: (_) => ValueNotifier<User>(null),
       child: MaterialApp(
@@ -22,6 +32,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+=======
+    return MaterialApp(
+      onGenerateRoute: createRoute,
+      debugShowCheckedModeBanner: false,
+      title: 'AlphaSchedule',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+>>>>>>> remotes/origin/backend-kaixian
       ),
     );
   }

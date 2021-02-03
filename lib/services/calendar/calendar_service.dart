@@ -1,6 +1,5 @@
 import 'package:alpha_schedule/models/Calendar.dart';
-import 'package:alpha_schedule/models/user_mock.dart';
-//import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/models/User.dart';
 
 abstract class CalendarService {
   Future<Calendar> createCalendar({String id, Calendar data});
