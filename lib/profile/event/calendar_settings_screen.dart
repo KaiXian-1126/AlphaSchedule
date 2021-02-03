@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../app/dependencies.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import '../../models/Calendar.dart';
-import '../../models/mockdata.dart';
 
 class CalendarSettingScreen extends StatefulWidget {
   final calender;
@@ -13,6 +14,7 @@ class CalendarSettingScreen extends StatefulWidget {
 class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
   String calendarName;
   String calendarDescription;
+  CalendarService calendarDependency = di.dependency();
 
   Color tempColor, tempColor1;
   List<Color> _colorTheme = [Colors.blue[50], Colors.green[50]];
@@ -130,7 +132,15 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                         widget.calender.color = tempColor;
                       }
 
-                      Navigator.pop(context, widget.calender);
+                      Calendar edittedCalendar = Calendar(
+                          calendarName: widget.calender.calendarName,
+                          description: widget.calender.description,
+                          color: widget.calender.color);
+
+                      // final calendar = await calendarDependency.updateCalendar(
+                      //     id: "${widget.calender.id}", data: edittedCalendar);
+
+                      Navigator.pop(context);
                       print(tempColor);
                       print(tempColor1);
                     }
