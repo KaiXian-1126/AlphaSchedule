@@ -7,6 +7,7 @@ import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CalendarCreateScreen extends StatefulWidget {
   final calendar;
@@ -141,9 +142,9 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                             */
 
                             //Mock to get a user/////////////////////////
-                            UserService mockDependency = di.dependency();
-                            User mockUser = await mockDependency.getUser(
-                                id: '7lJMgJy0yBlNsxy4BiIy');
+                            User user =
+                                Provider.of<ValueNotifier<User>>(context).value;
+
                             /////////////////////////////////////////////
                             Calendar newCalendar = Calendar(
                                 calendarName: calendarName,
@@ -155,8 +156,7 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                                 membersId: []);
                             final calendar =
                                 await calendarDependency.createCalendar(
-                                    id: "${mockUser.userId}",
-                                    data: newCalendar);
+                                    id: "${user.userId}", data: newCalendar);
                             Navigator.pop(context);
                           }
                         },
