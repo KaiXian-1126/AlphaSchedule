@@ -10,8 +10,14 @@ class UserModel {
     get(id) {
         return database.get("user", id);
     }
+    getById(id) {
+        return database.get("user", id);
+    }
     update(id, document) {
         return database.set("user", id, document);
+    }
+    getList() {
+        return database.getList("user");
     }
 }
 

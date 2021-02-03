@@ -1,5 +1,6 @@
 import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/auth/login_screen.dart';
+import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:flutter/material.dart';
 
@@ -34,8 +35,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   text: 'Login',
                   color: Colors.white,
                   onpressedcallback: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.pushNamed(context, loginRoute);
                   },
                 ),
               ),
@@ -47,11 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   text: 'Get Started',
                   color: Colors.white,
                   onpressedcallback: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                AccountCreateScreen(mockData)));
+                    Navigator.pushNamed(context, accountCreateRoute);
                   },
                 ),
               )

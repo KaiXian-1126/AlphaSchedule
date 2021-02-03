@@ -1,5 +1,5 @@
+import 'package:alpha_schedule/models/user_mock.dart';
 import 'package:alpha_schedule/models/mockdata.dart';
-import 'package:alpha_schedule/models/user.dart';
 
 int _nextId = 5;
 

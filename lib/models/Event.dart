@@ -1,8 +1,7 @@
-import 'package:alpha_schedule/models/user.dart';
 import 'package:flutter/material.dart';
 
 class Event {
-  int eventId;
+  String eventId;
   String eventName;
   DateTime calendar;
   TimeOfDay startTime, endTime;
@@ -14,6 +13,7 @@ class Event {
       this.startTime,
       this.endTime,
       this.description});
+  //For front-end used
   String timeToStringConverter(TimeOfDay time) {
     String stringTime = time.toString();
     stringTime = stringTime.substring(10, 15);
@@ -21,7 +21,6 @@ class Event {
       stringTime = "$stringTime PM";
     else
       stringTime = "$stringTime AM";
-    print(stringTime);
     return stringTime;
   }
 
@@ -34,4 +33,21 @@ class Event {
           endTime: from.endTime,
           description: from.description,
         );
+  //How to store the data time and calendar
+  Event.fromJson(Map<String, dynamic> json)
+      : this(
+            eventId: json['id'],
+            eventName: json['eventName'],
+            calendar: json['calendar'],
+            startTime: json['startTime'],
+            endTime: json['endTime'],
+            description: json['description']);
+  Map<String, dynamic> toJson(Event e) => {
+        "id": eventId,
+        "eventName": eventName,
+        "calendar": "$calendar",
+        "startTime": '$startTime',
+        "endTime": "$endTime",
+        "description": description
+      };
 }

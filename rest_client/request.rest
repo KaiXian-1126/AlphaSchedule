@@ -1,0 +1,78 @@
+@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
+//@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
+//@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
+### Create a new calendar with user id
+POST {{baseUrl}}/calendar/aK2ek3whHhUIYERtxc6k
+Content-Type: application/json
+
+{
+    "calendarName": "Calendar Name",
+    "description" : "This is a calendar",
+    "color" : "Colors.blue[50]",
+    "eventList": [],
+    "accessibility": "View Only",
+    "ownersId": "",
+    "membersId": []
+}
+
+### Get calendar by id
+GET {{baseUrl}}/calendar/v0AUriLx5oqmqYoI04li
+
+### Get calendar list by userid
+GET {{baseUrl}}/calendar/getCalendarList/6ahENgv6bTMeG6pqysWQ
+
+### Get collaborator calendar list by userid
+GET {{baseUrl}}/calendar/getCollaboratorCalendarList/1SZirlKOZmumW07Z29h8
+
+### Delete the calendar
+DELETE {{baseUrl}}/calendar/pZi1YqxFGOy0Nbmi2K99
+
+### Get calendar members by calendar id
+GET {{baseUrl}}/calendar/getCalendarMembers/SqTYznbGvnkKFPXlfTME
+
+### Create a new user
+POST {{baseUrl}}/user
+Content-Type: application/json
+
+{
+    "name": "Cheng Shin Wei",
+    "email" : "kaixianp@gmail.com",
+    "phone" : "01113005114",
+    "gender": "Male",
+    "password": "123",
+    "calendarList": [],
+    "collaboratorCalendarList": []
+}
+
+### Get user list
+GET {{baseUrl}}/user
+
+### Create a new event
+POST {{baseUrl}}/event
+Content-Type: application/json
+
+{
+    "eventName": "Event Name",
+    "calendar" : "DateTime(2021, 1, 12)",
+    "startTime" : "TimeOfDay(hour: 9, minute: 36)",
+    "endTime": "TimeOfDay(hour: 16, minute: 44)",
+    "description": "This is a description"
+}
+
+### Get a User list
+GET {{baseUrl}}/user/
+
+### Get a User by Id
+GET {{baseUrl}}/user/jtCjtuOowozN64OyGgXV
+
+### Update the user
+PATCH {{baseUrl}}/user/D2mAeYekIv0JNPtepX65
+Content-Type: application/json
+
+{
+    "name": "Tan Wei Kok",
+    "email": "wktan@graduate.utm.my"
+}
+
+### Delete the user
+DELETE {{baseUrl}}/user/delete/jtCjtuOowozN64OyGgXV

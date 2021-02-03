@@ -1,4 +1,4 @@
-import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/models/user_mock.dart';
 import 'package:flutter/material.dart';
 import 'Calendar.dart';
 import 'Event.dart';
@@ -47,37 +47,37 @@ List<User> mockUsers = [
 ];
 List<Calendar> calendar = [
   Calendar(
-      calendarId: 1,
+      calendarId: "1",
       calendarName: "Calendar 1",
       description: "This is Calendar 1",
       color: Colors.blue[50],
       eventList: eventList1,
       accessibility: "View Only",
-      members: calendarMembers),
+      membersId: calendarMembers),
   Calendar(
-      calendarId: 2,
+      calendarId: "2",
       calendarName: "Calendar 2",
       description: "This is Calendar 2",
       color: Colors.blue[50],
       eventList: eventList2,
       accessibility: "Editable",
-      members: calendarMembers),
+      membersId: calendarMembers),
   Calendar(
-      calendarId: 3,
+      calendarId: "3",
       calendarName: "Calendar 3",
       description: "This is Calendar 3",
       color: Colors.blue[50],
       eventList: eventList3,
       accessibility: "Editable",
-      members: calendarMembers),
+      membersId: calendarMembers),
   Calendar(
-      calendarId: 4,
+      calendarId: "4",
       calendarName: "Calendar 4",
       description: "This is Calendar 4",
       color: Colors.blue[50],
       eventList: [
         Event(
-            eventId: 1,
+            eventId: "1",
             eventName: "Event1",
             calendar: DateTime(2021, 1, 11),
             startTime: TimeOfDay(hour: 9, minute: 36),
@@ -85,53 +85,53 @@ List<Calendar> calendar = [
             description: "This is a description")
       ],
       accessibility: "View Only",
-      members: calendarMembers)
+      membersId: calendarMembers)
 ];
 List<Event> eventList1 = [
   Event(
-      eventId: 1,
+      eventId: "1",
       eventName: "Event1",
       calendar: DateTime(2021, 1, 11),
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
   Event(
-      eventId: 2,
+      eventId: "2",
       eventName: "Event2",
       calendar: DateTime(2021, 1, 11),
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
   Event(
-      eventId: 3,
+      eventId: "3",
       eventName: "Event3",
       calendar: DateTime(2021, 1, 12),
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
   Event(
-      eventId: 4,
+      eventId: "4",
       eventName: "Event4",
       calendar: DateTime(2021, 1, 12),
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
   Event(
-      eventId: 5,
+      eventId: "5",
       eventName: "Event5",
       calendar: DateTime(2021, 1, 30),
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
   Event(
-      eventId: 6,
+      eventId: "6",
       eventName: "Event6",
       calendar: DateTime(2021, 1, 16),
       startTime: TimeOfDay(hour: 8, minute: 20),
       endTime: TimeOfDay(hour: 9, minute: 30),
       description: "This is a description"),
   Event(
-      eventId: 7,
+      eventId: "7",
       eventName: "Event7",
       calendar: DateTime(2021, 1, 30),
       startTime: TimeOfDay(hour: 7, minute: 00),
@@ -140,21 +140,21 @@ List<Event> eventList1 = [
 ];
 List<Event> eventList2 = [
   Event(
-      eventId: 6,
+      eventId: "6",
       eventName: "Event6",
       calendar: DateTime(2021, 1, 11),
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
   Event(
-      eventId: 7,
+      eventId: "7",
       eventName: "Event7",
       calendar: DateTime(2021, 1, 11),
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
   Event(
-      eventId: 8,
+      eventId: "8",
       eventName: "Event8",
       calendar: DateTime(2021, 1, 12),
       startTime: TimeOfDay(hour: 9, minute: 36),
@@ -163,14 +163,14 @@ List<Event> eventList2 = [
 ];
 List<Event> eventList3 = [
   Event(
-      eventId: 9,
+      eventId: "9",
       eventName: "Event9",
       calendar: DateTime(2021, 1, 11),
       startTime: TimeOfDay(hour: 9, minute: 36),
       endTime: TimeOfDay(hour: 16, minute: 44),
       description: "This is a description"),
   Event(
-      eventId: 10,
+      eventId: "10",
       eventName: "Event10",
       calendar: DateTime(2021, 1, 11),
       startTime: TimeOfDay(hour: 9, minute: 36),
