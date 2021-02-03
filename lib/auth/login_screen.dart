@@ -14,9 +14,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final _nameFormKey = GlobalKey<FormState>();
+  final _emailFormKey = GlobalKey<FormState>();
   final _passwordFormKey = GlobalKey<FormState>();
   bool validated = true;
 
@@ -42,20 +42,22 @@ class _LoginScreen extends State<LoginScreen> {
                 SizedBox(
                   height: 40,
                 ),
-                BuildText("User Name"),
+                BuildText("User Email"),
                 Container(
                     padding: EdgeInsets.all(10),
                     child: Form(
-                      key: _nameFormKey,
+                      key: _emailFormKey,
                       child: TextFormField(
                           keyboardType: TextInputType.name,
-                          controller: nameController,
+                          controller: emailController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
-                              return "User Name cannot be empty";
+                              return "User Email cannot be empty";
+                            } else if (!validateEmail(value)) {
+                              return "Not a valid email";
                             } else {
                               return null;
                             }
@@ -103,12 +105,12 @@ class _LoginScreen extends State<LoginScreen> {
                       color: Colors.black,
                       child: Text('Login'),
                       onPressed: () async {
-                        if (_nameFormKey.currentState.validate()) {
+                        if (_emailFormKey.currentState.validate()) {
                           if (_passwordFormKey.currentState.validate()) {
                             final userList = await dependency.getUserList();
                             if (userList != null) {
                               for (int i = 0; i < userList.length; i++) {
-                                if (userList[i].name == nameController.text &&
+                                if (userList[i].email == emailController.text &&
                                     userList[i].password ==
                                         passwordController.text) {
                                   validated = true;
@@ -152,6 +154,11 @@ class _LoginScreen extends State<LoginScreen> {
               ],
             )));
   }
+}
+
+bool validateEmail(String email) {
+  RegExp validation = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+  return (!validation.hasMatch(email)) ? false : true;
 }
 
 class BuildText extends StatelessWidget {
