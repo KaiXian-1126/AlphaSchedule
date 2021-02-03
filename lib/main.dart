@@ -1,6 +1,5 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/models/user.dart';
-import 'package:alpha_schedule/profile/home_screen.dart';
 import 'package:alpha_schedule/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +16,12 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<ValueNotifier<User>>(
       create: (_) => ValueNotifier<User>(null),
       child: MaterialApp(
-        // onGenerateRoute: createRoute,
+        onGenerateRoute: createRoute,
         debugShowCheckedModeBanner: false,
         title: 'AlphaSchedule',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: DrawerScreen(),
       ),
     );
   }
