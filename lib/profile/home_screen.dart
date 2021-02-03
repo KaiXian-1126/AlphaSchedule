@@ -50,17 +50,19 @@ class _DrawerScreenState extends State<DrawerScreen> {
       ),
       body: ListView.separated(
           //Call event data service
-          itemCount: 1 +
+          itemCount:
+              1 /*+
               eventDependency
                   .getEventList(widget.user.calendarList[currentCalendarIndex],
                       _controller.selectedDay, time)
-                  .length,
+                  .length*/
+          ,
           separatorBuilder: (_, index) => Divider(),
           itemBuilder: (_, index) {
-            List<Event> tempCalendarList = dependency.getEventList(
+            /*List<Event> tempCalendarList = dependency.getEventList(
                 widget.user.calendarList[currentCalendarIndex],
                 _controller.selectedDay,
-                time);
+                time);*/
             if (index == 0) {
               return TableCalendar(
                 availableCalendarFormats: {CalendarFormat.month: 'Month'},
@@ -96,12 +98,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
             } else {
               return ListTile(
                   title: Text(
-                      dependency.getEventName(tempCalendarList[index - 1])),
+                      /*dependency.getEventName(tempCalendarList[index - 1])*/
+                      "Event Test"),
                   onTap: () async {
                     final respond = await Navigator.pushNamed(
-                        context, eventDetailsRoute,
-                        arguments:
-                            dependency.getEvent(tempCalendarList[index - 1]));
+                      context,
+                      eventDetailsRoute,
+                      /*arguments:
+                            dependency.getEvent(tempCalendarList[index - 1])*/
+                    );
                     if (respond != null) {
                       setState(() {});
                     }
@@ -165,7 +170,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               height: 250,
               child: ListView.separated(
                 padding: EdgeInsets.zero,
-                itemCount: dependency.getCalendarList(widget.user).length,
+                itemCount: calendarList.length,
                 separatorBuilder: (context, index) =>
                     Divider(color: Colors.black),
                 itemBuilder: (context, index) => ListTile(
