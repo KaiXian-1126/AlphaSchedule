@@ -33,9 +33,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
   ///////////////////////
 
   //Required User Information
-  List calendarList, collaboratorCalendarList, eventList;
+  List calendarList, collaboratorCalendarList, eventList, sian;
   getRequiredUserInformation() async {
     calendarList = await calendarDependency.getCalendarList(user: widget.user);
+    sian = calendarList;
+
     collaboratorCalendarList =
         await calendarDependency.getCollaboratorCalendarList(user: widget.user);
     eventList = [];
@@ -50,9 +52,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     getRequiredUserInformation();
+
     //final user = Provider.of<ValueNotifier<User>>(context).value;
     DateTime time = DateTime.now();
-    print("calendar name: ${calendarList[currentCalendarIndex].calendarName}");
+    print("calendar name: ${sian.length}");
     if (calendarList == null ||
         collaboratorCalendarList == null ||
         eventList == null) {
