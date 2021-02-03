@@ -59,7 +59,7 @@ async function getCalendarList(req, res, next) {
         const calendarListId = user.calendarList;
         var calendarList = [];
         for (i = 0; i < calendarListId.length; i++) {
-            const calendar = await calendarModel.get(calendarListId[i]);
+            const calendar = calendarModel.get(calendarListId[i]);
             if (!calendar) return res.sendStatus(404);
             calendarList.push(calendar);
         }
@@ -90,7 +90,7 @@ async function deleteCalendar(req, res, next) {
         const calendarCollaboratorsId = calendar.members;
 
         for (i = 0; i < calendarCollaboratorsId.length; i++) {
-            const calendarCollaborator = await userModel.get(calendarCollaboratorsId[i]);
+            const calendarCollaborator = userModel.get(calendarCollaboratorsId[i]);
             if (!calendarCollaborator) return res.sendStatus(404);
             for (j = 0; j < calendarCollaborator.collaboratorCalendarList.length; j++) {
                 if (calendarCollaborator.collaboratorCalendarList[j] === calendarid) {
