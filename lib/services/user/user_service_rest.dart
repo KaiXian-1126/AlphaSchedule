@@ -1,6 +1,7 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/models/Calendar.dart';
-import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/models/user_mock.dart';
+//import 'package:alpha_schedule/models/user.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/rest_service.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
@@ -32,7 +33,7 @@ class UserServiceRest implements UserService {
         ownerId: "${tempUser.userId}",
         accessibility: "Editable");
     await calendarService.createCalendar(
-        id: tempUser.userId, data: newCalendar);
+        id: tempUser.userId.toString(), data: newCalendar);
     return User.fromJson(userInfo);
   }
 
