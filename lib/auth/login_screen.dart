@@ -25,8 +25,8 @@ class _LoginScreen extends State<LoginScreen> {
   UserService dependency = di.dependency();
   @override
   Widget build(BuildContext context) {
-    print("print: ${Provider.of<ValueNotifier<User>>(context).value}");
-    final _user = Provider.of<ValueNotifier<User>>(context);
+    //print("print: ${Provider.of<ValueNotifier<User>>(context).value}");
+    //final _user = Provider.of<ValueNotifier<User>>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text('Login With Your Account'),

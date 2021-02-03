@@ -1,5 +1,5 @@
-@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
-//@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
+//@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
+@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
 //@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
 ### Create a new calendar with user id
 POST {{baseUrl}}/calendar/aK2ek3whHhUIYERtxc6k
@@ -19,7 +19,7 @@ Content-Type: application/json
 GET {{baseUrl}}/calendar/v0AUriLx5oqmqYoI04li
 
 ### Get calendar list by userid
-GET {{baseUrl}}/calendar/getCalendarList/6ahENgv6bTMeG6pqysWQ
+GET {{baseUrl}}/calendar/getCalendarList/7lJMgJy0yBlNsxy4BiIy
 
 ### Get collaborator calendar list by userid
 GET {{baseUrl}}/calendar/getCollaboratorCalendarList/1SZirlKOZmumW07Z29h8
