@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
+import 'package:alpha_schedule/models/User.dart';
 
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
@@ -16,8 +15,7 @@ import 'package:alpha_schedule/app/dependencies.dart' as di;
 import '../models/Event.dart';
 
 class DrawerScreen extends StatefulWidget {
-  final user;
-  DrawerScreen({this.user});
+  DrawerScreen();
 
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
@@ -37,22 +35,22 @@ class _DrawerScreenState extends State<DrawerScreen> {
   //Required User Information
   Future<List> futureCalendarList, futureCollaboratorCalendarList;
   List calendarList, collaboratorCalendarList, eventList = [];
-  getRequiredUserInformation() async {
-    futureCalendarList = calendarDependency.getCalendarList(user: widget.user);
+  getRequiredUserInformation(user) async {
+    futureCalendarList = calendarDependency.getCalendarList(user: user);
     futureCollaboratorCalendarList =
-        calendarDependency.getCollaboratorCalendarList(user: widget.user);
+        calendarDependency.getCollaboratorCalendarList(user: user);
   }
 
   @override
   void initState() {
     super.initState();
     _controller = CalendarController();
-    getRequiredUserInformation();
   }
 
   @override
   Widget build(BuildContext context) {
-    //getRequiredUserInformation();
+    final user = Provider.of<ValueNotifier<User>>(context).value;
+    getRequiredUserInformation(user);
     //final user = Provider.of<ValueNotifier<User>>(context).value;
     DateTime time = DateTime.now();
     return FutureBuilder(
@@ -147,7 +145,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   onTap: () async {
                                     final respond = await Navigator.pushNamed(
                                         context, userProfileRoute,
-                                        arguments: widget.user);
+                                        arguments: user);
                                     if (respond != null) {
                                       setState(() {});
                                     }
@@ -163,11 +161,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             Container(
                               margin: EdgeInsets.only(top: 40, left: 25),
                               child: Column(children: <Widget>[
-                                Text("${widget.user.name}\n",
+                                Text("${user.name}\n",
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold)),
-                                Text("${widget.user.email}",
+                                Text("${user.email}",
                                     style: TextStyle(fontSize: 10)),
                               ]),
                             ),
@@ -274,10 +272,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     }
                   } else if (index == 2) {
                     final response = await Navigator.pushNamed(
-                        context, calendarCollaboratorRoute, arguments: [
-                      calendarList[currentCalendarIndex],
-                      widget.user
-                    ]);
+                        context, calendarCollaboratorRoute,
+                        arguments: [calendarList[currentCalendarIndex], user]);
                   } else if (index == 3) {
                     final response = await Navigator.pushNamed(
                         context, eventCreateRoute, arguments: [
