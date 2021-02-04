@@ -52,8 +52,8 @@ class UserServiceRest implements UserService {
     return User.fromJson(result);
   }
 
-  Future<User> updateUserPassword({String id, String a}) async {
-    final result = await rest.patch('user/$id', data: {'password': a});
+  Future<User> updateUserPassword({String id, String password}) async {
+    final result = await rest.patch('user/$id', data: {'password': password});
     return User.fromJson(result);
   }
 }

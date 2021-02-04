@@ -8,5 +8,5 @@ abstract class UserService {
   Future<User> createUser({User user});
   Future<User> updateUserProfile(
       {String id, String name, String email, String phone, String gender});
-  Future<User> updateUserPassword({String id, String a});
+  Future<User> updateUserPassword({String id, String password});
 }
