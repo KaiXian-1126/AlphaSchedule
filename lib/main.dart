@@ -3,6 +3,7 @@ import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/profile/home_screen.dart';
 import 'package:alpha_schedule/routes.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ void main() {
         ChangeNotifierProvider<ValueNotifier<User>>(
           create: (_) => ValueNotifier<User>(null),
         ),
+        // FutureProvider<List<Calendar>>(
+        //     create: (_) => di.dependency<CalendarService>().getCalendarList()),
         ChangeNotifierProvider<ValueNotifier<List<Calendar>>>(
           create: (_) => ValueNotifier<List<Calendar>>(null),
         )
