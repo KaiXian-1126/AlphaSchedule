@@ -1,5 +1,6 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
+import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
 
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
@@ -28,18 +29,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
   CalendarService calendarDependency = di.dependency();
   EventService eventDependency = di.dependency();
 
-  /// later need delete (mock data)////
-  UserService userdependency = di.dependency();
-  ///////////////////////
-
   //Required User Information
   Future<List> futureCalendarList, futureCollaboratorCalendarList;
   List calendarList, collaboratorCalendarList, eventList = [];
-  getRequiredUserInformation(user) async {
-    futureCalendarList = calendarDependency.getCalendarList(user: user);
-    futureCollaboratorCalendarList =
-        calendarDependency.getCollaboratorCalendarList(user: user);
-  }
 
   @override
   void initState() {
@@ -50,11 +42,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<ValueNotifier<User>>(context).value;
-    getRequiredUserInformation(user);
     DateTime time = DateTime.now();
     return FutureBuilder(
-        future:
-            Future.wait([futureCalendarList, futureCollaboratorCalendarList]),
+        future: Future.wait([
+          calendarDependency.getCalendarList(user: user),
+          calendarDependency.getCollaboratorCalendarList(user: user),
+        ]),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             calendarList = snapshot.data[0];
@@ -63,127 +56,115 @@ class _DrawerScreenState extends State<DrawerScreen> {
               appBar: AppBar(
                 title: Text(calendarList[currentCalendarIndex].calendarName),
               ),
-              /*body: Container(
-              child: FutureBuilder(
-            future: eventDependency.getEventList(
-                c: calendarList[currentCalendarIndex],
-                date: _controller.selectedDay,
-                currentTime: time),
-            builder: (context, snapshot) {
-              return ListView.separated(
-                  //Call event data service
-                  itemCount: 1 + snapshot.data.length,
-                  separatorBuilder: (_, index) => Divider(),
-                  itemBuilder: (_, index) {
-                    List<Event> tempCalendarList = snapshot.data;
-                    if (index == 0) {
-                      return TableCalendar(
-                        availableCalendarFormats: {CalendarFormat.month: 'Month'},
-                        calendarController: _controller,
-                        calendarStyle: CalendarStyle(
-                            contentDecoration: BoxDecoration(
-                              color: calendarList[currentCalendarIndex].color,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black54,
-                                  offset: const Offset(
-                                    5.0,
-                                    5.0,
+              body: Container(
+                  child: FutureBuilder(
+                future: eventDependency.getEventList(
+                    c: calendarList[currentCalendarIndex],
+                    date: _controller.selectedDay,
+                    currentTime: time),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.separated(
+                        //Call event data service
+                        itemCount: 1 + snapshot.data.length,
+                        separatorBuilder: (_, index) => Divider(),
+                        itemBuilder: (_, index) {
+                          List<Event> tempCalendarList = snapshot.data;
+                          if (index == 0) {
+                            return TableCalendar(
+                              availableCalendarFormats: {
+                                CalendarFormat.month: 'Month'
+                              },
+                              calendarController: _controller,
+                              calendarStyle: CalendarStyle(
+                                  contentDecoration: BoxDecoration(
+                                    color: calendarList[currentCalendarIndex]
+                                        .color,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black54,
+                                        offset: const Offset(
+                                          5.0,
+                                          5.0,
+                                        ),
+                                        blurRadius: 5.0,
+                                        spreadRadius: 1.0,
+                                      ), //BoxShadow
+                                    ],
                                   ),
-                                  blurRadius: 5.0,
-                                  spreadRadius: 1.0,
-                                ), //BoxShadow
-                              ],
-                            ),
-                            weekendStyle: TextStyle(color: Colors.blue),
-                            selectedColor: Colors.blue[300],
-                            todayColor: Colors.green[300],
-                            selectedStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
-                              color: Colors.white,
-                            )),
-                        onDaySelected: (selectedDay, a, b) {
-                          setState(() {});
-                        },
-                      );
-                    } else {
-                      return ListTile(
-                          title: Text(tempCalendarList[index - 1].eventName),
-                          onTap: () async {
-                            final respond = await Navigator.pushNamed(
-                                context, eventDetailsRoute,
-                                arguments: tempCalendarList[index - 1]);
-                            if (respond != null) {
-                              setState(() {});
-                            }
-                          });
-                    }
-                  });
-            },
-          )),*/
+                                  weekendStyle: TextStyle(color: Colors.blue),
+                                  selectedColor: Colors.blue[300],
+                                  todayColor: Colors.green[300],
+                                  selectedStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0,
+                                    color: Colors.white,
+                                  )),
+                              onDaySelected: (selectedDay, a, b) {
+                                setState(() {});
+                              },
+                            );
+                          } else {
+                            return ListTile(
+                                title:
+                                    Text(tempCalendarList[index - 1].eventName),
+                                onTap: () async {
+                                  final respond = await Navigator.pushNamed(
+                                      context, eventDetailsRoute,
+                                      arguments: tempCalendarList[index - 1]);
+                                  if (respond != null) {
+                                    setState(() {});
+                                  }
+                                });
+                          }
+                        });
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+              )),
               drawer: Drawer(
-                // Add a ListView to the drawer. This ensures the user can scroll
-                // through the options in the drawer if there isn't enough vertical
-                // space to fit everything.
-                child: ListView(
-                  // Important: Remove any padding from the ListView.
-                  padding: EdgeInsets.zero,
-                  children: <Widget>[
-                    DrawerHeader(
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final respond = await Navigator.pushNamed(
-                                        context, userProfileRoute);
-                                    if (respond != null) {
-                                      setState(() {});
-                                    }
-                                  },
-                                  child: CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage('assets/me.jpg'),
-                                    maxRadius: 40,
-                                  ),
-                                ),
+                elevation: 20.0,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                        ),
+                        child: DrawerHeader(
+                          padding: EdgeInsets.only(top: 20, bottom: 0),
+                          margin: EdgeInsets.only(top: 0, bottom: 0),
+                          child: ListTile(
+                            leading: GestureDetector(
+                              onTap: () async {
+                                final respond = await Navigator.pushNamed(
+                                    context, userProfileRoute);
+                                if (respond != null) {
+                                  setState(() {});
+                                }
+                              },
+                              child: CircleAvatar(
+                                backgroundImage: AssetImage('assets/me.jpg'),
+                                maxRadius: 40,
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 40, left: 25),
-                              child: Column(children: <Widget>[
-                                Text("${user.name}\n",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold)),
-                                Text("${user.email}",
-                                    style: TextStyle(fontSize: 10)),
-                              ]),
-                            ),
-                          ],
+                            title: Text("${user.name}\n",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                            subtitle: Text("${user.email}",
+                                style: TextStyle(fontSize: 10)),
+                          ),
                         ),
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    BuildText("Calendar List"),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 30),
-                      height: 250,
-                      child: ListView.separated(
-                        padding: EdgeInsets.zero,
-                        itemCount: calendarList.length,
-                        separatorBuilder: (context, index) =>
-                            Divider(color: Colors.black),
-                        itemBuilder: (context, index) => ListTile(
+                      BuildText("Calendar List"),
+                      Expanded(
+                        child: ListView.separated(
+                          padding: EdgeInsets.zero,
+                          itemCount: calendarList.length,
+                          separatorBuilder: (context, index) =>
+                              Divider(color: Colors.black),
+                          itemBuilder: (context, index) => ListTile(
                             leading: CircleAvatar(
                               backgroundImage:
                                   AssetImage('assets/calendar.png'),
@@ -198,49 +179,90 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             },
                             trailing: OutlineButton(
                               child: Icon(Icons.delete),
-                              onPressed: () {
+                              onPressed: () async {
                                 if (calendarList.length > 1) {
+                                  await calendarDependency.deleteCalendar(
+                                      c: calendarList[index]);
                                   calendarList.removeAt(index);
                                 }
                                 setState(() {});
                               },
-                            )),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    FloatingActionButton(
-                      heroTag: null,
-                      onPressed: () async {
-                        await Navigator.pushNamed(context, calendarCreateRoute,
-                            arguments: calendarList);
-                        setState(() {});
-                      },
-                      child: Icon(Icons.add),
-                    ),
-                    Container(
-                      height: 50,
-                      margin: EdgeInsets.only(top: 30),
-                      child: RaisedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LogoutScreen()));
-                        },
-                        child: Text("Logout",
-                            style: TextStyle(color: Colors.white)),
-                        color: Colors.blue,
+                      BuildText("Shared with me"),
+                      Expanded(
+                        child: ListView.separated(
+                            padding: EdgeInsets.zero,
+                            itemCount: collaboratorCalendarList.length,
+                            separatorBuilder: (context, index) =>
+                                Divider(color: Colors.black),
+                            itemBuilder: (context, index) {
+                              if (index != 0) {
+                                return ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage('assets/calendar.png'),
+                                    maxRadius: 30,
+                                  ),
+                                  title: Text(collaboratorCalendarList[index]
+                                      .calendarName),
+                                  onTap: () {
+                                    setState(() {
+                                      //currentCalendarIndex = index;
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  trailing: OutlineButton(
+                                    child: Icon(Icons.delete),
+                                    onPressed: () async {
+                                      if (collaboratorCalendarList.length > 1) {
+                                        await calendarDependency.deleteCalendar(
+                                            c: collaboratorCalendarList[index]);
+                                        collaboratorCalendarList
+                                            .removeAt(index);
+                                      }
+                                      setState(() {});
+                                    },
+                                  ),
+                                );
+                              } else {
+                                return Center(
+                                    child: Text(
+                                        "No calendar is shared with you."));
+                              }
+                            }),
                       ),
-                    ),
-                  ],
-                ),
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: FloatingActionButton(
+                          heroTag: null,
+                          onPressed: () async {
+                            await Navigator.pushNamed(
+                                context, calendarCreateRoute);
+                            setState(() {});
+                          },
+                          child: Icon(Icons.add),
+                        ),
+                      ),
+                      Container(
+                        height: 50,
+                        margin: EdgeInsets.only(top: 10),
+                        child: RaisedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LogoutScreen()));
+                          },
+                          child: Text("Logout",
+                              style: TextStyle(color: Colors.white)),
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ]),
               ),
-              // floatingActionButton: FloatingActionButton(
-              //     heroTag: null,
-              //     onPressed: () {
-              //       print(user.calendarList.length);
-              //       print(currentCalendarIndex);
-              //       print(user.calendarList[currentCalendarIndex].eventList.length);
-              //     }),
               bottomNavigationBar: BottomNavigationBar(
                 selectedItemColor: Colors.black54,
                 currentIndex: _currentIndex,
@@ -305,6 +327,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             return Scaffold(
               appBar: AppBar(
                 title: Text("Calendar on Loading..."),
+                leading: Container(),
               ),
               body: Center(child: CircularProgressIndicator()),
               bottomNavigationBar: BottomNavigationBar(
@@ -340,13 +363,13 @@ class BuildText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.only(bottom: 50),
+      margin: EdgeInsets.only(top: 15, bottom: 15),
       child: Text(
         text,
         style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            decoration: TextDecoration.underline),
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

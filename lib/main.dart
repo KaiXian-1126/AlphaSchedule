@@ -17,8 +17,8 @@ void main() {
         ChangeNotifierProvider<ValueNotifier<User>>(
           create: (_) => ValueNotifier<User>(null),
         ),
-        ChangeNotifierProvider<ValueNotifier<List<Calendar>>>(
-          create: (_) => ValueNotifier<List<Calendar>>(null),
+        ChangeNotifierProvider<ValueNotifier<Calendar>>(
+          create: (_) => ValueNotifier<Calendar>(null),
         )
       ],
       child: MyApp(),

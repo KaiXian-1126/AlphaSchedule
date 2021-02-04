@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:5001/map-deliver4/us-central1/api
+@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
 ### Create a new calendar
 POST {{baseUrl}}/calendar/create/7pOaeTtEloSzEMxBDh95
 Content-Type: application/json

@@ -9,11 +9,14 @@ class EventServiceRest implements EventService {
 
   Future<List<Event>> getEventList(
       {Calendar c, DateTime date, DateTime currentTime}) async {
-    final result = await rest.get("/calendar/getList/${c.calendarId}");
+    //Get the event information in json form
+    final result = await rest.get("/event/getList/${c.calendarId}");
+    //Get the event information and push to list
     List<Event> list = (result as List).map((e) => Event.fromJson(e)).toList();
+
     List<Event> eventList = [];
     if (date == null) {
-      for (int i = 0; i < list.length; i++) {
+      for (int i = 0; i < result.length; i++) {
         if (list[i].calendar.year.toString() == currentTime.year.toString() &&
             list[i].calendar.month.toString() == currentTime.month.toString() &&
             list[i].calendar.day.toString() == currentTime.day.toString()) {
@@ -31,6 +34,7 @@ class EventServiceRest implements EventService {
         }
       }
     }
+    //Return the event list
     return eventList;
   }
 

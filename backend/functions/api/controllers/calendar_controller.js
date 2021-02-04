@@ -23,7 +23,6 @@ router.patch("/add/:calendarid/:memberid", addColaborator);
 
 router.patch("/delete/:calendarid/:memberid", deleteColaborator);
 
-router
 
 async function createCalendar(req, res, next) {
     const userid = req.params.userid;
@@ -34,6 +33,7 @@ async function createCalendar(req, res, next) {
         const user = await userModel.get(userid);
         if (!user) return res.sendStatus(404);
         //If get user, create calender
+        req.body.ownerId = userid;
         const result = await calendarModel.create(data);
         if (!result) return res.sendStatus(409);
         //Successfully create calender, add the id to user

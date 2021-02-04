@@ -57,8 +57,7 @@ Route<dynamic> createRoute(settings) {
       );
     case calendarCreateRoute:
       return MaterialPageRoute(
-        builder: (context) =>
-            CalendarCreateScreen(calendar: settings.arguments),
+        builder: (context) => CalendarCreateScreen(),
       );
     case calendarSettingsRoute:
       return MaterialPageRoute(

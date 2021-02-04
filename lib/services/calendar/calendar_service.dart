@@ -7,5 +7,5 @@ abstract class CalendarService {
   Future<List<Calendar>> getCollaboratorCalendarList({User user});
   Future<Calendar> getCalendar({String cid});
   Future<Calendar> updateCalendar();
-  Future deleteCalendar();
+  Future deleteCalendar({Calendar c});
 }
