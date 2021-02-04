@@ -40,8 +40,8 @@ class Calendar {
         "description": description,
         "color": color == Colors.blue[50] ? "Light Blue" : "Light Green",
         "eventList": eventList,
-        "owner": ownerId,
-        "members": membersId,
+        "ownerId": ownerId,
+        "membersId": membersId,
         "accessibility": accessibility
       };
 }

@@ -42,6 +42,7 @@ class User {
         'id': userId,
         'name': name,
         'email': email,
+        'phone': phone,
         'gender': gender,
         'password': password,
         'calendarList': calendarList,
