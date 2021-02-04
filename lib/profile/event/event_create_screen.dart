@@ -131,8 +131,8 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                           startTime: eventStartTime,
                           endTime: eventEndTime,
                           description: descController.text);
-                      final event = await eventDependency.createEvent(
-                          id: "${mockCalendar.calendarId}", event: newEvent);
+                      //    final event = await eventDependency.createEvent(
+                      //       id: "${mockCalendar.calendarId}", event: newEvent);
                     }
                     Navigator.pop(
                       context,

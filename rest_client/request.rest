@@ -2,7 +2,11 @@
 @baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
 //@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
 ### Create a new calendar with user id
+<<<<<<< HEAD
 POST {{baseUrl}}/calendar/eHAyvyAtI1pygJXOcQpU
+=======
+POST {{baseUrl}}/calendar/GdsT1dptdKZL1Ji7MW2R
+>>>>>>> remotes/origin/backend-kaixian
 Content-Type: application/json
 
 {
@@ -25,7 +29,7 @@ GET {{baseUrl}}/calendar/getCalendarList/eHAyvyAtI1pygJXOcQpU
 GET {{baseUrl}}/calendar/getCollaboratorCalendarList/1SZirlKOZmumW07Z29h8
 
 ### Delete the calendar
-DELETE {{baseUrl}}/calendar/pZi1YqxFGOy0Nbmi2K99
+DELETE {{baseUrl}}/calendar/FVUmRl70gYbFsSPCMmgc
 
 ### Get calendar members by calendar id
 GET {{baseUrl}}/calendar/getCalendarMembers/SqTYznbGvnkKFPXlfTME
