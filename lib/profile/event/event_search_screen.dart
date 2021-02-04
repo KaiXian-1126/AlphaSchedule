@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class EventSearchScreen extends StatefulWidget {
-  List<Event> eventList;
+  final eventList;
   EventSearchScreen({this.eventList});
   @override
   _EventSearchScreenState createState() => _EventSearchScreenState(eventList);
@@ -15,15 +15,17 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
   String searchText;
   List<int> displayIndex;
   List<Event> displayEvent;
+
   _EventSearchScreenState(eventList) {
     tileCount = eventList.length + 1;
     displayIndex = List.generate(eventList.length, (int index) => index);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calender 1"),
+        title: Text("${widget.eventList}"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),

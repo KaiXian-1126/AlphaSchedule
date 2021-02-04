@@ -6,6 +6,7 @@ abstract class CalendarService {
   Future<List<Calendar>> getCalendarList({User user});
   Future<List<Calendar>> getCollaboratorCalendarList({User user});
   Future<Calendar> getCalendar({String cid});
-  Future<Calendar> updateCalendar();
+  Future<Calendar> updateCalendar(
+      {String id, String name, String description, String color});
   Future deleteCalendar({Calendar c});
 }

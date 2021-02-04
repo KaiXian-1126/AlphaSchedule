@@ -1,8 +1,12 @@
 //@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
-@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
+@baseUrl = https://us-central1-map-deliver4.cloudfunctions.net/api
 //@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
 ### Create a new calendar with user id
+<<<<<<< HEAD
 POST {{baseUrl}}/calendar/GdsT1dptdKZL1Ji7MW2R
+=======
+POST {{baseUrl}}/calendar/QdO52Pe86QpKd6zBlbCi
+>>>>>>> origin/backend-zhiquan
 Content-Type: application/json
 
 {
@@ -35,11 +39,11 @@ POST {{baseUrl}}/user
 Content-Type: application/json
 
 {
-    "name": "Cheng Shin Wei",
+    "name": "tzq",
     "email" : "kaixianp@gmail.com",
     "phone" : "01113005114",
     "gender": "Male",
-    "password": "123",
+    "password": "12345678",
     "calendarList": [],
     "collaboratorCalendarList": []
 }
