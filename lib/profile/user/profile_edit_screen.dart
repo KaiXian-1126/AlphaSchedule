@@ -1,4 +1,7 @@
+import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 
 class ProfileEditScreen extends StatefulWidget {
   final _data;
@@ -16,7 +19,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   final _emailFormKey = GlobalKey<FormState>();
   final _phoneFormKey = GlobalKey<FormState>();
   List _genderDropDown = ['Male', 'Female'];
-
+  UserService userdependency = di.dependency();
   @override
   Widget build(BuildContext context) {
     _nameController.text = widget._data.name;
@@ -56,6 +59,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         return null;
                       }
                     },
+                    onChanged: (value) => widget._data.name = value,
                   ),
                 ),
               ),
@@ -82,6 +86,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         return null;
                       }
                     },
+                    onChanged: (value) => widget._data.email = value,
                   ),
                 ),
               ),
@@ -106,6 +111,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         return null;
                       }
                     },
+                    onChanged: (value) => widget._data.phone = value,
                   ),
                 ),
               ),
@@ -135,7 +141,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         bottomNavigationBar: BuildFlatButton(
           text: 'Save',
           color: Colors.blue,
-          onPressedCallback: () {
+          onPressedCallback: () async {
             // form validation
             if (_nameFormKey.currentState.validate()) {
               if (_emailFormKey.currentState.validate()) {
@@ -143,6 +149,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   widget._data.name = _nameController.text;
                   widget._data.email = _emailController.text;
                   widget._data.phone = _phoneController.text;
+
+                  await userdependency.updateUserProfile(
+                      id: "${widget._data.userId}",
+                      name: widget._data.name,
+                      email: widget._data.email,
+                      phone: widget._data.phone,
+                      gender: widget._data.gender);
+
                   Navigator.pop(context, widget._data);
                 }
               }

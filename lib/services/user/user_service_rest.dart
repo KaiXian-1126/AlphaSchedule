@@ -42,9 +42,13 @@ class UserServiceRest implements UserService {
   }
 
   Future<User> updateUserProfile(
-      {String id, String a, String b, int c, String d}) async {
+      {String id,
+      String name,
+      String email,
+      String phone,
+      String gender}) async {
     final result = await rest.patch('user/$id',
-        data: {'name': a, 'email': b, 'phone': c, 'gender': d});
+        data: {'name': name, 'email': email, 'phone': phone, 'gender': gender});
     return User.fromJson(result);
   }
 

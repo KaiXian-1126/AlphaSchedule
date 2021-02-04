@@ -1,4 +1,5 @@
 //import 'package:alpha_schedule/models/Event.dart';
+import 'package:alpha_schedule/models/Event_mock.dart';
 import 'package:alpha_schedule/models/user_mock.dart';
 import 'package:flutter/material.dart';
 import 'Calendar.dart';
