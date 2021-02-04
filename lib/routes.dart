@@ -98,7 +98,7 @@ Route<dynamic> createRoute(settings) {
       );
     case userProfileRoute:
       return MaterialPageRoute(
-        builder: (context) => ProfileScreen(settings.arguments),
+        builder: (context) => ProfileScreen(),
       );
     case addCollaboratorRoute:
       return MaterialPageRoute(

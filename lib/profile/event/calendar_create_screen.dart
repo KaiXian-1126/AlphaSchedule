@@ -6,6 +6,7 @@ import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CalendarCreateScreen extends StatefulWidget {
   final calendar;
@@ -20,7 +21,6 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
   String calendarDescription;
   List<Color> _colorTheme = [Colors.blue[50], Colors.green[50]];
   Color _currentColor = Colors.blue[50];
-  //TextEditingController calendarNameController = TextEditingController(), descriptionController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   CalendarService calendarDependency = di.dependency();
   Widget _buildCalendarName() {
@@ -129,21 +129,10 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                         onPressed: () async {
                           if (_formkey.currentState.validate()) {
                             _formkey.currentState.save();
-
-                            /* Mock Calendar
-                            widget.calendar.add(Calendar(
-                                calendarName: calendarName,
-                                description: calendarDescription,
-                                color: _currentColor,
-                                eventList: [],
-                                membersId: []));
-                            */
-
-                            //Mock to get a user/////////////////////////
-                            UserService mockDependency = di.dependency();
-                            User mockUser = await mockDependency.getUser(
-                                id: '7lJMgJy0yBlNsxy4BiIy');
-                            /////////////////////////////////////////////
+                            User user = Provider.of<ValueNotifier<User>>(
+                                    context,
+                                    listen: false)
+                                .value;
                             Calendar newCalendar = Calendar(
                                 calendarName: calendarName,
                                 description: calendarDescription,
@@ -154,8 +143,7 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                                 membersId: []);
                             final calendar =
                                 await calendarDependency.createCalendar(
-                                    id: "${mockUser.userId}",
-                                    data: newCalendar);
+                                    id: "${user.userId}", data: newCalendar);
                             Navigator.pop(context);
                           }
                         },

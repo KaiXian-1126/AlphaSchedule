@@ -47,7 +47,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<ValueNotifier<User>>(context).value;
     getRequiredUserInformation(user);
-    //final user = Provider.of<ValueNotifier<User>>(context).value;
     DateTime time = DateTime.now();
     return FutureBuilder(
         future:
@@ -140,8 +139,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 child: GestureDetector(
                                   onTap: () async {
                                     final respond = await Navigator.pushNamed(
-                                        context, userProfileRoute,
-                                        arguments: user);
+                                        context, userProfileRoute);
                                     if (respond != null) {
                                       setState(() {});
                                     }
