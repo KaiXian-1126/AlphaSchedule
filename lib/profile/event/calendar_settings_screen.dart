@@ -3,6 +3,7 @@ import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import '../../models/Calendar.dart';
+import 'package:provider/provider.dart';
 
 class CalendarSettingScreen extends StatefulWidget {
   final calender;
@@ -124,7 +125,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                     'Save',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formkey.currentState.validate()) {
                       widget.calender.description = calendarDescription;
                       widget.calender.calendarName = calendarName;
@@ -137,8 +138,25 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                           description: widget.calender.description,
                           color: widget.calender.color);
 
-                      // final calendar = await calendarDependency.updateCalendar(
-                      //     id: "${widget.calender.id}", data: edittedCalendar);
+                      final setting = await calendarDependency.updateCalendar(
+                          id: "${widget.calender.calendarId}",
+                          data: edittedCalendar);
+
+                      // final calendarList =
+                      //     Provider.of<List<Calendar>>(context, listen: false);
+
+                      // if (calendarList != null) {
+                      //   for (int i = 0; i < calendarList.length; i++) {
+                      //     if (widget.calender.calendarId ==
+                      //         calendarList[i].calendarId) {
+                      //       Calendar calendarSetting =
+                      //           Provider.of<ValueNotifier<Calendar>>(context,
+                      //                   listen: false)
+                      //               .value;
+                      //       calendarSetting = widget.calender;
+                      //     }
+                      //   }
+                      // }
 
                       Navigator.pop(context);
                       print(tempColor);

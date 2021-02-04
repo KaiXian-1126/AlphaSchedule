@@ -1,6 +1,7 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/models/Calendar.dart';
 
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
@@ -35,6 +36,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   //Required User Information
   Future<List> futureCalendarList, futureCollaboratorCalendarList;
   List calendarList, collaboratorCalendarList, eventList = [];
+  Calendar cname;
   getRequiredUserInformation(user) async {
     futureCalendarList = calendarDependency.getCalendarList(user: user);
     futureCollaboratorCalendarList =
@@ -50,6 +52,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<ValueNotifier<User>>(context).value;
+    // final cList =Provider.of<List<Calendar>>(context, listen: false);
+
     getRequiredUserInformation(user);
     DateTime time = DateTime.now();
     return FutureBuilder(
@@ -59,6 +63,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
           if (snapshot.hasData) {
             calendarList = snapshot.data[0];
             collaboratorCalendarList = snapshot.data[1];
+
+            // for(int i=0;i<cList.length;i++)
+            // {
+            //   if(cList[i].calendarId==calendarList[currentCalendarIndex].calendarId){
+            //      cname=cList[i];
+            //   }
+            // }
             return Scaffold(
               appBar: AppBar(
                 title: Text(calendarList[currentCalendarIndex].calendarName),
@@ -294,9 +305,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     final response = await Navigator.pushNamed(
                         context, calendarSettingsRoute,
                         arguments: calendarList[currentCalendarIndex]);
-                    if (response != null) {
-                      setState(() {});
-                    }
+
+                    setState(() {});
                   }
                 },
               ),
