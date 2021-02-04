@@ -133,14 +133,11 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                         widget.calender.color = tempColor;
                       }
 
-                      Calendar edittedCalendar = Calendar(
-                          calendarName: widget.calender.calendarName,
-                          description: widget.calender.description,
-                          color: widget.calender.color);
-
                       final setting = await calendarDependency.updateCalendar(
                           id: "${widget.calender.calendarId}",
-                          data: edittedCalendar);
+                          name: widget.calender.calendarName,
+                          description: widget.calender.description,
+                          color: "${widget.calender.color}");
 
                       // final calendarList =
                       //     Provider.of<List<Calendar>>(context, listen: false);
