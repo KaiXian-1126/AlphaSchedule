@@ -1,10 +1,7 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
-<<<<<<< HEAD
-=======
 import 'package:alpha_schedule/models/User.dart';
 
->>>>>>> remotes/origin/backend-kaixian
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:alpha_schedule/services/event/event_service_rest.dart';
@@ -30,10 +27,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
   int _currentIndex = 0;
   CalendarService calendarDependency = di.dependency();
   EventService eventDependency = di.dependency();
-
-  /// later need delete (mock data)////
-  UserService userdependency = di.dependency();
-  ///////////////////////
 
   //Required User Information
   Future<List> futureCalendarList, futureCollaboratorCalendarList;
