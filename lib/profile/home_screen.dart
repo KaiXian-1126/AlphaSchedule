@@ -72,7 +72,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             // }
             return Scaffold(
               appBar: AppBar(
-                title: Text(calendarList[currentCalendarIndex].calendarName),
+                title: Text("${calendarList[currentCalendarIndex].color}"),
               ),
               /*body: Container(
               child: FutureBuilder(
@@ -305,7 +305,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     final response = await Navigator.pushNamed(
                         context, calendarSettingsRoute,
                         arguments: calendarList[currentCalendarIndex]);
-
                     setState(() {});
                   }
                 },

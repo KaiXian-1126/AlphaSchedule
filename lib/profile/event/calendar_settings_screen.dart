@@ -131,13 +131,23 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                       widget.calender.calendarName = calendarName;
                       if (tempColor1 != tempColor && tempColor != null) {
                         widget.calender.color = tempColor;
+                      } else {
+                        widget.calender.color = tempColor1;
+                      }
+
+                      if (widget.calender.color == Color(0xffe3f2fd)) {
+                        widget.calender.color = Colors.blue[50];
+                      } else {
+                        widget.calender.color = Colors.green[50];
                       }
 
                       final setting = await calendarDependency.updateCalendar(
                           id: "${widget.calender.calendarId}",
                           name: widget.calender.calendarName,
                           description: widget.calender.description,
-                          color: "${widget.calender.color}");
+                          color: widget.calender.color == Colors.blue[50]
+                              ? "Light Blue"
+                              : "Light Green");
 
                       // final calendarList =
                       //     Provider.of<List<Calendar>>(context, listen: false);
@@ -156,8 +166,6 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                       // }
 
                       Navigator.pop(context);
-                      print(tempColor);
-                      print(tempColor1);
                     }
 
                     _formkey.currentState.save();
