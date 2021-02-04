@@ -2,16 +2,16 @@
 @baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
 
 ###  Create a new event
-POST {{baseUrl}}/event/create/yLdsTOJHaE5fWhmnzoGA
+POST {{baseUrl}}/event/create/DRMbjncJISUXrGl2wjbj
 Content-Type: application/json
 
 {
     "eventName": "Event1",
-    "calendar": "DateTime(2021, 1, 30)",
-    "startTime": "TimeOfDay(hour: 9, minute: 36)",
-    "endTime": "TimeOfDay(hour: 16, minute: 44)",
+    "calendar": "2021-03-30)",
+    "startTime": "01:57 PM",
+    "endTime": "02:00 PM",
     "description": "This is a description",
-    "calendarId": "yLdsTOJHaE5fWhmnzoGA"
+    "calendarId": "DRMbjncJISUXrGl2wjbj"
 }
 
 ### Get event by id
