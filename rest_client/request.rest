@@ -2,7 +2,7 @@
 @baseUrl = https://us-central1-map-deliver4.cloudfunctions.net/api
 //@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
 ### Create a new calendar with user id
-POST {{baseUrl}}/calendar/WRKgcgEAYiOmmF1uhISl
+POST {{baseUrl}}/calendar/QdO52Pe86QpKd6zBlbCi
 Content-Type: application/json
 
 {
@@ -35,11 +35,11 @@ POST {{baseUrl}}/user
 Content-Type: application/json
 
 {
-    "name": "Cheng Shin Wei",
+    "name": "tzq",
     "email" : "kaixianp@gmail.com",
     "phone" : "01113005114",
     "gender": "Male",
-    "password": "123",
+    "password": "12345678",
     "calendarList": [],
     "collaboratorCalendarList": []
 }
