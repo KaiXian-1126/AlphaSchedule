@@ -19,7 +19,7 @@ Content-Type: application/json
 GET {{baseUrl}}/calendar/v0AUriLx5oqmqYoI04li
 
 ### Get calendar list by userid
-GET {{baseUrl}}/calendar/getCalendarList/7lJMgJy0yBlNsxy4BiIy
+GET {{baseUrl}}/calendar/getCalendarList/eHAyvyAtI1pygJXOcQpU
 
 ### Get collaborator calendar list by userid
 GET {{baseUrl}}/calendar/getCollaboratorCalendarList/1SZirlKOZmumW07Z29h8

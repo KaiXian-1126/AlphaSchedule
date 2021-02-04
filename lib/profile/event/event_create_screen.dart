@@ -127,7 +127,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                       Event newEvent = Event(
                           eventName: titleController.text,
                           //calendar: widget.date,
-                          calendar: '2021-2-26',
+                          calendar: '2021-02-26',
                           startTime: eventStartTime,
                           endTime: eventEndTime,
                           description: descController.text);

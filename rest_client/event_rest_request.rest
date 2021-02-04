@@ -18,7 +18,7 @@ Content-Type: application/json
 GET {{baseUrl}}/event/get/ixSn5CtwFc1ZqLOlkL2c
 
 ### Get event list from the calendar
-GET {{baseUrl}}/event/getList/yLdsTOJHaE5fWhmnzoGA
+GET {{baseUrl}}/event/getList/Hf9ucu5ztrKfDp3NtbZ5
 
 ### Update event
 PATCH {{baseUrl}}/event/update/ixSn5CtwFc1ZqLOlkL2c
