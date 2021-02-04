@@ -33,7 +33,7 @@ Route<dynamic> createRoute(settings) {
       );
     case homeRoute:
       return MaterialPageRoute(
-        builder: (context) => DrawerScreen(user: settings.arguments),
+        builder: (context) => DrawerScreen(),
       );
     //Auth routes
     case accountCreateRoute:
@@ -98,7 +98,7 @@ Route<dynamic> createRoute(settings) {
       );
     case userProfileRoute:
       return MaterialPageRoute(
-        builder: (context) => ProfileScreen(settings.arguments),
+        builder: (context) => ProfileScreen(),
       );
     case addCollaboratorRoute:
       return MaterialPageRoute(

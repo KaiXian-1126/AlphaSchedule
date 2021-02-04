@@ -14,9 +14,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final _emailFormKey = GlobalKey<FormState>();
+  final _nameFormKey = GlobalKey<FormState>();
   final _passwordFormKey = GlobalKey<FormState>();
   bool validated = true;
 
@@ -25,134 +25,134 @@ class _LoginScreen extends State<LoginScreen> {
   UserService dependency = di.dependency();
   @override
   Widget build(BuildContext context) {
-    //print("print: ${Provider.of<ValueNotifier<User>>(context).value}");
-    //final _user = Provider.of<ValueNotifier<User>>(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Login With Your Account'),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-          ),
+      appBar: AppBar(
+        title: Text('Login With Your Account'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: Container(
-            margin: EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
-                SizedBox(
-                  height: 40,
-                ),
-                BuildText("User Email"),
-                Container(
-                    padding: EdgeInsets.all(10),
-                    child: Form(
-                      key: _emailFormKey,
-                      child: TextFormField(
-                          keyboardType: TextInputType.name,
-                          controller: emailController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "User Email cannot be empty";
-                            } else if (!validateEmail(value)) {
-                              return "Not a valid email";
-                            } else {
-                              return null;
-                            }
-                          }),
-                    )),
-                SizedBox(
-                  height: 40,
-                ),
-                BuildText("Password"),
-                Container(
-                    padding: EdgeInsets.all(10),
-                    child: Form(
-                      key: _passwordFormKey,
-                      child: TextFormField(
-                          obscureText: true,
-                          controller: passwordController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Password cannot be empty";
-                            } else {
-                              return null;
-                            }
-                          }),
-                    )),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: SizedBox(
-                    child: validated
-                        ? null
-                        : Text(
-                            "User Name or Password is not correct.",
-                            style: TextStyle(color: Colors.red),
-                          ),
-                    height: 40,
-                  ),
-                ),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.black,
-                      child: Text('Login'),
-                      onPressed: () async {
-                        if (_emailFormKey.currentState.validate()) {
-                          if (_passwordFormKey.currentState.validate()) {
-                            final userList = await dependency.getUserList();
-                            if (userList != null) {
-                              for (int i = 0; i < userList.length; i++) {
-                                if (userList[i].email == emailController.text &&
-                                    userList[i].password ==
-                                        passwordController.text) {
-                                  validated = true;
+      ),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: ListView(
+          children: <Widget>[
+            SizedBox(
+              height: 40,
+            ),
+            BuildText("User Name"),
+            Container(
+                padding: EdgeInsets.all(10),
+                child: Form(
+                  key: _nameFormKey,
+                  child: TextFormField(
+                      keyboardType: TextInputType.name,
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "User Name cannot be empty";
+                        } else {
+                          return null;
+                        }
+                      }),
+                )),
+            SizedBox(
+              height: 40,
+            ),
+            BuildText("Password"),
+            Container(
+                padding: EdgeInsets.all(10),
+                child: Form(
+                  key: _passwordFormKey,
+                  child: TextFormField(
+                      obscureText: true,
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Password cannot be empty";
+                        } else {
+                          return null;
+                        }
+                      }),
+                )),
+            Container(
+              margin: EdgeInsets.only(left: 10),
+              child: SizedBox(
+                child: validated
+                    ? null
+                    : Text(
+                        "User Name or Password is not correct.",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                height: 40,
+              ),
+            ),
+            Container(
+                height: 50,
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: RaisedButton(
+                  textColor: Colors.white,
+                  color: Colors.black,
+                  child: Text('Login'),
+                  onPressed: () async {
+                    if (_nameFormKey.currentState.validate()) {
+                      if (_passwordFormKey.currentState.validate()) {
+                        final userList =
+                            Provider.of<List<User>>(context, listen: false);
+                        if (userList != null) {
+                          for (int i = 0; i < userList.length; i++) {
+                            if (userList[i].name == nameController.text &&
+                                userList[i].password ==
+                                    passwordController.text) {
+                              validated = true;
+                              final _user = Provider.of<ValueNotifier<User>>(
+                                  context,
+                                  listen: false);
+                              _user.value = userList[i];
 
-                                  //_user.value = userList[i];
-
-                                  Navigator.popAndPushNamed(context, homeRoute,
-                                      arguments: userList[i]);
-                                  break;
-                                }
-                                if (i == userList.length - 1) {
-                                  validated = false;
-                                  setState(() {});
-                                }
-                              }
+                              Navigator.popAndPushNamed(context, homeRoute);
+                              break;
+                            }
+                            if (i == userList.length - 1) {
+                              validated = false;
+                              setState(() {});
                             }
                           }
                         }
-                      },
-                    )),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                    child: Row(
-                  children: <Widget>[
-                    Text('Does not have an account?'),
-                    FlatButton(
-                      textColor: Colors.blue,
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, accountCreateRoute);
-                      },
-                    )
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ))
+                      }
+                    }
+                  },
+                )),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+                child: Row(
+              children: <Widget>[
+                Text('Does not have an account?'),
+                FlatButton(
+                  textColor: Colors.blue,
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, accountCreateRoute);
+                  },
+                )
               ],
-            )));
+              mainAxisAlignment: MainAxisAlignment.center,
+            ))
+          ],
+        ),
+      ),
+    );
   }
 }
 
