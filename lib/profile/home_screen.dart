@@ -62,7 +62,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               appBar: AppBar(
                 title: Text(calendarList[currentCalendarIndex].calendarName),
               ),
-              body: Container(
+              /* body: Container(
                 child: FutureBuilder(
                   future: eventDependency.getEventList(
                       id: calendarList[currentCalendarIndex].calendarId),
@@ -143,7 +143,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   },
                 ),
               ),
-
+              */
               drawer: Drawer(
                 // Add a ListView to the drawer. This ensures the user can scroll
                 // through the options in the drawer if there isn't enough vertical
