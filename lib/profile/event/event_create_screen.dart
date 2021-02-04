@@ -1,5 +1,9 @@
+import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service.dart';
+import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:flutter/material.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 
 class EventCreateScreen extends StatefulWidget {
   final event, date;
@@ -10,6 +14,7 @@ class EventCreateScreen extends StatefulWidget {
 }
 
 class _EventCreateScreenState extends State<EventCreateScreen> {
+  final EventService eventDependency = di.dependency();
   dynamic startTime, endTime, title, description;
   String timeToStringConverter(TimeOfDay time) {
     String stringTime = time.toString();
@@ -17,6 +22,21 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
     if (int.parse(stringTime.substring(0, 2)) >= 12)
       stringTime = "$stringTime PM";
     else
+      stringTime = "$stringTime AM";
+    return stringTime;
+  }
+
+  String timeToStringConverter2(TimeOfDay time) {
+    String stringTime = time.toString();
+    String mytime;
+    stringTime = stringTime.substring(10, 15);
+    stringTime = stringTime.substring(0, 5);
+    if (int.parse(stringTime.substring(0, 2)) >= 12) {
+      int hour = (int.parse(stringTime.substring(0, 2)) - 12);
+      int minute = int.parse(stringTime.substring(3, 5));
+      mytime = "0${hour.toString()}:${minute.toString()}";
+      stringTime = "$mytime PM";
+    } else
       stringTime = "$stringTime AM";
     return stringTime;
   }
@@ -92,20 +112,27 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
               BuildFlatButton(
                   text: "Add",
                   color: Colors.blue,
-                  onPressedCallback: () {
+                  onPressedCallback: () async {
                     if (titleController.text != "" &&
                         startTime != null &&
                         endTime != null &&
                         description != "") {
-                      widget.event.add(
-                        Event(
-                            eventId: null,
-                            eventName: titleController.text,
-                            calendar: widget.date,
-                            startTime: startTime,
-                            endTime: endTime,
-                            description: descController.text),
-                      );
+                      //Mock to get a user/////////////////////////
+                      CalendarService mockDependency = di.dependency();
+                      Calendar mockCalendar = await mockDependency.getCalendar(
+                          cid: 'Hf9ucu5ztrKfDp3NtbZ5');
+                      /////////////////////////////////////////////
+                      String eventStartTime = timeToStringConverter2(startTime);
+                      String eventEndTime = timeToStringConverter2(endTime);
+                      Event newEvent = Event(
+                          eventName: titleController.text,
+                          //calendar: widget.date,
+                          calendar: '2021-2-26',
+                          startTime: eventStartTime,
+                          endTime: eventEndTime,
+                          description: descController.text);
+                      final event = await eventDependency.createEvent(
+                          id: "${mockCalendar.calendarId}", event: newEvent);
                     }
                     Navigator.pop(
                       context,
@@ -120,6 +147,13 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        var date = new DateTime.now();
+        print(date);
+        print(startTime);
+        String a = timeToStringConverter2(startTime);
+        print(a);
+      }),
     );
   }
 }

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class Event {
   String eventId;
   String eventName;
-  DateTime calendar;
-  TimeOfDay startTime, endTime;
+  String calendar;
+  String startTime;
+  String endTime;
   String description;
   Event(
       {this.eventId,
@@ -45,9 +46,9 @@ class Event {
   Map<String, dynamic> toJson() => {
         "id": eventId,
         "eventName": eventName,
-        "calendar": "$calendar",
-        "startTime": '$startTime',
-        "endTime": "$endTime",
+        "calendar": calendar,
+        "startTime": startTime,
+        "endTime": endTime,
         "description": description
       };
 }

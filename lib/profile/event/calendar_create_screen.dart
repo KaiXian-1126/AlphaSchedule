@@ -1,5 +1,4 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
-import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
 

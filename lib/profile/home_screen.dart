@@ -29,10 +29,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
   CalendarService calendarDependency = di.dependency();
   EventService eventDependency = di.dependency();
 
-  /// later need delete (mock data)////
-  UserService userdependency = di.dependency();
-  ///////////////////////
-
   //Required User Information
   Future<List> futureCalendarList, futureCollaboratorCalendarList;
   List calendarList, collaboratorCalendarList, eventList = [];
