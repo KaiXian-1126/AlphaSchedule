@@ -1,4 +1,6 @@
+import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 
 class PasswordEditScreen extends StatefulWidget {
   final _data;
@@ -18,6 +20,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
   bool _secureCurrent = true;
   bool _secureNew = true;
   bool _secureComfirm = true;
+  UserService userdependency = di.dependency();
 
   bool get secureCurrent => _secureCurrent;
   set secureCurrent(bool value) => setState(() => _secureCurrent = !value);
@@ -94,13 +97,18 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
         bottomNavigationBar: BuildFlatButton(
           text: 'Save',
           color: Colors.blue,
-          onPressedCallback: () {
+          onPressedCallback: () async {
             // form validation
             if (_pwCurrentFormKey.currentState.validate()) {
               if (_pwNewFormKey.currentState.validate()) {
                 if (_pwComfirmFormKey.currentState.validate()) {
                   widget._data.password = _pwNewController.text;
                   // Navigator.pop(context, widget._data);
+                  await userdependency.updateUserPassword(
+                    id: "${widget._data.userId}",
+                    password: widget._data.password,
+                  );
+
                   Navigator.pop(context, widget._data);
                   // later make a alert box to prompt user
                 }

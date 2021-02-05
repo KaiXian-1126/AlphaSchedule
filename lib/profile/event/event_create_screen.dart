@@ -118,7 +118,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                         endTime != null &&
                         description != "") {
                       await eventDependency.createEvent(
-                          c: c,
+                          id: c.calendarId,
                           event: Event(
                               calendarId: c.calendarId,
                               eventId: null,

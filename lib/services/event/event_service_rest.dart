@@ -26,22 +26,22 @@ class EventServiceRest implements EventService {
     return eventList;
   }
 
-  Future<Event> getEvent({int id}) async {
+  Future<Event> getEvent({String id}) async {
     final json = await rest.get("/event/get/$id");
     return Event.fromJson(json);
   }
 
-  Future<Event> updateEvent({int id, Event event}) async {
+  Future<Event> updateEvent({String id, Event event}) async {
     final json = await rest.patch("/event/update/$id", data: event);
     return Event.fromJson(json);
   }
 
-  Future<Event> createEvent({Calendar c, Event event}) async {
-    final json = await rest.post("event/create/${c.calendarId}", data: event);
+  Future<Event> createEvent({String id, Event event}) async {
+    final json = await rest.post("event/create/$id", data: event);
     return Event.fromJson(json);
   }
 
-  Future deleteEvent({int id}) async {
+  Future deleteEvent({String id}) async {
     await rest.delete("event/delete/$id");
   }
 }
