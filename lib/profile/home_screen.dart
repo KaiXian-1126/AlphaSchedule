@@ -2,7 +2,7 @@ import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
-
+import 'package:intl/intl.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:alpha_schedule/services/event/event_service_rest.dart';
@@ -60,8 +60,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   child: FutureBuilder(
                 future: eventDependency.getEventList(
                     c: calendarList[currentCalendarIndex],
-                    date: _controller.selectedDay,
-                    currentTime: time),
+                    date: DateFormat('yyyy-MM-dd')
+                        .format(_controller.selectedDay),
+                    currentTime: DateFormat('yyyy-MM-dd').format(time)),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.separated(

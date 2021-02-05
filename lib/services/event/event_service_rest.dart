@@ -31,14 +31,24 @@ class EventServiceRest implements EventService {
     return test;
   }*/
   Future<List<Event>> getEventList(
-      {Calendar c, DateTime date, DateTime currentTime}) async {
+      {Calendar c, String date, String currentTime}) async {
     //Get the event information in json form
     final result = await rest.get("/event/getList/${c.calendarId}");
     //Get the event information and push to list
     List<Event> list = (result as List).map((e) => Event.fromJson(e)).toList();
-
+    print(list.length);
     List<Event> eventList = [];
+    if (date != null) {
+      for (int i = 0; i < list.length; i++) {
+        if (list[i].calendar.compareTo(date) == 0) {
+          eventList.add(list[0]);
+        }
+      }
+    } else if (list == null) {
+      return eventList;
+    } else {}
 
+    print(eventList.length);
     //Return the event list
     return eventList;
   }

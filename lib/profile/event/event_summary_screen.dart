@@ -35,12 +35,11 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
 
   // To get list of task's date that greater than today's date without repeat same date
   List<String> getOnComing2(value) {
-    var dateParse = DateTime.parse(value);
     List<String> event2 = [];
     List<String> temporary = [];
     widget.calender.eventList.forEach((item) {
       String a = '${item.calendar}';
-      if (a.compareTo(dateParse.toString()) > 0) {
+      if (a.compareTo(value) > 0) {
         temporary.add(a);
       }
     });
@@ -54,7 +53,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
   void initState() {
     super.initState();
     print(widget.calender.calendarId);
-    todayDate = getDate(DateTime.now());
+    todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     onComingEvent2 = getOnComing2(todayDate);
   }
 
@@ -191,7 +190,7 @@ Widget myText(DateTime date, index) {
   }
   return null;
 }
-
+/*
 String getDate(DateTime value) {
   var dateParse = DateTime.parse(value.toString());
   String month = dateParse.month.toString();
@@ -205,3 +204,4 @@ String getDate(DateTime value) {
   String a = ("${dateParse.year}-$month-$day");
   return a;
 }
+*/
