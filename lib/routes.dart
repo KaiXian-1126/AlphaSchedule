@@ -65,12 +65,7 @@ Route<dynamic> createRoute(settings) {
     case eventCreateRoute:
       return MaterialPageRoute(
         builder: (context) => EventCreateScreen(
-<<<<<<< HEAD
-          calendar: settings.arguments[0],
-          date: settings.arguments[1],
-=======
           date: settings.arguments,
->>>>>>> remotes/origin/backend-kaixian
         ),
       );
     case eventDetailsRoute:
@@ -83,7 +78,7 @@ Route<dynamic> createRoute(settings) {
       );
     case eventSearchRoute:
       return MaterialPageRoute(
-        builder: (context) => EventSearchScreen(eventList: settings.arguments),
+        builder: (context) => EventSearchScreen(),
       );
     case eventSummaryRoute:
       return MaterialPageRoute(

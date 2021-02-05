@@ -1,10 +1,6 @@
 # REST API Server on Live Firebase
-<<<<<<< HEAD
 @baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
 
-=======
-@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
->>>>>>> remotes/origin/backend-kaixian
 ###  Create a new event
 POST {{baseUrl}}/event/create/mq4U96Grkdrtq2mF6k5X
 Content-Type: application/json
@@ -22,11 +18,7 @@ Content-Type: application/json
 GET {{baseUrl}}/event/get/ixSn5CtwFc1ZqLOlkL2c
 
 ### Get event list from the calendar
-<<<<<<< HEAD
 GET {{baseUrl}}/event/getList/Hf9ucu5ztrKfDp3NtbZ5
-=======
-GET {{baseUrl}}/event/getList/fdBXfvtaBvCNEpUFMB72
->>>>>>> remotes/origin/backend-kaixian
 
 ### Update event
 PATCH {{baseUrl}}/event/update/ixSn5CtwFc1ZqLOlkL2c
