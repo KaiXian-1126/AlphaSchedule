@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../app/dependencies.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import '../../models/Calendar.dart';
-import '../../models/mockdata.dart';
+import 'package:provider/provider.dart';
 
 class CalendarSettingScreen extends StatefulWidget {
   final calender;
@@ -13,6 +15,7 @@ class CalendarSettingScreen extends StatefulWidget {
 class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
   String calendarName;
   String calendarDescription;
+  CalendarService calendarDependency = di.dependency();
 
   Color tempColor, tempColor1;
   List<Color> _colorTheme = [Colors.blue[50], Colors.green[50]];
@@ -122,17 +125,47 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                     'Save',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formkey.currentState.validate()) {
                       widget.calender.description = calendarDescription;
                       widget.calender.calendarName = calendarName;
                       if (tempColor1 != tempColor && tempColor != null) {
                         widget.calender.color = tempColor;
+                      } else {
+                        widget.calender.color = tempColor1;
                       }
 
-                      Navigator.pop(context, widget.calender);
-                      print(tempColor);
-                      print(tempColor1);
+                      if (widget.calender.color == Color(0xffe3f2fd)) {
+                        widget.calender.color = Colors.blue[50];
+                      } else {
+                        widget.calender.color = Colors.green[50];
+                      }
+
+                      final setting = await calendarDependency.updateCalendar(
+                          id: "${widget.calender.calendarId}",
+                          name: widget.calender.calendarName,
+                          description: widget.calender.description,
+                          color: widget.calender.color == Colors.blue[50]
+                              ? "Light Blue"
+                              : "Light Green");
+
+                      // final calendarList =
+                      //     Provider.of<List<Calendar>>(context, listen: false);
+
+                      // if (calendarList != null) {
+                      //   for (int i = 0; i < calendarList.length; i++) {
+                      //     if (widget.calender.calendarId ==
+                      //         calendarList[i].calendarId) {
+                      //       Calendar calendarSetting =
+                      //           Provider.of<ValueNotifier<Calendar>>(context,
+                      //                   listen: false)
+                      //               .value;
+                      //       calendarSetting = widget.calender;
+                      //     }
+                      //   }
+                      // }
+
+                      Navigator.pop(context);
                     }
 
                     _formkey.currentState.save();

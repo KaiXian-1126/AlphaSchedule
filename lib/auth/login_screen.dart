@@ -156,6 +156,11 @@ class _LoginScreen extends State<LoginScreen> {
   }
 }
 
+bool validateEmail(String email) {
+  RegExp validation = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+  return (!validation.hasMatch(email)) ? false : true;
+}
+
 class BuildText extends StatelessWidget {
   final text;
   const BuildText(this.text);

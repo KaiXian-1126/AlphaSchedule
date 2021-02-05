@@ -1,9 +1,11 @@
+import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../constants.dart';
 
 class CalendarCollaboratorScreen extends StatefulWidget {
-  final calendar, calendarOwner;
-  CalendarCollaboratorScreen({this.calendar, this.calendarOwner});
+  CalendarCollaboratorScreen();
   @override
   _CalendarCollaboratorScreenState createState() =>
       _CalendarCollaboratorScreenState();
@@ -13,9 +15,12 @@ class _CalendarCollaboratorScreenState
     extends State<CalendarCollaboratorScreen> {
   @override
   Widget build(BuildContext context) {
+    Calendar c =
+        Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
+    User owner = Provider.of<ValueNotifier<User>>(context, listen: false).value;
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.calendar.calendarName}"),
+        title: Text("${c.calendarName}"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -23,12 +28,12 @@ class _CalendarCollaboratorScreenState
       ),
       body: ListView.separated(
         separatorBuilder: (_, index) => Divider(),
-        itemCount: widget.calendar.members.length + 3,
+        itemCount: c.membersId.length + 3,
         itemBuilder: (_, index) {
           if (index == 0) {
             return ListTile(
-              title: Text(widget.calendarOwner.name),
-              subtitle: Text(widget.calendarOwner.email),
+              title: Text(owner.name),
+              subtitle: Text(owner.email),
               leading: CircleAvatar(
                 child: Icon(Icons.portrait),
               ),
@@ -37,9 +42,9 @@ class _CalendarCollaboratorScreenState
           }
           if (index == 1)
             return ListTile(
-              title: Text("Member (${widget.calendar.members.length})"),
+              title: Text("Member (${c.membersId.length})"),
             );
-          if (index == widget.calendar.members.length + 2) {
+          if (index == c.membersId.length + 2) {
             return Column(
               children: [
                 ListTile(
@@ -51,10 +56,10 @@ class _CalendarCollaboratorScreenState
                   title: DropdownButton(
                     onChanged: (e) {
                       setState(() {
-                        widget.calendar.accessibility = e;
+                        c.accessibility = e;
                       });
                     },
-                    value: widget.calendar.accessibility,
+                    value: c.accessibility,
                     items: ['View Only', 'Editable'].map((String value) {
                       return DropdownMenuItem(
                         value: value,
@@ -75,7 +80,7 @@ class _CalendarCollaboratorScreenState
                           context, addCollaboratorRoute);
                       if (res != null) {
                         setState(() {
-                          widget.calendar.members.add(res);
+                          c.membersId.add(res);
                         });
                       }
                     },
@@ -91,12 +96,12 @@ class _CalendarCollaboratorScreenState
             trailing: OutlineButton(
               child: Icon(Icons.delete),
               onPressed: () {
-                widget.calendar.members.removeAt(index - 2);
+                c.membersId.removeAt(index - 2);
                 setState(() {});
               },
             ),
-            title: Text(widget.calendar.members[index - 2].name),
-            subtitle: Text(widget.calendar.members[index - 2].email),
+            title: Text(c.membersId[index - 2].name),
+            subtitle: Text(c.membersId[index - 2].email),
           );
         },
       ),

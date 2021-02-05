@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../constants.dart';
-import '../../models/Event_mock.dart';
+import '../../models/Event.dart';
 
 class EventSummaryScreen extends StatefulWidget {
   final calender;

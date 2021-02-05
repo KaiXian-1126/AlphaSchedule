@@ -51,9 +51,7 @@ Route<dynamic> createRoute(settings) {
     //Profile routes
     case calendarCollaboratorRoute:
       return MaterialPageRoute(
-        builder: (context) => CalendarCollaboratorScreen(
-            calendar: settings.arguments[0],
-            calendarOwner: settings.arguments[1]),
+        builder: (context) => CalendarCollaboratorScreen(),
       );
     case calendarCreateRoute:
       return MaterialPageRoute(
@@ -67,8 +65,12 @@ Route<dynamic> createRoute(settings) {
     case eventCreateRoute:
       return MaterialPageRoute(
         builder: (context) => EventCreateScreen(
+<<<<<<< HEAD
           calendar: settings.arguments[0],
           date: settings.arguments[1],
+=======
+          date: settings.arguments,
+>>>>>>> remotes/origin/backend-kaixian
         ),
       );
     case eventDetailsRoute:

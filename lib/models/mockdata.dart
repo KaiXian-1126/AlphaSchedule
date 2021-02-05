@@ -1,7 +1,7 @@
+import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/models/user_mock.dart';
 import 'package:flutter/material.dart';
 import 'Calendar.dart';
-import 'Event_mock.dart';
 
 User mockData = User(
     userId: 1,
