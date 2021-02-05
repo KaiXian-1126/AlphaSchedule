@@ -8,10 +8,9 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 
 class EventSearchScreen extends StatefulWidget {
-  final eventList;
-  EventSearchScreen({this.eventList});
+  EventSearchScreen();
   @override
-  _EventSearchScreenState createState() => _EventSearchScreenState(eventList);
+  _EventSearchScreenState createState() => _EventSearchScreenState();
 }
 
 class _EventSearchScreenState extends State<EventSearchScreen> {
@@ -19,21 +18,18 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
   String searchText;
   List<int> displayIndex;
   List<Event> displayEvent;
+  bool assigned = false;
   EventService eventDependency = di.dependency();
 
   //get event list
   Future<List> futureEventList;
   List eventLists = [];
 
-  _EventSearchScreenState(eventList) {
+  /*_EventSearchScreenState() {
     tileCount = eventList.eventList.length + 1;
     displayIndex =
         List.generate(eventList.eventList.length, (int index) => index);
-  }
-  getEventInformation(eventList) async {
-    Calendar calendar = eventList;
-    futureEventList = eventDependency.getEventList(c: calendar);
-  }
+  }*/
 
   @override
   void initState() {
@@ -42,26 +38,31 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    getEventInformation(widget.eventList);
     Calendar c =
         Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
-    return FutureBuilder(
-        future: eventDependency.getEventList(c: c),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            eventLists = snapshot.data;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${c.calendarName}"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Container(
+        margin: EdgeInsets.all(8.0),
+        child: FutureBuilder(
+            future: eventDependency.getEventList(c: c),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (!assigned) {
+                  eventLists = snapshot.data;
+                  tileCount = eventLists.length + 1;
+                  displayIndex =
+                      List.generate(eventLists.length, (int index) => index);
+                  assigned = true;
+                }
 
-            return Scaffold(
-              appBar: AppBar(
-                title: Text("${c.calendarName}"),
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ),
-              body: Container(
-                margin: EdgeInsets.all(8.0),
-                child: ListView.separated(
+                return ListView.separated(
                     itemCount: tileCount,
                     separatorBuilder: (_, index) => Divider(),
                     itemBuilder: (_, index) {
@@ -84,7 +85,6 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
                                     displayIndex.add(i);
                                   }
                                 }
-
                                 i++;
                               });
                             });
@@ -108,36 +108,12 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
                               arguments: eventLists[displayIndex[index - 1]]),
                         );
                       }
-                    }),
-              ),
-            );
-          } else {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text("Calendar on Loading..."),
-              ),
-              body: Center(child: CircularProgressIndicator()),
-              bottomNavigationBar: BottomNavigationBar(
-                selectedItemColor: Colors.black54,
-                // currentIndex: _currentIndex,
-                type: BottomNavigationBarType.fixed,
-                items: [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home), title: Text("home")),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.calendar_today), title: Text("Summary")),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.share), title: Text("Share")),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.add), title: Text("Create")),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.search), title: Text("Search")),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.settings), title: Text("Setting")),
-                ],
-              ),
-            );
-          }
-        });
+                    });
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            }),
+      ),
+    );
   }
 }

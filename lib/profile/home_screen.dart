@@ -354,9 +354,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       // print(user.calendarList[currentCalendarIndex].eventList.length);
                     });
                   } else if (index == 4) {
-                    Navigator.pushNamed(context, eventSearchRoute,
-                        arguments:
-                            calendarList[currentCalendarIndex].eventList);
+                    Navigator.pushNamed(context, eventSearchRoute);
                   } else if (index == 5) {
                     final response = await Navigator.pushNamed(
                         context, calendarSettingsRoute,
