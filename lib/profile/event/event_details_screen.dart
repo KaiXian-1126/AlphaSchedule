@@ -37,9 +37,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                     maxLines: 1,
                     enabled: false,
                     decoration: InputDecoration(
-                      hintText: "${getDate(widget.event.calendar)}" +
-                          "\t     " +
-                          "${getDay(widget.event.calendar)}",
+                      hintText: "${(widget.event.calendar)}",
                       hintStyle: TextStyle(color: Colors.black),
                       border: OutlineInputBorder(),
                     ),
@@ -56,7 +54,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                     enabled: false,
                     decoration: InputDecoration(
                       hintText:
-                          "${widget.event.timeToStringConverter(widget.event.startTime)} to ${widget.event.timeToStringConverter(widget.event.endTime)}",
+                          "${widget.event.startTime} to ${widget.event.endTime}",
                       hintStyle: TextStyle(color: Colors.black),
                       border: OutlineInputBorder(),
                     ),

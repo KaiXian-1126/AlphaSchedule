@@ -2,23 +2,23 @@
 @baseUrl = https://us-central1-map-deliver4.cloudfunctions.net/api
 
 ###  Create a new event
-POST {{baseUrl}}/event/create/jFh45bPPVoTTOPfxrgId
+POST {{baseUrl}}/event/create/7Nv0R0iHY2Ch8Ugsdeb9
 Content-Type: application/json
 
 {
-    "eventName": "Event1",
+    "eventName": "Event2",
     "calendar": "DateTime(2021, 1, 30)",
     "startTime": "TimeOfDay(hour: 9, minute: 36)",
     "endTime": "TimeOfDay(hour: 16, minute: 44)",
     "description": "This is a description",
-    "calendarId": "jFh45bPPVoTTOPfxrgId"
+    "calendarId": "7Nv0R0iHY2Ch8Ugsdeb9"
 }
 
 ### Get event by id
 GET {{baseUrl}}/event/get/ixSn5CtwFc1ZqLOlkL2c
 
 ### Get event list from the calendar
-GET {{baseUrl}}/event/getList/yLdsTOJHaE5fWhmnzoGA
+GET {{baseUrl}}/event/getList/HM82FvAe6uv8NI1mBFnn
 
 ### Update event
 PATCH {{baseUrl}}/event/update/ixSn5CtwFc1ZqLOlkL2c

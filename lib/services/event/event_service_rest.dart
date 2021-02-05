@@ -1,5 +1,5 @@
 import 'package:alpha_schedule/models/Calendar.dart';
-import 'package:alpha_schedule/models/Event.dart';
+import 'package:alpha_schedule/models/Event_mock.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:alpha_schedule/services/rest_service.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
@@ -7,31 +7,32 @@ import 'package:alpha_schedule/app/dependencies.dart' as di;
 class EventServiceRest implements EventService {
   RestService rest = di.dependency();
 
-  Future<List<Event>> getEventList(
-      {Calendar c, DateTime date, DateTime currentTime}) async {
-    final result = await rest.get("/calendar/getList/${c.calendarId}");
-    List<Event> list = (result as List).map((e) => Event.fromJson(e)).toList();
-    List<Event> eventList = [];
-    if (date == null) {
-      for (int i = 0; i < list.length; i++) {
-        if (list[i].calendar.year.toString() == currentTime.year.toString() &&
-            list[i].calendar.month.toString() == currentTime.month.toString() &&
-            list[i].calendar.day.toString() == currentTime.day.toString()) {
-          eventList.add(list[i]);
-        }
-      }
-    } else if (list == null) {
-      return eventList;
-    } else {
-      for (int i = 0; i < eventList.length; i++) {
-        if (list[i].calendar.year.toString() == date.year.toString() &&
-            list[i].calendar.month.toString() == date.month.toString() &&
-            list[i].calendar.day.toString() == date.day.toString()) {
-          eventList.add(eventList[i]);
-        }
-      }
-    }
-    return eventList;
+  Future<List<Event>> getEventList({Calendar c}) async {
+    final result = await rest.get("/event/getList/${c.calendarId}");
+    // List<Event> list = (result as List).map((e) => Event.fromJson(e)).toList();
+    // List<Event> eventList = [];
+    // if (date == null) {
+    //   for (int i = 0; i < list.length; i++) {
+    //     if (list[i].calendar.year.toString() == currentTime.year.toString() &&
+    //         list[i].calendar.month.toString() == currentTime.month.toString() &&
+    //         list[i].calendar.day.toString() == currentTime.day.toString()) {
+    //       eventList.add(list[i]);
+    //     }
+    //   }
+    // } else if (list == null) {
+    //   return eventList;
+    // } else if (date == null && currentTime == null) {
+    //   return list;
+    // } else {
+    //   for (int i = 0; i < eventList.length; i++) {
+    //     if (list[i].calendar.year.toString() == date.year.toString() &&
+    //         list[i].calendar.month.toString() == date.month.toString() &&
+    //         list[i].calendar.day.toString() == date.day.toString()) {
+    //       eventList.add(eventList[i]);
+    //     }
+    //   }
+    // }
+    return (result as List).map((e) => Event.fromJson(e)).toList();
   }
 
   Future<Event> getEvent({int id}) async {
