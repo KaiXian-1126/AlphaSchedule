@@ -53,6 +53,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
   @override
   void initState() {
     super.initState();
+    print(widget.calender.calendarId);
     todayDate = getDate(DateTime.now());
     onComingEvent2 = getOnComing2(todayDate);
   }
@@ -146,9 +147,9 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                             width: 120,
                             child: Text(
                               // "${widget.event.timeToStringConverter(widget.event.startTime)} to ${widget.event.timeToStringConverter(widget.event.endTime)}",
-                              '${a[index].timeToStringConverter(a[index].startTime)}' +
+                              '${a[index].startTime}' +
                                   "\nto\n" +
-                                  '${a[index].timeToStringConverter(a[index].endTime)}',
+                                  '${a[index].endTime}',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -177,13 +178,13 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
 }
 
 Widget myText(DateTime date, index) {
-  var date1 = getDate(date);
-  var day = DateFormat('EEEE').format(date);
+  //var date1 = getDate(date);
+  // var day = DateFormat('EEEE').format(date);
   if (index == 0) {
     return Padding(
       padding: const EdgeInsets.only(right: 8, left: 20, top: 12, bottom: 12),
       child: Text(
-        "$date1   $day",
+        "$date   ",
         style: TextStyle(fontSize: 20),
       ),
     );

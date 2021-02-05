@@ -2,7 +2,7 @@ import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
-import 'package:intl/intl.dart';
+
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:alpha_schedule/services/event/event_service_rest.dart';
@@ -30,20 +30,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
   EventService eventDependency = di.dependency();
 
   //Required User Information
-<<<<<<< HEAD
-  Future<List> futureCalendarList,
-      futureCollaboratorCalendarList,
-      futureEventList;
-  List calendarList, collaboratorCalendarList, eventList;
-  getRequiredUserInformation(user) async {
-    futureCalendarList = calendarDependency.getCalendarList(user: user);
-    futureCollaboratorCalendarList =
-        calendarDependency.getCollaboratorCalendarList(user: user);
-  }
-=======
   Future<List> futureCalendarList, futureCollaboratorCalendarList;
   List calendarList, collaboratorCalendarList, eventList = [];
->>>>>>> remotes/origin/backend-kaixian
 
   @override
   void initState() {
@@ -55,7 +43,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<ValueNotifier<User>>(context).value;
     DateTime time = DateTime.now();
-
     return FutureBuilder(
         future: Future.wait([
           calendarDependency.getCalendarList(user: user),
@@ -69,90 +56,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
               appBar: AppBar(
                 title: Text(calendarList[currentCalendarIndex].calendarName),
               ),
-<<<<<<< HEAD
-              /* body: Container(
-                child: FutureBuilder(
-                  future: eventDependency.getEventList(
-                      id: calendarList[currentCalendarIndex].calendarId),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.separated(
-                          //Call event data service
-                          itemCount: 1 +
-                              getEventList(
-                                      eventList, _controller.selectedDay, time)
-                                  .length,
-                          separatorBuilder: (_, index) => Divider(),
-                          itemBuilder: (_, index) {
-                            List<Event> tempCalendarList = getEventList(
-                                eventList, _controller.selectedDay, time);
-                            if (index == 0) {
-                              return TableCalendar(
-                                availableCalendarFormats: {
-                                  CalendarFormat.month: 'Month'
-                                },
-                                calendarController: _controller,
-                                calendarStyle: CalendarStyle(
-                                    contentDecoration: BoxDecoration(
-                                      color: calendarList[currentCalendarIndex]
-                                          .color,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black54,
-                                          offset: const Offset(
-                                            5.0,
-                                            5.0,
-                                          ),
-                                          blurRadius: 5.0,
-                                          spreadRadius: 1.0,
-                                        ), //BoxShadow
-                                      ],
-                                    ),
-                                    weekendStyle: TextStyle(color: Colors.blue),
-                                    selectedColor: Colors.blue[300],
-                                    todayColor: Colors.green[300],
-                                    selectedStyle: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.0,
-                                      color: Colors.white,
-                                    )),
-                                onDaySelected: (selectedDay, a, b) {
-                                  setState(() {});
-                                },
-                              );
-                            } else {
-                              return ListTile(
-                                  title: Text(
-                                      tempCalendarList[index - 1].eventName),
-                                  onTap: () async {
-                                    final respond = await Navigator.pushNamed(
-                                        context, eventDetailsRoute,
-                                        arguments: tempCalendarList[index - 1]);
-                                    if (respond != null) {
-                                      setState(() {});
-                                    }
-                                  });
-                            }
-                          });
-                    } else {
-                      return Scaffold(
-                        body: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              CircularProgressIndicator(),
-                              SizedBox(height: 50),
-                              Text('Fetching data... Please wait'),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-              */
-=======
               body: Container(
                   child: FutureBuilder(
                 future: eventDependency.getEventList(
@@ -220,7 +123,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   }
                 },
               )),
->>>>>>> remotes/origin/backend-kaixian
               drawer: Drawer(
                 elevation: 20.0,
                 child: Column(
@@ -395,7 +297,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   } else if (index == 3) {
                     final response = await Navigator.pushNamed(
                         context, eventCreateRoute, arguments: [
-                      calendarList[currentCalendarIndex].eventList,
+                      calendarList[currentCalendarIndex],
                       _controller.selectedDay
                     ]);
 
@@ -471,26 +373,4 @@ class BuildText extends StatelessWidget {
       ),
     );
   }
-}
-
-List<Event> getEventList(dynamic c, DateTime date, DateTime currentTime) {
-  String todayDate = DateFormat('yyyy-MM-dd').format(currentTime);
-  String selectedDate = DateFormat('yyyy-MM-dd').format(date);
-  List<Event> event = [];
-  if (selectedDate == null) {
-    for (int i = 0; i < c.length; i++) {
-      if (c[i].calendar == todayDate) {
-        event.add(c[i]);
-      }
-    }
-  } else if (c == null) {
-    return event;
-  } else {
-    for (int i = 0; i < c.length; i++) {
-      if (c[i].calendar == selectedDate) {
-        event.add(c[i]);
-      }
-    }
-  }
-  return event;
 }

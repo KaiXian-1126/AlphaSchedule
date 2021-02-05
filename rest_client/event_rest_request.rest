@@ -1,41 +1,24 @@
 # REST API Server on Live Firebase
-@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
+@baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
 
 ###  Create a new event
-<<<<<<< HEAD
-POST {{baseUrl}}/event/create/DRMbjncJISUXrGl2wjbj
+POST {{baseUrl}}/event/create/mq4U96Grkdrtq2mF6k5X
 Content-Type: application/json
 
 {
     "eventName": "Event1",
-    "calendar": "2021-03-30)",
+    "calendar": "2021-02-06",
     "startTime": "01:57 PM",
     "endTime": "02:00 PM",
     "description": "This is a description",
-    "calendarId": "DRMbjncJISUXrGl2wjbj"
-=======
-POST {{baseUrl}}/event/create/8SBoGl3RYFyJVZhj1npp
-Content-Type: application/json
-
-{
-    "eventName": "Event3",
-    "calendar": "DateTime(2021, 1, 30)",
-    "startTime": "TimeOfDay(hour: 9, minute: 36)",
-    "endTime": "TimeOfDay(hour: 16, minute: 44)",
-    "description": "This is a description",
-    "calendarId": "npp"
->>>>>>> remotes/origin/backend-kaixian
+    "calendarId": "mq4U96Grkdrtq2mF6k5X"
 }
 
 ### Get event by id
 GET {{baseUrl}}/event/get/ixSn5CtwFc1ZqLOlkL2c
 
 ### Get event list from the calendar
-<<<<<<< HEAD
 GET {{baseUrl}}/event/getList/Hf9ucu5ztrKfDp3NtbZ5
-=======
-GET {{baseUrl}}/event/getList/8SBoGl3RYFyJVZhj1npp
->>>>>>> remotes/origin/backend-kaixian
 
 ### Update event
 PATCH {{baseUrl}}/event/update/ixSn5CtwFc1ZqLOlkL2c
@@ -47,4 +30,4 @@ Content-Type: application/json
 }
 
 ### Delete event
-DELETE {{baseUrl}}/event/delete/rkippIBVBLjgu9IDKXMO
+DELETE {{baseUrl}}/event/delete/OMW15qlpkVUhqgwdhm5t

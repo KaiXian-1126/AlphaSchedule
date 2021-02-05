@@ -67,7 +67,7 @@ Route<dynamic> createRoute(settings) {
     case eventCreateRoute:
       return MaterialPageRoute(
         builder: (context) => EventCreateScreen(
-          event: settings.arguments[0],
+          calendar: settings.arguments[0],
           date: settings.arguments[1],
         ),
       );

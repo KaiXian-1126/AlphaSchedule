@@ -2,11 +2,7 @@
 @baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
 //@baseUrl = http://localhost:5001/wk-backend-firebase-alpha/us-central1/api
 ### Create a new calendar with user id
-<<<<<<< HEAD
-POST {{baseUrl}}/calendar/eHAyvyAtI1pygJXOcQpU
-=======
-POST {{baseUrl}}/calendar/GdsT1dptdKZL1Ji7MW2R
->>>>>>> remotes/origin/backend-kaixian
+POST {{baseUrl}}/calendar/gqF7Us5x4NsqbALpvhAA
 Content-Type: application/json
 
 {

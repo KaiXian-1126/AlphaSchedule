@@ -4,10 +4,11 @@ import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:intl/intl.dart';
 
 class EventCreateScreen extends StatefulWidget {
-  final event, date;
-  EventCreateScreen({this.event, this.date});
+  final calendar, date;
+  EventCreateScreen({this.calendar, this.date});
 
   @override
   _EventCreateScreenState createState() => _EventCreateScreenState();
@@ -26,25 +27,12 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
     return stringTime;
   }
 
-  String timeToStringConverter2(TimeOfDay time) {
-    String stringTime = time.toString();
-    String mytime;
-    stringTime = stringTime.substring(10, 15);
-    stringTime = stringTime.substring(0, 5);
-    if (int.parse(stringTime.substring(0, 2)) >= 12) {
-      int hour = (int.parse(stringTime.substring(0, 2)) - 12);
-      int minute = int.parse(stringTime.substring(3, 5));
-      mytime = "0${hour.toString()}:${minute.toString()}";
-      stringTime = "$mytime PM";
-    } else
-      stringTime = "$stringTime AM";
-    return stringTime;
-  }
-
   TextEditingController titleController = TextEditingController(),
       descController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    String selectedDate = DateFormat('yyyy-MM-dd').format(widget.date);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Event"),
@@ -117,22 +105,16 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                         startTime != null &&
                         endTime != null &&
                         description != "") {
-                      //Mock to get a user/////////////////////////
-                      CalendarService mockDependency = di.dependency();
-                      Calendar mockCalendar = await mockDependency.getCalendar(
-                          cid: 'Hf9ucu5ztrKfDp3NtbZ5');
-                      /////////////////////////////////////////////
-                      String eventStartTime = timeToStringConverter2(startTime);
-                      String eventEndTime = timeToStringConverter2(endTime);
                       Event newEvent = Event(
                           eventName: titleController.text,
-                          //calendar: widget.date,
-                          calendar: '2021-02-26',
-                          startTime: eventStartTime,
-                          endTime: eventEndTime,
-                          description: descController.text);
-                      //    final event = await eventDependency.createEvent(
-                      //       id: "${mockCalendar.calendarId}", event: newEvent);
+                          calendar: selectedDate,
+                          startTime: timeToStringConverter(startTime),
+                          endTime: timeToStringConverter(endTime),
+                          description: descController.text,
+                          calendarId: widget.calendar.calendarId);
+                      final event = await eventDependency.createEvent(
+                          calendarId: "${widget.calendar.calendarId}",
+                          event: newEvent);
                     }
                     Navigator.pop(
                       context,
@@ -148,11 +130,8 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-        var date = new DateTime.now();
-        print(date);
-        print(startTime);
-        String a = timeToStringConverter2(startTime);
-        print(a);
+        print(widget.calendar.calendarId);
+        print(selectedDate);
       }),
     );
   }
