@@ -1,9 +1,14 @@
+import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
+import 'package:alpha_schedule/models/mockdata.dart';
+import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EventCreateScreen extends StatefulWidget {
-  final event, date;
-  EventCreateScreen({this.event, this.date});
+  final date;
+  EventCreateScreen({this.date});
 
   @override
   _EventCreateScreenState createState() => _EventCreateScreenState();
@@ -11,13 +16,25 @@ class EventCreateScreen extends StatefulWidget {
 
 class _EventCreateScreenState extends State<EventCreateScreen> {
   dynamic startTime, endTime, title, description;
+  EventService eventDependency = di.dependency();
   String timeToStringConverter(TimeOfDay time) {
     String stringTime = time.toString();
     stringTime = stringTime.substring(10, 15);
-    if (int.parse(stringTime.substring(0, 2)) >= 12)
+    if (int.parse(stringTime.substring(0, 2)) > 12) {
+      int hour = int.parse(stringTime.substring(0, 2)) - 12;
+      String stringHour = "$hour";
+      if (hour < 10) {
+        stringHour = "0$hour";
+      }
+      stringTime = "$stringHour${stringTime.substring(2)}";
       stringTime = "$stringTime PM";
-    else
+    } else if (int.parse(stringTime.substring(0, 2)) == 12) {
+      stringTime = "$stringTime PM";
+    } else if (int.parse(stringTime.substring(0, 2)) == 0) {
+      stringTime = "12${stringTime.substring(2)} AM";
+    } else {
       stringTime = "$stringTime AM";
+    }
     return stringTime;
   }
 
@@ -25,6 +42,9 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
       descController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print(widget.date[0]);
+    Calendar c =
+        Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Event"),
@@ -92,20 +112,21 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
               BuildFlatButton(
                   text: "Add",
                   color: Colors.blue,
-                  onPressedCallback: () {
+                  onPressedCallback: () async {
                     if (titleController.text != "" &&
                         startTime != null &&
                         endTime != null &&
                         description != "") {
-                      widget.event.add(
-                        Event(
-                            eventId: null,
-                            eventName: titleController.text,
-                            calendar: widget.date,
-                            startTime: startTime,
-                            endTime: endTime,
-                            description: descController.text),
-                      );
+                      await eventDependency.createEvent(
+                          c: c,
+                          event: Event(
+                              calendarId: c.calendarId,
+                              eventId: null,
+                              eventName: titleController.text,
+                              calendar: widget.date[0],
+                              startTime: startTime,
+                              endTime: endTime,
+                              description: descController.text));
                     }
                     Navigator.pop(
                       context,

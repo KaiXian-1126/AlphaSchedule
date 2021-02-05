@@ -43,7 +43,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<ValueNotifier<User>>(context).value;
+
     DateTime time = DateTime.now();
+
     return FutureBuilder(
         future: Future.wait([
           calendarDependency.getCalendarList(user: user),
@@ -53,26 +55,21 @@ class _DrawerScreenState extends State<DrawerScreen> {
           if (snapshot.hasData) {
             calendarList = snapshot.data[0];
             collaboratorCalendarList = snapshot.data[1];
-
-            // for(int i=0;i<cList.length;i++)
-            // {
-            //   if(cList[i].calendarId==calendarList[currentCalendarIndex].calendarId){
-            //      cname=cList[i];
-            //   }
-            // }
+            Provider.of<ValueNotifier<Calendar>>(context).value =
+                calendarList[currentCalendarIndex];
             return Scaffold(
               appBar: AppBar(
-                title: Text("${calendarList[currentCalendarIndex].color}"),
+                title: Text(calendarList[currentCalendarIndex].calendarName),
               ),
               body: Container(
-                  child: FutureBuilder(
-                future: eventDependency.getEventList(
-                    c: calendarList[currentCalendarIndex],
-                    date: _controller.selectedDay,
-                    currentTime: time),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.separated(
+                child: FutureBuilder(
+                  future: eventDependency.getEventList(
+                      c: calendarList[currentCalendarIndex],
+                      date: _controller.selectedDay,
+                      currentTime: time),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.separated(
                         //Call event data service
                         itemCount: 1 + snapshot.data.length,
                         separatorBuilder: (_, index) => Divider(),
@@ -125,12 +122,50 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   }
                                 });
                           }
-                        });
-                  } else {
-                    return CircularProgressIndicator();
-                  }
-                },
-              )),
+                        },
+                      );
+                    } else {
+                      return ListView(children: [
+                        TableCalendar(
+                          availableCalendarFormats: {
+                            CalendarFormat.month: 'Month'
+                          },
+                          calendarController: _controller,
+                          calendarStyle: CalendarStyle(
+                              contentDecoration: BoxDecoration(
+                                color: calendarList[currentCalendarIndex].color,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black54,
+                                    offset: const Offset(
+                                      5.0,
+                                      5.0,
+                                    ),
+                                    blurRadius: 5.0,
+                                    spreadRadius: 1.0,
+                                  ), //BoxShadow
+                                ],
+                              ),
+                              weekendStyle: TextStyle(color: Colors.blue),
+                              selectedColor: Colors.blue[300],
+                              todayColor: Colors.green[300],
+                              selectedStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                                color: Colors.white,
+                              )),
+                          onDaySelected: (selectedDay, a, b) {
+                            setState(() {});
+                          },
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(top: 50),
+                            child: Center(child: CircularProgressIndicator()))
+                      ]);
+                    }
+                  },
+                ),
+              ),
               drawer: Drawer(
                 elevation: 20.0,
                 child: Column(
@@ -182,6 +217,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             onTap: () {
                               setState(() {
                                 currentCalendarIndex = index;
+                                final calendarProvider =
+                                    Provider.of<ValueNotifier<Calendar>>(
+                                        context,
+                                        listen: false);
+                                calendarProvider.value = calendarList[index];
                               });
                               Navigator.pop(context);
                             },
@@ -292,9 +332,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 onTap: (index) async {
                   _currentIndex = index;
                   if (index == 1) {
-                    final response = await Navigator.pushNamed(
-                        context, eventSummaryRoute,
-                        arguments: calendarList[currentCalendarIndex]);
+                    final response =
+                        await Navigator.pushNamed(context, eventSummaryRoute);
                     if (response != null) {
                       setState(() {});
                     }
@@ -304,10 +343,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         arguments: [calendarList[currentCalendarIndex], user]);
                   } else if (index == 3) {
                     final response = await Navigator.pushNamed(
-                        context, eventCreateRoute, arguments: [
-                      calendarList[currentCalendarIndex].eventList,
-                      _controller.selectedDay
-                    ]);
+                        context, eventCreateRoute,
+                        arguments: [_controller.selectedDay]);
 
                     // Event e = response;
                     setState(() {

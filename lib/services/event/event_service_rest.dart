@@ -13,27 +13,15 @@ class EventServiceRest implements EventService {
     final result = await rest.get("/event/getList/${c.calendarId}");
     //Get the event information and push to list
     List<Event> list = (result as List).map((e) => Event.fromJson(e)).toList();
-
+    if (date == null) date = DateTime.now();
+    String strDate = Event().dateToStringConverter(date);
+    date = Event().stringDateToDateConverter(strDate);
     List<Event> eventList = [];
-    if (date == null) {
-      for (int i = 0; i < result.length; i++) {
-        if (list[i].calendar.year.toString() == currentTime.year.toString() &&
-            list[i].calendar.month.toString() == currentTime.month.toString() &&
-            list[i].calendar.day.toString() == currentTime.day.toString()) {
-          eventList.add(list[i]);
-        }
-      }
-    } else if (list == null) {
-      return eventList;
-    } else {
-      for (int i = 0; i < eventList.length; i++) {
-        if (list[i].calendar.year.toString() == date.year.toString() &&
-            list[i].calendar.month.toString() == date.month.toString() &&
-            list[i].calendar.day.toString() == date.day.toString()) {
-          eventList.add(eventList[i]);
-        }
-      }
-    }
+
+    if (currentTime == null) return list;
+    list.forEach((e) {
+      if (e.calendar == date) eventList.add(e);
+    });
     //Return the event list
     return eventList;
   }

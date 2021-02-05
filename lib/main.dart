@@ -1,4 +1,5 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/profile/home_screen.dart';
@@ -18,10 +19,8 @@ void main() {
         ChangeNotifierProvider<ValueNotifier<User>>(
           create: (_) => ValueNotifier<User>(null),
         ),
-        // FutureProvider<List<Calendar>>(
-        //     create: (_) => di.dependency<CalendarService>().getCalendarList()),
-        ChangeNotifierProvider<ValueNotifier<List<Calendar>>>(
-          create: (_) => ValueNotifier<List<Calendar>>(null),
+        ChangeNotifierProvider<ValueNotifier<Calendar>>(
+          create: (_) => ValueNotifier<Calendar>(null),
         )
       ],
       child: MyApp(),
@@ -35,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: createRoute,
+      initialRoute: splashRoute,
       debugShowCheckedModeBanner: false,
       title: 'AlphaSchedule',
       theme: ThemeData(

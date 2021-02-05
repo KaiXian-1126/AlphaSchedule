@@ -1,15 +1,7 @@
 # REST API Server on Live Firebase
-<<<<<<< HEAD
-@baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
-
+@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
 ###  Create a new event
 POST {{baseUrl}}/event/create/8SBoGl3RYFyJVZhj1npp
-=======
-@baseUrl = https://us-central1-map-deliver4.cloudfunctions.net/api
-
-###  Create a new event
-POST {{baseUrl}}/event/create/jFh45bPPVoTTOPfxrgId
->>>>>>> origin/backend-zhiquan
 Content-Type: application/json
 
 {
@@ -18,18 +10,14 @@ Content-Type: application/json
     "startTime": "TimeOfDay(hour: 9, minute: 36)",
     "endTime": "TimeOfDay(hour: 16, minute: 44)",
     "description": "This is a description",
-<<<<<<< HEAD
     "calendarId": "npp"
-=======
-    "calendarId": "jFh45bPPVoTTOPfxrgId"
->>>>>>> origin/backend-zhiquan
 }
 
 ### Get event by id
 GET {{baseUrl}}/event/get/ixSn5CtwFc1ZqLOlkL2c
 
 ### Get event list from the calendar
-GET {{baseUrl}}/event/getList/8SBoGl3RYFyJVZhj1npp
+GET {{baseUrl}}/event/getList/fdBXfvtaBvCNEpUFMB72
 
 ### Update event
 PATCH {{baseUrl}}/event/update/ixSn5CtwFc1ZqLOlkL2c
