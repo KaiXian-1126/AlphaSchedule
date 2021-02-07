@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Get event by id
-GET {{baseUrl}}/event/get/ixSn5CtwFc1ZqLOlkL2c
+GET {{baseUrl}}/event/get/a1xkiveeSdAtVMl6kO01
 
 ### Get event list from the calendar
 GET {{baseUrl}}/event/getList/Hf9ucu5ztrKfDp3NtbZ5
