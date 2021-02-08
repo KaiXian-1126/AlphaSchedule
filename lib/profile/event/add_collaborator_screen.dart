@@ -1,7 +1,10 @@
-import 'package:alpha_schedule/models/user_mock.dart';
-import 'package:alpha_schedule/services/user/user_service_mock.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service.dart';
+import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddCollaboratorScreen extends StatefulWidget {
   @override
@@ -10,18 +13,19 @@ class AddCollaboratorScreen extends StatefulWidget {
 
 class _AddCollaboratorScreenState extends State<AddCollaboratorScreen> {
   TextEditingController _emailController = TextEditingController();
-  UserServiceMock dependency = di.dependency();
+  CalendarService calendarDependency = di.dependency();
   User invitedUser;
+  List<User> users;
   final _emailFormKey = GlobalKey<FormState>();
 
   // check from list of user email.
   bool checkUserEmail(String email) {
     bool checkValue = false;
-    final user = dependency.getUserList();
-    for (int i = 0; i < user.length; i++) {
-      if (email == user[i].email) {
+
+    for (int i = 0; i < users.length; i++) {
+      if (email == users[i].email) {
         checkValue = true;
-        invitedUser = user[i];
+        invitedUser = users[i];
         break;
       } else {
         invitedUser = null;
@@ -37,6 +41,7 @@ class _AddCollaboratorScreenState extends State<AddCollaboratorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    users = Provider.of<List<User>>(context);
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -107,10 +112,15 @@ class _AddCollaboratorScreenState extends State<AddCollaboratorScreen> {
               BuildFlatButton(
                 text: 'Add',
                 color: Colors.blue,
-                onPressedCallback: () {
+                onPressedCallback: () async {
                   // form validation
                   if (_emailFormKey.currentState.validate()) {
-                    Navigator.pop(context, invitedUser);
+                    Calendar c = Provider.of<ValueNotifier<Calendar>>(context,
+                            listen: false)
+                        .value;
+                    await calendarDependency.addCalendarCollaborator(
+                        calendar: c, member: invitedUser);
+                    Navigator.pop(context);
                   }
                 },
               ),

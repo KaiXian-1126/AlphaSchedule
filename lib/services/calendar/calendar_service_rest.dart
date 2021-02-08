@@ -53,4 +53,14 @@ class CalendarServiceRest implements CalendarService {
         data: {"accessibility": accessibility});
     return Calendar.fromJson(result);
   }
+
+  Future<Calendar> addCalendarCollaborator(
+      {Calendar calendar, User member}) async {
+    print("successfully1");
+    final result = await rest.patch(
+        "calendar/add/${calendar.calendarId}/${member.userId}",
+        data: {});
+    print("successfully2");
+    return Calendar.fromJson(result);
+  }
 }

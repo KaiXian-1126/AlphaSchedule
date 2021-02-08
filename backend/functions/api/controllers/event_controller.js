@@ -96,7 +96,7 @@ async function deleteEvent(req, res, next) {
                 calendar.eventList.splice(i, 1);
             }
         }
-        var result1 = calendarModel.update(event.calendarId, calendar);
+        var result1 = await calendarModel.update(event.calendarId, calendar);
         if (!result1) return res.sendStatus(404);
         // delete event from event collection
         const result = await eventModel.delete(id);

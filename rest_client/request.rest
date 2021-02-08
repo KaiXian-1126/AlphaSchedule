@@ -1,7 +1,19 @@
 @baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
 
 ### Create a new calendar with user id
-POST {{baseUrl}}/calendar/GdsT1dptdKZL1Ji7MW2R
+POST {{baseUrl}}/calendar/eNXlTphqgVT0TmKA5MC4
+Content-Type: application/json
+
+{
+    "accessibility": "Editable",
+    "calendarName": "c1",
+    "color": "Light Blue",
+    "description": "des",
+    "eventList":[],
+    "id": null,
+    "membersId": [],
+    "ownerId": null
+}
 
 ### Get calendar by id
 GET {{baseUrl}}/calendar/v0AUriLx5oqmqYoI04li
@@ -23,8 +35,8 @@ POST {{baseUrl}}/user
 Content-Type: application/json
 
 {
-    "name": "tzq",
-    "email" : "kaixianp@gmail.com",
+    "name": "csw",
+    "email" : "csw@gmail.com",
     "phone" : "01113005114",
     "gender": "Male",
     "password": "12345678",
@@ -35,24 +47,11 @@ Content-Type: application/json
 ### Get user list
 GET {{baseUrl}}/user
 
-### Create a new event
-POST {{baseUrl}}/event
-Content-Type: application/json
-
-{
-    "eventName": "Event Name",
-    "calendar" : "DateTime(2021, 1, 12)",
-    "startTime" : "TimeOfDay(hour: 9, minute: 36)",
-    "endTime": "TimeOfDay(hour: 16, minute: 44)",
-    "description": "This is a description"
-}
-
 ### Get a User list
 GET {{baseUrl}}/user/
 
 ### Get a User by Id
 GET {{baseUrl}}/user/eHAyvyAtI1pygJXOcQpU
-
 
 ### Update the user
 PATCH {{baseUrl}}/user/D2mAeYekIv0JNPtepX65
@@ -65,3 +64,6 @@ Content-Type: application/json
 
 ### Delete the user
 DELETE {{baseUrl}}/user/delete/jtCjtuOowozN64OyGgXV
+
+### Add collaborator to the calendar
+PATCH {{baseUrl}}/calendar/add/1qR1LKkv7QPFJur0a5re/HRY8BzxjRlYLloTtTyja

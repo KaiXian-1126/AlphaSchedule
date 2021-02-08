@@ -57,6 +57,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
             collaboratorCalendarList = snapshot.data[1];
             Provider.of<ValueNotifier<Calendar>>(context).value =
                 calendarList[currentCalendarIndex];
+            print(
+                "calendarname:${calendarList[currentCalendarIndex].calendarName}");
             return Scaffold(
               appBar: AppBar(
                 title: Text(calendarList[currentCalendarIndex].calendarName),
@@ -74,6 +76,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       //Store all events
+                      print("success");
                       Provider.of<ValueNotifier<List<Event>>>(context,
                               listen: false)
                           .value = snapshot.data[1];
