@@ -123,7 +123,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                     ),
                   ),
 
-                  //oncoming listview
+                  /// oncoming listview
                   for (int i = 0; i < onComingEvent2.length; i++)
                     myList(getTodayEvent(onComingEvent2[i], snapshot.data),
                         Colors.blue[100]),
