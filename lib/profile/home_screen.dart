@@ -2,12 +2,8 @@ import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
-import 'package:alpha_schedule/models/Calendar.dart';
-
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
-import 'package:alpha_schedule/services/event/event_service_rest.dart';
-import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -121,6 +117,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             return ListTile(
                                 title:
                                     Text(tempCalendarList[index - 1].eventName),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.cancel_rounded),
+                                  onPressed: () {},
+                                ),
                                 onTap: () async {
                                   final respond = await Navigator.pushNamed(
                                       context, eventDetailsRoute,
@@ -196,8 +196,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 }
                               },
                               child: CircleAvatar(
-                                backgroundImage: AssetImage('assets/me.jpg'),
-                                maxRadius: 40,
+                                child: Icon(
+                                  Icons.portrait,
+                                  size: 30,
+                                ),
+                                radius: 50,
                               ),
                             ),
                             title: Text("${user.name}\n",
@@ -353,13 +356,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         context, eventCreateRoute,
                         arguments: [_controller.selectedDay]);
 
-                    // Event e = response;
-                    setState(() {
-                      // print(user.calendarList[currentCalendarIndex].eventList.length);
-                      // e.calendar = _controller.selectedDay;
-                      // user.calendarList[currentCalendarIndex].eventList.add(e);
-                      // print(user.calendarList[currentCalendarIndex].eventList.length);
-                    });
+                    setState(() {});
                   } else if (index == 4) {
                     Navigator.pushNamed(context, eventSearchRoute);
                   } else if (index == 5) {

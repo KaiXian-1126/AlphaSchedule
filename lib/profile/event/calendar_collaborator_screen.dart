@@ -41,9 +41,6 @@ class _CalendarCollaboratorScreenState
                 separatorBuilder: (_, index) => Divider(),
                 itemCount: (membersLength == 0 ? 1 : membersLength) + 3,
                 itemBuilder: (_, index) {
-                  print("index $index");
-                  print("cmember: ${c.membersId}");
-
                   if (index == 0) {
                     return ListTile(
                       title: Text(owner.name),
@@ -97,7 +94,7 @@ class _CalendarCollaboratorScreenState
                                   context, addCollaboratorRoute);
                               if (res != null) {
                                 setState(() {
-                                  if (membersLength != 0) membersLength++;
+                                  if (c.membersId.length != 0) membersLength++;
                                   c.membersId.add(res);
                                 });
                               }

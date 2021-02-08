@@ -96,7 +96,7 @@ class _LoginScreen extends State<LoginScreen> {
             Container(
                 height: 50,
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: RaisedButton(
+                child: FlatButton(
                   textColor: Colors.white,
                   color: Colors.black,
                   child: Text('Login'),

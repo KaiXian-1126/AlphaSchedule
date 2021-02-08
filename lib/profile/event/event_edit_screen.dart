@@ -1,5 +1,3 @@
-import 'package:alpha_schedule/constants.dart';
-import 'package:alpha_schedule/models/Event.dart';
 import 'package:flutter/material.dart';
 
 class EventEditScreen extends StatefulWidget {

@@ -42,7 +42,6 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
       descController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print(widget.date[0]);
     Calendar c =
         Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
     return Scaffold(
