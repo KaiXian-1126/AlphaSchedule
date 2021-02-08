@@ -29,8 +29,12 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
       String a = '${item.calendar}';
       if (a.compareTo(dateParse.toString()) == 0) event.add(item);
     });
-    event.sort(
-        (a, b) => a.startTime.toString().compareTo(b.startTime.toString()));
+    if (event.length != 0) {
+      event.sort(
+          (a, b) => a.startTime.toString().compareTo(b.startTime.toString()));
+    } else {
+      event = [];
+    }
     return event;
   }
 
@@ -98,8 +102,9 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                       ),
                     ),
                   ),
-                  myList(getTodayEvent(todayDate, snapshot.data),
-                      Colors.blue[100]),
+                  if (getTodayEvent(todayDate, snapshot.data) != null)
+                    myList(getTodayEvent(todayDate, snapshot.data),
+                        Colors.blue[100]),
                   Container(
                     decoration: myBoxDecoration(),
                     child: ListTile(
@@ -137,9 +142,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
       return BoxDecoration(border: Border.all(), color: Colors.grey[300]);
     }
 
-    if (a.length == 0) {
-      return null;
-    } else {
+    if (a.length != 0) {
       return Container(
         margin: EdgeInsets.only(left: 20, bottom: 20, right: 20),
         child: ListView.builder(
@@ -189,6 +192,8 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
           },
         ),
       );
+    } else {
+      return Text('');
     }
   }
 }
