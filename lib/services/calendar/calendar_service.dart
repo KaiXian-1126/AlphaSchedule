@@ -9,4 +9,5 @@ abstract class CalendarService {
   Future<Calendar> updateCalendar(
       {String id, String name, String description, String color});
   Future deleteCalendar({Calendar c});
+  Future<Calendar> updateAccessibility({Calendar c, String accessibility});
 }

@@ -1,5 +1,7 @@
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
@@ -18,6 +20,8 @@ class _CalendarCollaboratorScreenState
     Calendar c =
         Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
     User owner = Provider.of<ValueNotifier<User>>(context, listen: false).value;
+    CalendarService calendarDependency = di.dependency();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("${c.calendarName}"),
@@ -28,7 +32,7 @@ class _CalendarCollaboratorScreenState
       ),
       body: ListView.separated(
         separatorBuilder: (_, index) => Divider(),
-        itemCount: c.membersId.length + 3,
+        itemCount: (c.membersId == null ? 1 : c.membersId.length) + 3,
         itemBuilder: (_, index) {
           if (index == 0) {
             return ListTile(
@@ -42,9 +46,10 @@ class _CalendarCollaboratorScreenState
           }
           if (index == 1)
             return ListTile(
-              title: Text("Member (${c.membersId.length})"),
+              title: Text(
+                  "Member (${c.membersId == null ? 0 : c.membersId.length})"),
             );
-          if (index == c.membersId.length + 2) {
+          if (index == (c.membersId == null ? 1 : c.membersId.length) + 2) {
             return Column(
               children: [
                 ListTile(
@@ -54,7 +59,9 @@ class _CalendarCollaboratorScreenState
                 ListTile(
                   leading: Text("Accessibility:"),
                   title: DropdownButton(
-                    onChanged: (e) {
+                    onChanged: (e) async {
+                      await calendarDependency.updateAccessibility(
+                          c: c, accessibility: e);
                       setState(() {
                         c.accessibility = e;
                       });
@@ -87,6 +94,11 @@ class _CalendarCollaboratorScreenState
                   ),
                 ),
               ],
+            );
+          }
+          if (c.membersId == null) {
+            return ListTile(
+              title: Text("This calendar has no collaborator."),
             );
           }
           return ListTile(

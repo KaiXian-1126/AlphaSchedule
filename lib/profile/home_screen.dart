@@ -63,18 +63,26 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
               body: Container(
                 child: FutureBuilder(
-                  future: eventDependency.getEventList(
-                      c: calendarList[currentCalendarIndex],
-                      date: _controller.selectedDay,
-                      currentTime: time),
+                  future: Future.wait([
+                    eventDependency.getEventList(
+                        c: calendarList[currentCalendarIndex],
+                        date: _controller.selectedDay,
+                        currentTime: time),
+                    eventDependency.getEventList(
+                        c: calendarList[currentCalendarIndex])
+                  ]),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      //Store all events
+                      Provider.of<ValueNotifier<List<Event>>>(context,
+                              listen: false)
+                          .value = snapshot.data[1];
                       return ListView.separated(
                         //Call event data service
-                        itemCount: 1 + snapshot.data.length,
+                        itemCount: 1 + snapshot.data[0].length,
                         separatorBuilder: (_, index) => Divider(),
                         itemBuilder: (_, index) {
-                          List<Event> tempCalendarList = snapshot.data;
+                          List<Event> tempCalendarList = snapshot.data[0];
                           if (index == 0) {
                             return TableCalendar(
                               availableCalendarFormats: {
@@ -215,14 +223,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             ),
                             title: Text(calendarList[index].calendarName),
                             onTap: () {
-                              setState(() {
-                                currentCalendarIndex = index;
-                                final calendarProvider =
-                                    Provider.of<ValueNotifier<Calendar>>(
-                                        context,
-                                        listen: false);
-                                calendarProvider.value = calendarList[index];
-                              });
+                              currentCalendarIndex = index;
+                              final calendarProvider =
+                                  Provider.of<ValueNotifier<Calendar>>(context,
+                                      listen: false);
+                              calendarProvider.value = calendarList[index];
+
+                              setState(() {});
                               Navigator.pop(context);
                             },
                             trailing: OutlineButton(
