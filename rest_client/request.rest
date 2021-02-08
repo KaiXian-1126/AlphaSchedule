@@ -1,7 +1,7 @@
 @baseUrl = https://us-central1-shinwei-alphaschedult.cloudfunctions.net/api
 
 ### Create a new calendar with user id
-POST {{baseUrl}}/calendar/gqF7Us5x4NsqbALpvhAA
+POST {{baseUrl}}/calendar/vqn8KJIDsnSj2eZ67xVV
 Content-Type: application/json
 
 {
@@ -9,22 +9,23 @@ Content-Type: application/json
     "description" : "This is a calendar",
     "color" : "Colors.blue[50]",
     "eventList": [],
-    "accessibility": "View Only",
-    "ownersId": "",
-    "membersId": []
+    "accessibility": "Editable",
+    "membersId": [],
+    "ownerId": ""
 }
 
 ### Get calendar by id
-GET {{baseUrl}}/calendar/v0AUriLx5oqmqYoI04li
+GET {{baseUrl}}/calendar/2nNOc1ERO7V3tkvXYpkb
+
 
 ### Get calendar list by userid
-GET {{baseUrl}}/calendar/getCalendarList/eHAyvyAtI1pygJXOcQpU
+GET {{baseUrl}}/calendar/getCalendarList/mq4U96Grkdrtq2mF6k5X
 
 ### Get collaborator calendar list by userid
 GET {{baseUrl}}/calendar/getCollaboratorCalendarList/1SZirlKOZmumW07Z29h8
 
 ### Delete the calendar
-DELETE {{baseUrl}}/calendar/FVUmRl70gYbFsSPCMmgc
+DELETE {{baseUrl}}/calendar/2nNOc1ERO7V3tkvXYpkb
 
 ### Get calendar members by calendar id
 GET {{baseUrl}}/calendar/getCalendarMembers/SqTYznbGvnkKFPXlfTME

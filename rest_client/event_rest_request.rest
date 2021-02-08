@@ -30,6 +30,7 @@ Content-Type: application/json
 }
 
 ### Delete event
-DELETE {{baseUrl}}/event/delete/AquROr8QOh55Gn6m6Yg1
+DELETE {{baseUrl}}/event/delete/i9cUpsHyQ9U5FiYY6qlY
+
 
 

@@ -332,7 +332,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 onTap: (index) async {
                   _currentIndex = index;
                   if (index == 1) {
-                    await Navigator.pushNamed(context, eventSummaryRoute);
+                    final response =
+                        await Navigator.pushNamed(context, eventSummaryRoute);
+                    if (response != null) {
+                      setState(() {});
+                    }
                   } else if (index == 2) {
                     final response = await Navigator.pushNamed(
                         context, calendarCollaboratorRoute,
