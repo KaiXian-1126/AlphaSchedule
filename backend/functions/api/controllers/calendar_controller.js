@@ -210,7 +210,7 @@ async function deleteColaborator(req, res, next) {
         }
         const updatedUser = await userModel.update(memberid, member);
         if (!updatedUser) return res.sendStatus(404)
-        return res.sendStatus(200);
+        return res.json(updateCalendar);
     }
     catch (e) {
         return next(e);

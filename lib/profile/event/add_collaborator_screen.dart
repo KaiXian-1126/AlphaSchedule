@@ -118,9 +118,11 @@ class _AddCollaboratorScreenState extends State<AddCollaboratorScreen> {
                     Calendar c = Provider.of<ValueNotifier<Calendar>>(context,
                             listen: false)
                         .value;
-                    await calendarDependency.addCalendarCollaborator(
-                        calendar: c, member: invitedUser);
-                    Navigator.pop(context);
+                    final result =
+                        await calendarDependency.addCalendarCollaborator(
+                            calendar: c, member: invitedUser);
+                    String res = result.membersId[result.membersId.length - 1];
+                    Navigator.pop(context, res);
                   }
                 },
               ),

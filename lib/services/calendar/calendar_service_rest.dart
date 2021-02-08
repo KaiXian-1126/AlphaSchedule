@@ -61,4 +61,13 @@ class CalendarServiceRest implements CalendarService {
         data: {});
     return Calendar.fromJson(result);
   }
+
+  //Update by remove the id
+  Future<Calendar> deleteCalendarCollaborator(
+      {Calendar calendar, User member}) async {
+    final result = await rest.patch(
+        "calendar/delete/${calendar.calendarId}/${member.userId}",
+        data: {});
+    return Calendar.fromJson(result);
+  }
 }
