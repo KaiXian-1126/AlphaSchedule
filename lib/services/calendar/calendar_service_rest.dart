@@ -70,4 +70,13 @@ class CalendarServiceRest implements CalendarService {
         data: {});
     return Calendar.fromJson(result);
   }
+
+  //Remove self from collaboration
+  Future<Calendar> removeSelfCollaboration(
+      {Calendar calendar, User user}) async {
+    //Calendar id and user id is required
+    final result = await rest.patch("calendar/removeSelfCollaboration",
+        data: {"calendarId": calendar.calendarId, "userId": user.userId});
+    return Calendar.fromJson(result);
+  }
 }
