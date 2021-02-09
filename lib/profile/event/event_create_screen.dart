@@ -1,7 +1,6 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
-import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

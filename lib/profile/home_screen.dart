@@ -125,7 +125,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           } else {
                             return ListTile(
                                 title: Text(dayEventList[index - 1].eventName),
-                                trailing: null,
+                                trailing: IconButton(
+                                  icon: Icon(Icons.cancel_rounded),
+                                  onPressed: () async {
+                                    await eventDependency.deleteEvent(
+                                        id: dayEventList[index - 1].eventId);
+                                    dayEventList.removeAt(index - 1);
+                                    setState(() {});
+                                  },
+                                ),
                                 onTap: () async {
                                   final respond = await Navigator.pushNamed(
                                       context, eventDetailsRoute,

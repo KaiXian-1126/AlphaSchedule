@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:5001/alpha-schedule-bae8b/us-central1/api
 ### Create a new calendar
-POST {{baseUrl}}/calendar/create/7pOaeTtEloSzEMxBDh95
+POST {{baseUrl}}/calendar/zwwcN60MfpsvaI21m7bu
 Content-Type: application/json
 
 {
@@ -9,8 +9,8 @@ Content-Type: application/json
     "color" : "Colors.blue[50]",
     "eventList": [],
     "accessibility": "View Only",
-    "owner": "",
-    "members": []
+    "ownerId": "",
+    "membersId": []
 }
 
 ### Get calendar by id
@@ -24,7 +24,7 @@ GET {{baseUrl}}/calendar/getList/qjoFiAZkIXKa2aYCAJNO
 DELETE {{baseUrl}}/calendar/delete/PUFQmJ6uiASYrySOvhrh
 
 ### Create a new user
-POST {{baseUrl}}/user/create
+POST {{baseUrl}}/user
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
     "phone" : "01113005114",
     "gender": "Male",
     "password": "123",
-    "calendarList": [""],
+    "calendarList": [],
     "collaboratorCalendarList": []
 }
 
@@ -63,13 +63,18 @@ Content-Type: application/json
 }
 
 ### Add colaborator
-
 PATCH {{baseUrl}}/calendar/add/69faontlu1Im268Im7wQ/aczgfR860avKrcbtzQ8u
 
 ### Delete colaborator
-
 PATCH {{baseUrl}}/calendar/delete/jsHTixTflXWkFCEEYWCs/AYYPYkxsWT3ZBrxWK9Fe
 
+### Delete self from collaboration
+PATCH {{baseUrl}}/calendar/removeSelfCollaboration
+Content-Type: application/json
 
+{
+    "userId": "zwwcN60MfpsvaI21m7bu",
+    "calendarId": "deDzKdEfgGnkniATOxD0"
+}
 
 

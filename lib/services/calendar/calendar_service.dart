@@ -13,4 +13,5 @@ abstract class CalendarService {
   Future<Calendar> updateAccessibility({Calendar c, String accessibility});
   Future<Calendar> addCalendarCollaborator({Calendar calendar, User member});
   Future<Calendar> deleteCalendarCollaborator({Calendar calendar, User member});
+  Future<Calendar> removeSelfCollaboration({Calendar calendar, User user});
 }

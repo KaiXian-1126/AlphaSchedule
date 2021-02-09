@@ -23,6 +23,7 @@ router.patch("/add/:calendarid/:memberid", addColaborator);
 
 router.patch("/delete/:calendarid/:memberid", deleteColaborator);
 
+router.patch("/removeSelfCollaboration", removeSelfCollaboration);
 
 async function createCalendar(req, res, next) {
     const userid = req.params.userid;
@@ -216,7 +217,32 @@ async function deleteColaborator(req, res, next) {
         return next(e);
     }
 }
+async function removeSelfCollaboration(req, res, next) {
+    const calendarid = req.body.calendarId;
+    const userid = req.body.userId;
+    const user = await userModel.get(userid);
+    if (!user) return res.sendStatus(404);
+    for (i = 0; i < user.collaboratorCalendarList.length; i++) {
+        if (user.collaboratorCalendarList[i] == calendarid) {
+            user.collaboratorCalendarList.splice(i, 1);
+            break;
+        }
+    }
+    const updatedUser = await userModel.update(userid, user);
+    if (!updatedUser) return res.sendStatus(404);
+    const calendar = await calendarModel.get(calendarid);
+    if (!calendar) return res.sendStatus(404);
+    for (i = 0; i < calendar.membersId.length; i++) {
+        if (calendar.membersId[i] == userid) {
+            calendar.membersId.splice(i, 1);
+            break;
+        }
+    }
+    const updatedCalendar = await calendarModel.update(calendarid, calendar);
+    if (!updatedCalendar) return res.sendStatus(404);
+    return res.json(updatedCalendar);
 
+}
 
 
 
