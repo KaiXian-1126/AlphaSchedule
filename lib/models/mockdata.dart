@@ -1,19 +1,20 @@
 import 'package:alpha_schedule/models/Event.dart';
-import 'package:alpha_schedule/models/user_mock.dart';
+import 'package:alpha_schedule/models/User.dart';
 import 'package:flutter/material.dart';
 import 'Calendar.dart';
 
 User mockData = User(
-    userId: 1,
+    userId: "1",
     name: 'shinwei',
     email: 'shinwei@gmail.com',
     password: '1234567',
     phone: '0123456789',
     gender: 'Male',
     calendarList: calendar);
+
 List<User> mockUsers = [
   User(
-      userId: 1,
+      userId: "1",
       name: 'sw',
       email: 'shinwei@gmail.com',
       password: '1234',
@@ -21,7 +22,7 @@ List<User> mockUsers = [
       gender: 'Male',
       calendarList: calendar),
   User(
-      userId: 2,
+      userId: "2",
       name: 'kaixian',
       email: 'kaixian@gmail.com',
       password: '1234',
@@ -29,7 +30,7 @@ List<User> mockUsers = [
       gender: 'Male',
       calendarList: calendar),
   User(
-      userId: 3,
+      userId: "3",
       name: 'Ali',
       email: 'ali@gmail.com',
       password: '1234',
@@ -37,7 +38,7 @@ List<User> mockUsers = [
       gender: 'Male',
       calendarList: calendar),
   User(
-      userId: 4,
+      userId: "4",
       name: 'ahmad',
       email: 'ahmad@gmail.com',
       password: '1234',
@@ -184,19 +185,19 @@ List<User> calendarMembers = [
       gender: "Male",
       password: "123",
       phone: "0123456789",
-      userId: 10),
+      userId: "10"),
   User(
       name: "Tok Kai Xian",
       email: "tokkaixian@gmail.com",
       gender: "Male",
       password: "123",
       phone: "0123456789",
-      userId: 11),
+      userId: "11"),
   User(
       name: "Tan Wei Kok",
       email: "tanweikok@gmail.com",
       gender: "Male",
       password: "123",
       phone: "0123456789",
-      userId: 12),
+      userId: "12"),
 ];

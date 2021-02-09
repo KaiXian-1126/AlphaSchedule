@@ -3,9 +3,9 @@ import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/models/User.dart';
-import 'package:alpha_schedule/profile/home_screen.dart';
+
 import 'package:alpha_schedule/routes.dart';
-import 'package:alpha_schedule/services/calendar/calendar_service.dart';
+
 import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +26,14 @@ void main() {
         ChangeNotifierProvider<ValueNotifier<List<Event>>>(
           create: (_) => ValueNotifier<List<Event>>(null),
         ),
+        // used to detect the calendar accessibility
+        ChangeNotifierProvider<ValueNotifier<String>>(
+          create: (_) => ValueNotifier<String>("View Only"),
+        ),
+        // used for detect the calendar whether in collaborator mode
+        ChangeNotifierProvider<ValueNotifier<bool>>(
+          create: (_) => ValueNotifier<bool>(false),
+        )
       ],
       child: MyApp(),
     ),

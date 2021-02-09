@@ -1,9 +1,7 @@
-import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
-import 'package:provider/provider.dart';
 
 import '../constants.dart';
 

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:alpha_schedule/constants.dart';
-import 'package:alpha_schedule/landing/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 

@@ -1,4 +1,3 @@
-import 'package:alpha_schedule/models/Event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

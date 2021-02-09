@@ -1,5 +1,3 @@
-import 'package:alpha_schedule/models/Calendar.dart';
-
 class User {
   String userId;
   String name;

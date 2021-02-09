@@ -18,10 +18,9 @@ class _CalendarCollaboratorScreenState
   int membersLength;
   @override
   Widget build(BuildContext context) {
-    Calendar c =
-        Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
-    User owner = Provider.of<ValueNotifier<User>>(context, listen: false).value;
-    membersLength = c.membersId.length;
+    Calendar c = Provider.of<ValueNotifier<Calendar>>(context).value;
+    User owner = Provider.of<ValueNotifier<User>>(context).value;
+
     CalendarService calendarDependency = di.dependency();
     return Scaffold(
       appBar: AppBar(
@@ -36,11 +35,13 @@ class _CalendarCollaboratorScreenState
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final members = snapshot.data;
-
+              membersLength = members.length;
               return ListView.separated(
                 separatorBuilder: (_, index) => Divider(),
-                itemCount: (membersLength == 0 ? 1 : membersLength) + 3,
+                itemCount: membersLength + 3,
                 itemBuilder: (_, index) {
+                  print(index);
+
                   if (index == 0) {
                     return ListTile(
                       title: Text(owner.name),
@@ -55,7 +56,7 @@ class _CalendarCollaboratorScreenState
                     return ListTile(
                       title: Text("Member ($membersLength)"),
                     );
-                  if (index == (membersLength == 0 ? 1 : membersLength) + 2) {
+                  if (index == membersLength + 2) {
                     return Column(
                       children: [
                         ListTile(
@@ -93,20 +94,14 @@ class _CalendarCollaboratorScreenState
                               final res = await Navigator.pushNamed(
                                   context, addCollaboratorRoute);
                               if (res != null) {
-                                setState(() {
-                                  if (c.membersId.length != 0) membersLength++;
-                                  c.membersId.add(res);
-                                });
+                                membersLength++;
+                                c.membersId.add(res);
+                                setState(() {});
                               }
                             },
                           ),
                         ),
                       ],
-                    );
-                  }
-                  if (membersLength == 0) {
-                    return ListTile(
-                      title: Text("No member in this calendar yet."),
                     );
                   }
                   return ListTile(
