@@ -1,3 +1,6 @@
+import 'package:alpha_schedule/screens/event/event_search/event_search_view.dart';
+import 'package:alpha_schedule/screens/login/login_view.dart';
+
 import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/landing/splash_screen.dart';
@@ -10,13 +13,11 @@ import 'package:alpha_schedule/profile/event/calendar_settings_screen.dart';
 import 'package:alpha_schedule/profile/event/event_create_screen.dart';
 import 'package:alpha_schedule/profile/event/event_details_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
-import 'package:alpha_schedule/profile/event/event_search_screen.dart';
 import 'package:alpha_schedule/profile/event/event_summary_screen.dart';
 import 'package:alpha_schedule/profile/home_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/user_profile_screen.dart';
-import 'package:alpha_schedule/screens/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
@@ -75,9 +76,8 @@ Route<dynamic> createRoute(settings) {
         builder: (context) => EventEditScreen(event: settings.arguments),
       );
     case eventSearchRoute:
-      return MaterialPageRoute(
-        builder: (context) => EventSearchScreen(),
-      );
+      return EventSearchScreen.route();
+
     case eventSummaryRoute:
       return MaterialPageRoute(
         builder: (context) => EventSummaryScreen(),

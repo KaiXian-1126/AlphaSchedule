@@ -3,14 +3,12 @@ import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
-import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   static Route<dynamic> route() =>
       MaterialPageRoute(builder: (_) => LoginScreen());
-  UserService dependency = di.dependency();
   @override
   Widget build(BuildContext context) {
     TextEditingController emailController = TextEditingController();
