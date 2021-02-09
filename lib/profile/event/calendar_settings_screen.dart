@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
-import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
-import '../../models/Calendar.dart';
-import 'package:provider/provider.dart';
 
 class CalendarSettingScreen extends StatefulWidget {
   final calender;

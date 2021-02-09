@@ -1,7 +1,5 @@
-import 'package:alpha_schedule/auth/account_create_screen.dart';
-import 'package:alpha_schedule/auth/login_screen.dart';
 import 'package:alpha_schedule/constants.dart';
-import 'package:alpha_schedule/models/mockdata.dart';
+
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {

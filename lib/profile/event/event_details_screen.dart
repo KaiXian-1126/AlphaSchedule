@@ -13,7 +13,6 @@ class EventDetailsScreen extends StatefulWidget {
 class _EventDetailsScreenState extends State<EventDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    print(widget.event);
     return Container(
       child: Scaffold(
         appBar: AppBar(

@@ -2,12 +2,9 @@ import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
-import 'package:alpha_schedule/models/Calendar.dart';
-
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
-import 'package:alpha_schedule/services/event/event_service_rest.dart';
-import 'package:alpha_schedule/services/user/user_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -31,7 +28,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
   EventService eventDependency = di.dependency();
 
   //Required User Information
-  Future<List> futureCalendarList, futureCollaboratorCalendarList;
   List calendarList, collaboratorCalendarList, eventList = [];
 
   @override
@@ -55,26 +51,43 @@ class _DrawerScreenState extends State<DrawerScreen> {
           if (snapshot.hasData) {
             calendarList = snapshot.data[0];
             collaboratorCalendarList = snapshot.data[1];
+
+            List<Calendar> calendars = [];
+            calendarList.forEach((e) {
+              calendars.add(e);
+            });
+            collaboratorCalendarList.forEach((e) {
+              calendars.add(e);
+            });
             Provider.of<ValueNotifier<Calendar>>(context).value =
-                calendarList[currentCalendarIndex];
+                calendars[currentCalendarIndex];
+
             return Scaffold(
               appBar: AppBar(
-                title: Text(calendarList[currentCalendarIndex].calendarName),
+                title: Text(calendars[currentCalendarIndex].calendarName),
               ),
               body: Container(
                 child: FutureBuilder(
-                  future: eventDependency.getEventList(
-                      c: calendarList[currentCalendarIndex],
-                      date: _controller.selectedDay,
-                      currentTime: time),
+                  future: Future.wait([
+                    eventDependency.getEventList(
+                        c: calendars[currentCalendarIndex],
+                        date: _controller.selectedDay,
+                        currentTime: time),
+                    eventDependency.getEventList(
+                        c: calendars[currentCalendarIndex])
+                  ]),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      //Store all events
+                      Provider.of<ValueNotifier<List<Event>>>(context,
+                              listen: false)
+                          .value = snapshot.data[1];
                       return ListView.separated(
                         //Call event data service
-                        itemCount: 1 + snapshot.data.length,
+                        itemCount: 1 + snapshot.data[0].length,
                         separatorBuilder: (_, index) => Divider(),
                         itemBuilder: (_, index) {
-                          List<Event> tempCalendarList = snapshot.data;
+                          List<Event> dayEventList = snapshot.data[0];
                           if (index == 0) {
                             return TableCalendar(
                               availableCalendarFormats: {
@@ -83,8 +96,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               calendarController: _controller,
                               calendarStyle: CalendarStyle(
                                   contentDecoration: BoxDecoration(
-                                    color: calendarList[currentCalendarIndex]
-                                        .color,
+                                    color:
+                                        calendars[currentCalendarIndex].color,
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black54,
@@ -111,12 +124,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             );
                           } else {
                             return ListTile(
-                                title:
-                                    Text(tempCalendarList[index - 1].eventName),
+                                title: Text(dayEventList[index - 1].eventName),
+                                trailing: null,
                                 onTap: () async {
                                   final respond = await Navigator.pushNamed(
                                       context, eventDetailsRoute,
-                                      arguments: tempCalendarList[index - 1]);
+                                      arguments: dayEventList[index - 1]);
                                   if (respond != null) {
                                     setState(() {});
                                   }
@@ -133,7 +146,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           calendarController: _controller,
                           calendarStyle: CalendarStyle(
                               contentDecoration: BoxDecoration(
-                                color: calendarList[currentCalendarIndex].color,
+                                color: calendars[currentCalendarIndex].color,
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black54,
@@ -188,8 +201,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 }
                               },
                               child: CircleAvatar(
-                                backgroundImage: AssetImage('assets/me.jpg'),
-                                maxRadius: 40,
+                                child: Icon(
+                                  Icons.portrait,
+                                  size: 30,
+                                ),
+                                radius: 50,
                               ),
                             ),
                             title: Text("${user.name}\n",
@@ -213,16 +229,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   AssetImage('assets/calendar.png'),
                               maxRadius: 30,
                             ),
-                            title: Text(calendarList[index].calendarName),
+                            title: Text(calendars[index].calendarName),
                             onTap: () {
-                              setState(() {
-                                currentCalendarIndex = index;
-                                final calendarProvider =
-                                    Provider.of<ValueNotifier<Calendar>>(
-                                        context,
-                                        listen: false);
-                                calendarProvider.value = calendarList[index];
-                              });
+                              currentCalendarIndex = index;
+                              final calendarProvider =
+                                  Provider.of<ValueNotifier<Calendar>>(context,
+                                      listen: false);
+                              calendarProvider.value = calendars[index];
+
+                              setState(() {});
                               Navigator.pop(context);
                             },
                             trailing: OutlineButton(
@@ -230,7 +245,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               onPressed: () async {
                                 if (calendarList.length > 1) {
                                   await calendarDependency.deleteCalendar(
-                                      c: calendarList[index]);
+                                      c: calendars[index]);
                                   calendarList.removeAt(index);
                                 }
                                 setState(() {});
@@ -247,18 +262,26 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             separatorBuilder: (context, index) =>
                                 Divider(color: Colors.black),
                             itemBuilder: (context, index) {
-                              if (index != 0) {
+                              if (collaboratorCalendarList.length != 0) {
                                 return ListTile(
                                   leading: CircleAvatar(
                                     backgroundImage:
                                         AssetImage('assets/calendar.png'),
                                     maxRadius: 30,
                                   ),
-                                  title: Text(collaboratorCalendarList[index]
-                                      .calendarName),
+                                  title: Text(
+                                      calendars[calendarList.length + index]
+                                          .calendarName),
                                   onTap: () {
                                     setState(() {
-                                      //currentCalendarIndex = index;
+                                      currentCalendarIndex =
+                                          calendarList.length + index;
+                                      final calendarProvider =
+                                          Provider.of<ValueNotifier<Calendar>>(
+                                              context,
+                                              listen: false);
+                                      calendarProvider.value = calendars[
+                                          calendarList.length + index];
                                     });
                                     Navigator.pop(context);
                                   },
@@ -267,7 +290,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                     onPressed: () async {
                                       if (collaboratorCalendarList.length > 1) {
                                         await calendarDependency.deleteCalendar(
-                                            c: collaboratorCalendarList[index]);
+                                            c: calendars[
+                                                calendarList.length + index]);
                                         collaboratorCalendarList
                                             .removeAt(index);
                                       }
@@ -289,6 +313,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           onPressed: () async {
                             await Navigator.pushNamed(
                                 context, calendarCreateRoute);
+
                             setState(() {});
                           },
                           child: Icon(Icons.add),
@@ -317,17 +342,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 type: BottomNavigationBarType.fixed,
                 items: [
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.home), title: Text("home")),
+                      icon: Icon(Icons.home), label: "Home"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.calendar_today), title: Text("Summary")),
+                      icon: Icon(Icons.calendar_today), label: "Summary"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.share), title: Text("Share")),
+                      icon: Icon(Icons.share), label: "Share"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.add), title: Text("Create")),
+                      icon: Icon(Icons.add), label: "Create"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.search), title: Text("Search")),
+                      icon: Icon(Icons.search), label: "Search"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.settings), title: Text("Setting")),
+                      icon: Icon(Icons.settings), label: "Settings"),
                 ],
                 onTap: (index) async {
                   _currentIndex = index;
@@ -346,13 +371,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         context, eventCreateRoute,
                         arguments: [_controller.selectedDay]);
 
-                    // Event e = response;
-                    setState(() {
-                      // print(user.calendarList[currentCalendarIndex].eventList.length);
-                      // e.calendar = _controller.selectedDay;
-                      // user.calendarList[currentCalendarIndex].eventList.add(e);
-                      // print(user.calendarList[currentCalendarIndex].eventList.length);
-                    });
+                    setState(() {});
                   } else if (index == 4) {
                     Navigator.pushNamed(context, eventSearchRoute);
                   } else if (index == 5) {
@@ -377,17 +396,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 type: BottomNavigationBarType.fixed,
                 items: [
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.home), title: Text("home")),
+                      icon: Icon(Icons.home), label: "Home"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.calendar_today), title: Text("Summary")),
+                      icon: Icon(Icons.calendar_today), label: "Summary"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.share), title: Text("Share")),
+                      icon: Icon(Icons.share), label: "Share"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.add), title: Text("Create")),
+                      icon: Icon(Icons.add), label: "Create"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.search), title: Text("Search")),
+                      icon: Icon(Icons.search), label: "Search"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.settings), title: Text("Setting")),
+                      icon: Icon(Icons.settings), label: "Settings"),
                 ],
               ),
             );

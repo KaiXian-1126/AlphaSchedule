@@ -1,7 +1,6 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
-import 'package:alpha_schedule/models/mockdata.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/rest_service.dart';
 
@@ -45,6 +44,30 @@ class CalendarServiceRest implements CalendarService {
       'color': color,
       'description': description
     });
+    return Calendar.fromJson(result);
+  }
+
+  Future<Calendar> updateAccessibility(
+      {Calendar c, String accessibility}) async {
+    final result = await rest.patch("calendar/update/${c.calendarId}",
+        data: {"accessibility": accessibility});
+    return Calendar.fromJson(result);
+  }
+
+  Future<Calendar> addCalendarCollaborator(
+      {Calendar calendar, User member}) async {
+    final result = await rest.patch(
+        "calendar/add/${calendar.calendarId}/${member.userId}",
+        data: {});
+    return Calendar.fromJson(result);
+  }
+
+  //Update by remove the id
+  Future<Calendar> deleteCalendarCollaborator(
+      {Calendar calendar, User member}) async {
+    final result = await rest.patch(
+        "calendar/delete/${calendar.calendarId}/${member.userId}",
+        data: {});
     return Calendar.fromJson(result);
   }
 }

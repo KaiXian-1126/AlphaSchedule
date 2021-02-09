@@ -2,7 +2,6 @@ import 'package:alpha_schedule/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
-import '../../models/mockdata.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen();
@@ -32,21 +31,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: BoxDecoration(color: Colors.blue),
                 child: Column(
                   children: [
-                    Container(margin: EdgeInsets.only(top: 20)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 30),
-                          child: CircleAvatar(
-                            backgroundImage: AssetImage('assets/me.jpg'),
-                            maxRadius: 80,
-                          ),
+                    Container(margin: EdgeInsets.only(top: 40)),
+                    Container(
+                      child: CircleAvatar(
+                        radius: 50,
+                        child: Icon(
+                          Icons.portrait,
+                          size: 50,
                         ),
-                        Container(
-                            margin: EdgeInsets.only(top: 100),
-                            child: Icon(Icons.camera)),
-                      ],
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 30),

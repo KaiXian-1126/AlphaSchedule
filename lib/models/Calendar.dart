@@ -1,4 +1,3 @@
-import 'package:alpha_schedule/models/Event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +29,8 @@ class Calendar {
                 ? Colors.blue[50]
                 : Colors.green[50],
             eventList: json['eventList'],
-            ownerId: json['owner'],
-            membersId: json['members'],
+            ownerId: json['ownerId'],
+            membersId: json['membersId'],
             accessibility: json['accessibility']);
   Map<String, dynamic> toJson() => {
         "id": calendarId,

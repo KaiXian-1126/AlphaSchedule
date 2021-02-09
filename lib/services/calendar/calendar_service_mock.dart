@@ -1,6 +1,5 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
-import '../../models/mockdata.dart';
 import '../../models/user.dart';
 
 class CalendarServiceMock {

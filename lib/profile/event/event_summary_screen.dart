@@ -102,9 +102,9 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                       ),
                     ),
                   ),
-                //  if (getTodayEvent(todayDate, snapshot.data) != null)
-                //    myList(getTodayEvent(todayDate, snapshot.data),
-                //        Colors.blue[100]),
+                  if (getTodayEvent(todayDate, snapshot.data) != null)
+                    myList(getTodayEvent(todayDate, snapshot.data),
+                        Colors.blue[100]),
                   Container(
                     decoration: myBoxDecoration(),
                     child: ListTile(
@@ -124,9 +124,9 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                   ),
 
                   /// oncoming listview
-                //  for (int i = 0; i < onComingEvent2.length; i++)
-                //    myList(getTodayEvent(onComingEvent2[i], snapshot.data),
-                 //       Colors.blue[100]),
+                  for (int i = 0; i < onComingEvent2.length; i++)
+                    myList(getTodayEvent(onComingEvent2[i], snapshot.data),
+                        Colors.blue[100]),
                 ],
               );
             } else {
