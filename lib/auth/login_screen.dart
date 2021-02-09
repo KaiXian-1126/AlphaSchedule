@@ -13,9 +13,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final _nameFormKey = GlobalKey<FormState>();
+  final _emailFormKey = GlobalKey<FormState>();
   final _passwordFormKey = GlobalKey<FormState>();
   bool validated = true;
 
@@ -39,21 +39,23 @@ class _LoginScreen extends State<LoginScreen> {
             SizedBox(
               height: 40,
             ),
-            BuildText("User Name"),
+            BuildText("User Email"),
             Container(
                 padding: EdgeInsets.all(10),
                 child: Form(
-                  key: _nameFormKey,
+                  key: _emailFormKey,
                   child: TextFormField(
                       keyboardType: TextInputType.name,
-                      controller: nameController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "User Name cannot be empty";
-                        } else {
+                          return "Email cannot be empty";
+                        } else if(!validateEmail(value)){
+                          return "Not a valid email";
+                        }else {
                           return null;
                         }
                       }),
@@ -86,7 +88,7 @@ class _LoginScreen extends State<LoginScreen> {
                 child: validated
                     ? null
                     : Text(
-                        "User Name or Password is not correct.",
+                        "Email or Password is not correct.",
                         style: TextStyle(color: Colors.red),
                       ),
                 height: 40,
@@ -100,13 +102,13 @@ class _LoginScreen extends State<LoginScreen> {
                   color: Colors.black,
                   child: Text('Login'),
                   onPressed: () async {
-                    if (_nameFormKey.currentState.validate()) {
+                    if (_emailFormKey.currentState.validate()) {
                       if (_passwordFormKey.currentState.validate()) {
                         final userList =
                             Provider.of<List<User>>(context, listen: false);
                         if (userList != null) {
                           for (int i = 0; i < userList.length; i++) {
-                            if (userList[i].name == nameController.text &&
+                            if (userList[i].email == emailController.text &&
                                 userList[i].password ==
                                     passwordController.text) {
                               validated = true;
