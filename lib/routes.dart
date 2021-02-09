@@ -1,5 +1,4 @@
 import 'package:alpha_schedule/auth/account_create_screen.dart';
-import 'package:alpha_schedule/auth/login_screen.dart';
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/landing/welcome_screen.dart';
@@ -17,6 +16,7 @@ import 'package:alpha_schedule/profile/home_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/user_profile_screen.dart';
+import 'package:alpha_schedule/screens/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
@@ -41,9 +41,7 @@ Route<dynamic> createRoute(settings) {
         builder: (context) => AccountCreateScreen(),
       );
     case loginRoute:
-      return MaterialPageRoute(
-        builder: (context) => LoginScreen(),
-      );
+      return LoginScreen.route();
     case logoutRoute:
       return MaterialPageRoute(
         builder: (context) => LogoutScreen(),

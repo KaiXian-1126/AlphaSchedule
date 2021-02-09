@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class RestService {
   // Change the baseUrl based on your laptop's IP address.
   static const String baseUrl =
-      'https://us-central1-wk-backend-firebase-alpha.cloudfunctions.net/api';
+      'https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api';
 
   Future get(String endpoint) async {
     final response = await http.get('$baseUrl/$endpoint');
