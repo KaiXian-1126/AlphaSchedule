@@ -16,7 +16,7 @@ import 'package:alpha_schedule/profile/event/calendar_settings_screen.dart';
 
 import 'package:alpha_schedule/profile/event/event_details_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
-import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
+import 'package:alpha_schedule/screens/useredit/passwordedit/password_edit_view.dart';
 import 'package:alpha_schedule/screens/userprofile/profile_view.dart';
 import 'package:alpha_schedule/screens/useredit/profileedit/profile_edit_view.dart';
 import 'package:flutter/material.dart';
