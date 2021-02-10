@@ -1,3 +1,4 @@
+import 'package:alpha_schedule/screens/event/event_create/event_create_view.dart';
 import 'package:alpha_schedule/screens/event/event_search/event_search_view.dart';
 import 'package:alpha_schedule/screens/home/home_view.dart';
 import 'package:alpha_schedule/screens/event/event_summary/event_summary_view.dart';
@@ -12,7 +13,7 @@ import 'package:alpha_schedule/profile/event/add_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/calendar_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/calendar_create_screen.dart';
 import 'package:alpha_schedule/profile/event/calendar_settings_screen.dart';
-import 'package:alpha_schedule/profile/event/event_create_screen.dart';
+
 import 'package:alpha_schedule/profile/event/event_details_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
