@@ -17,8 +17,8 @@ import 'package:alpha_schedule/profile/event/calendar_settings_screen.dart';
 import 'package:alpha_schedule/profile/event/event_details_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
+import 'package:alpha_schedule/screens/userprofile/profile_view.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
-import 'package:alpha_schedule/profile/user/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
@@ -36,10 +36,6 @@ Route<dynamic> createRoute(settings) {
     case homeRoute:
       return DrawerScreen.route();
     //Auth routes
-    /*case accountCreateRoute:
-      return MaterialPageRoute(
-        builder: (context) => AccountCreateScreen(),
-      );*/
     case accountCreateRoute:
       return AccountCreateScreen.route();
     case loginRoute:
@@ -89,10 +85,12 @@ Route<dynamic> createRoute(settings) {
       return MaterialPageRoute(
         builder: (context) => ProfileEditScreen(settings.arguments),
       );
-    case userProfileRoute:
+    /*case userProfileRoute:
       return MaterialPageRoute(
         builder: (context) => ProfileScreen(),
-      );
+      );*/
+    case userProfileRoute:
+      return ProfileScreen.route();
     case addCollaboratorRoute:
       return MaterialPageRoute(
         builder: (context) => AddCollaboratorScreen(),

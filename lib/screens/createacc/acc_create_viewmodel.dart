@@ -6,7 +6,7 @@ import 'package:alpha_schedule/services/user/user_service.dart';
 import '../viewmodel.dart';
 
 class AccountCreateViewmodel extends Viewmodel {
-  List<User> users;
+  List<User> user;
   UserService get dataService => dependency();
 
   createUser({User user}) async {
