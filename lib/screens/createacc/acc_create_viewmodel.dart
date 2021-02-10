@@ -9,23 +9,11 @@ class AccountCreateViewmodel extends Viewmodel {
   List<User> users;
   UserService get dataService => dependency();
 
-  void accountcreate(
-      {String username,
-      String uemail,
-      uphone,
-      upassword,
-      ugender = "Male"}) async {
-    await dataService.createUser(
-      user: User(
-        name: username,
-        email: uemail,
-        password: upassword,
-        phone: uphone,
-        gender: ugender,
-        calendarList: [],
-        collaboratorCalendarList: [],
-      ),
-    );
+  createUser({User user}) async {
+    turnBusy();
+    await dataService.createUser(user: user);
+    turnIdle();
   }
+
   get rebuild => notifyListeners();
 }

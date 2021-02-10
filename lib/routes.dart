@@ -3,8 +3,8 @@ import 'package:alpha_schedule/screens/event/event_search/event_search_view.dart
 import 'package:alpha_schedule/screens/home/home_view.dart';
 import 'package:alpha_schedule/screens/event/event_summary/event_summary_view.dart';
 import 'package:alpha_schedule/screens/login/login_view.dart';
+import 'package:alpha_schedule/screens/createacc/acc_create_view.dart';
 
-import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/landing/welcome_screen.dart';
@@ -40,8 +40,8 @@ Route<dynamic> createRoute(settings) {
       return MaterialPageRoute(
         builder: (context) => AccountCreateScreen(),
       );*/
-    /*case accountCreateRoute:
-      return AccountCreateScreen.route();*/
+    case accountCreateRoute:
+      return AccountCreateScreen.route();
     case loginRoute:
       return LoginScreen.route();
     case logoutRoute:

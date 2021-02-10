@@ -4,10 +4,10 @@ import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/screens/createacc/acc_create_viewmodel.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:alpha_schedule/auth/account_create_screen.dart';
-import 'package:flutter/material.dart';
 
 class AccountCreateScreen extends StatefulWidget {
   static Route<dynamic> route() =>
@@ -33,8 +33,8 @@ class _AccountCreateScreenState extends State<AccountCreateScreen> {
     final _confirmpasswordFormKey = GlobalKey<FormState>();
     List _genderDropDown = ['Male', 'Female'];
 
-    return Container(
-      child: Scaffold(
+    return View<AccountCreateViewmodel>(builder: (context, viewmodel, _) {
+      return Scaffold(
         appBar: AppBar(
           title: Text('Create an Account'),
           leading: IconButton(
@@ -216,17 +216,17 @@ class _AccountCreateScreenState extends State<AccountCreateScreen> {
                       _passwordFormKey.currentState.save();
                       _confirmpasswordFormKey.currentState.save();
 
-                      /*      await userService.createUser(
-                        user: User(
-                          name: username,
-                          email: uemail,
-                          password: upassword,
-                          phone: uphone,
-                          gender: ugender,
-                          calendarList: [],
-                          collaboratorCalendarList: [],
-                        ),
-                      );*/
+                      viewmodel.createUser(
+                          user: User(
+                        name: username,
+                        email: uemail,
+                        password: upassword,
+                        phone: uphone,
+                        gender: ugender,
+                        calendarList: [],
+                        collaboratorCalendarList: [],
+                      ));
+
                       Navigator.popAndPushNamed(context, loginRoute);
                     }
                   }
@@ -235,8 +235,8 @@ class _AccountCreateScreenState extends State<AccountCreateScreen> {
             }
           },
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
