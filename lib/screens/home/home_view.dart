@@ -1,16 +1,10 @@
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
-import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
-import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
-import 'package:alpha_schedule/services/calendar/calendar_service.dart';
-import 'package:alpha_schedule/services/event/event_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:table_calendar/table_calendar.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 

@@ -4,7 +4,6 @@ import 'package:alpha_schedule/screens/viewmodel.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import '../../app/dependencies.dart';
-import '../../services/user/user_service.dart';
 import '../../models/User.dart';
 
 class HomeViewmodel extends Viewmodel {
