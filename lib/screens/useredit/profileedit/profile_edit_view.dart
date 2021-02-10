@@ -21,7 +21,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   final _emailFormKey = GlobalKey<FormState>();
   final _phoneFormKey = GlobalKey<FormState>();
   List _genderDropDown = ['Male', 'Female'];
-  UserService userdependency = di.dependency();
+
   @override
   Widget build(BuildContext context) {
     _nameController.text = widget._data.name;

@@ -3,6 +3,7 @@ import 'package:alpha_schedule/screens/event/event_search/event_search_viewmodel
 import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/event/event_summary/event_summary_viewmodel.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
+import 'package:alpha_schedule/screens/useredit/passwordedit/password_edit_viewmodel.dart';
 import 'package:alpha_schedule/screens/useredit/profileedit/profile_edit_viewmodel.dart';
 import 'package:alpha_schedule/screens/userprofile/profile_viewmodel.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
@@ -32,4 +33,5 @@ void init() {
   dependency.registerLazySingleton(() => EventSummaryViewmodel());
   dependency.registerLazySingleton(() => ProfileViewmodel());
   dependency.registerLazySingleton(() => ProfileEditViewmodel());
+  dependency.registerLazySingleton(() => PasswordEditViewmodel());
 }

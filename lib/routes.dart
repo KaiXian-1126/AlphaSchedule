@@ -85,10 +85,6 @@ Route<dynamic> createRoute(settings) {
       return MaterialPageRoute(
         builder: (context) => ProfileEditScreen(settings.arguments),
       );
-    /*case userProfileRoute:
-      return MaterialPageRoute(
-        builder: (context) => ProfileScreen(),
-      );*/
     case userProfileRoute:
       return ProfileScreen.route();
     case addCollaboratorRoute:
