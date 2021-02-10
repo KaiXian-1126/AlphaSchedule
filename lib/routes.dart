@@ -1,4 +1,5 @@
 import 'package:alpha_schedule/screens/event/event_search/event_search_view.dart';
+import 'package:alpha_schedule/screens/event/event_summary/event_summary_view.dart';
 import 'package:alpha_schedule/screens/login/login_view.dart';
 
 import 'package:alpha_schedule/auth/account_create_screen.dart';
@@ -13,7 +14,6 @@ import 'package:alpha_schedule/profile/event/calendar_settings_screen.dart';
 import 'package:alpha_schedule/profile/event/event_create_screen.dart';
 import 'package:alpha_schedule/profile/event/event_details_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
-import 'package:alpha_schedule/profile/event/event_summary_screen.dart';
 import 'package:alpha_schedule/profile/home_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
@@ -79,9 +79,7 @@ Route<dynamic> createRoute(settings) {
       return EventSearchScreen.route();
 
     case eventSummaryRoute:
-      return MaterialPageRoute(
-        builder: (context) => EventSummaryScreen(),
-      );
+      return EventSummaryScreen.route();
     case passwordEditRoute:
       return MaterialPageRoute(
         builder: (context) => PasswordEditScreen(settings.arguments),
