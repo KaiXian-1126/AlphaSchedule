@@ -1,9 +1,11 @@
+import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_create/calendar_create_viewmodel.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
-import 'package:alpha_schedule/models/user.dart';
+import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 
 class CalendarCreateScreen extends StatefulWidget {
   static Route<dynamic> route() =>
@@ -92,7 +94,6 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ValueNotifier<User>>(context).value;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -103,6 +104,7 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
           ),
         ),
         body: View<CalendarCreateViewmodel>(builder: (context, viewmodel, _) {
+          User user = di.dependency<LoginViewmodel>().user;
           return Container(
             margin: EdgeInsets.only(top: 20, left: 30, right: 30),
             child: Form(
@@ -140,6 +142,15 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                                   membersId: []);
                               viewmodel.createCalendar(
                                   id: "${user.userId}", data: newCalendar);
+                              di
+                                  .dependency<HomeViewmodel>()
+                                  .ownCalendars
+                                  .add(newCalendar);
+                              di
+                                  .dependency<HomeViewmodel>()
+                                  .allCalendars
+                                  .add(newCalendar);
+
                               Navigator.pop(context);
                             }
                           },

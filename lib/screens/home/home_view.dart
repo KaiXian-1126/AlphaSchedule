@@ -230,9 +230,10 @@ class DrawerScreen extends StatelessWidget {
                           child: FloatingActionButton(
                             heroTag: null,
                             onPressed: () async {
-                              await Navigator.pushNamed(
+                              final response = await Navigator.pushNamed(
                                   context, calendarCreateRoute);
-                              viewmodel.rebuild();
+
+                              viewmodel.notifyListeners();
                             },
                             child: Icon(Icons.add),
                           ),
@@ -298,7 +299,7 @@ class DrawerScreen extends StatelessWidget {
                       final response = await Navigator.pushNamed(
                           context, calendarSettingsRoute,
                           arguments: viewmodel.currentCalendar);
-                      viewmodel.rebuild();
+                      viewmodel.notifyListeners();
                     }
                   },
                 ),

@@ -3,12 +3,15 @@ import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/screens/viewmodel.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 
-class CalendarCreateViewmodel extends Viewmodel {
+class CalendarSettingViewmodel extends Viewmodel {
   CalendarService get dataService => dependency();
 
-  createCalendar({String id, Calendar data}) async {
-    await dataService.createCalendar(id: id, data: data);
-    notifyListeners();
+  updateCalendar(
+      {String id, String name, String description, String color}) async {
+    turnBusy();
+    await dataService.updateCalendar(
+        id: id, name: name, description: description, color: color);
+    turnIdle();
   }
 
   get rebuild => notifyListeners();
