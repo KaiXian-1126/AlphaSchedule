@@ -74,10 +74,6 @@ class DrawerScreen extends StatelessWidget {
                             icon: Icon(Icons.cancel_rounded),
                             onPressed: () async {
                               viewmodel.deleteEvent(index);
-                              //await eventDependency.deleteEvent(
-                              //    id: dayEventList[index - 1].eventId);
-                              //dayEventList.removeAt(index - 1);
-                              //viewmodel.rebuild();
                             },
                           ),
                           onTap: () async {
@@ -187,12 +183,6 @@ class DrawerScreen extends StatelessWidget {
                                                 index]
                                         .calendarName),
                                     onTap: () {
-                                      //final calendarProvider =
-                                      //    Provider.of<ValueNotifier<Calendar>>(
-                                      //        context,
-                                      //        listen: false);
-                                      //
-
                                       viewmodel.currentCalendar =
                                           viewmodel.allCalendars[
                                               viewmodel.ownCalendars.length +
@@ -208,13 +198,6 @@ class DrawerScreen extends StatelessWidget {
                                                 viewmodel.ownCalendars.length +
                                                     index],
                                             index);
-
-                                        //await calendarDependency.deleteCalendar(
-                                        //    c: viewmodel.allCalendars[
-                                        //        viewmodel.ownCalendars.length +
-                                        //            index]);
-                                        //viewmodel.collaboratorCalendars
-                                        //   .removeAt(index);
                                       },
                                     ),
                                   );

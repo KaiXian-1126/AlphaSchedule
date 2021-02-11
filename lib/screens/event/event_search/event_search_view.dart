@@ -1,9 +1,10 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/screens/event/event_search/event_search_viewmodel.dart';
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
-import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:alpha_schedule/app/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +17,7 @@ class EventSearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List eventLists = [];
     bool assigned = false;
-    //This provider will be removed after the homescreen mvvm implemented//
-    Calendar c =
-        Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
-    ////////////////////////////////////////////////////////////////////////
+    Calendar c = dependency<HomeViewmodel>().currentCalendar;
     return Scaffold(
       appBar: AppBar(
         title: Text("${c.calendarName}"),
