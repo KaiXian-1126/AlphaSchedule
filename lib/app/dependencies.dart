@@ -5,6 +5,7 @@ import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_create/calendar_create_viewmodel.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_setting/calendar_setting_viewmodel.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_collaborator/calendar_collaborator_viewmodel.dart';
+import 'package:alpha_schedule/screens/calendar/add_collaborator/add_collaborator_viewmodel.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service_rest.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
@@ -32,4 +33,5 @@ void init() {
   dependency.registerLazySingleton(() => CalendarCreateViewmodel());
   dependency.registerLazySingleton(() => CalendarSettingViewmodel());
   dependency.registerLazySingleton(() => CalendarCollaboratorViewmodel());
+  dependency.registerLazySingleton(() => AddCollaboratorViewmodel());
 }

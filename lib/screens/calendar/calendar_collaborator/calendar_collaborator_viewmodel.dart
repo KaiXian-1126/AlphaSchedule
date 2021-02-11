@@ -5,7 +5,7 @@ import 'package:alpha_schedule/screens/viewmodel.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 
 class CalendarCollaboratorViewmodel extends Viewmodel {
-  List<User> members;
+  List<User> members = [];
   CalendarService get dataService => dependency();
 
   updateAccessibility({Calendar c, String accessibility}) async {
@@ -16,6 +16,11 @@ class CalendarCollaboratorViewmodel extends Viewmodel {
     turnBusy();
     members = await dataService.getCalendarMembers(c: c);
     turnIdle();
+  }
+
+  deleteCalendarCollaborator({Calendar calendar, User member}) async {
+    await dataService.deleteCalendarCollaborator(
+        calendar: calendar, member: member);
   }
 
   get rebuild => notifyListeners();

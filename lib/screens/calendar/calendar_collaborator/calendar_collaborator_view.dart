@@ -43,15 +43,14 @@ class _CalendarCollaboratorScreenState
           builder: (context, viewmodel, _) {
             if (!assigned) {
               memberLists = viewmodel.members;
+              membersLength = memberLists.length;
               assigned = true;
             }
 
             return ListView.separated(
               separatorBuilder: (_, index) => Divider(),
-              itemCount: memberLists.length + 3,
+              itemCount: membersLength + 3,
               itemBuilder: (_, index) {
-                print(index);
-
                 if (index == 0) {
                   return ListTile(
                     title: Text(owner.name),
@@ -64,9 +63,9 @@ class _CalendarCollaboratorScreenState
                 }
                 if (index == 1)
                   return ListTile(
-                    title: Text("Member (${memberLists.length})"),
+                    title: Text("Member ($membersLength)"),
                   );
-                if (index == memberLists.length + 2) {
+                if (index == membersLength + 2) {
                   return Column(
                     children: [
                       ListTile(
@@ -105,9 +104,10 @@ class _CalendarCollaboratorScreenState
                             final res = await Navigator.pushNamed(
                                 context, addCollaboratorRoute);
                             if (res != null) {
+                              // c.membersId.add(res);
+                              viewmodel.members.add(res);
                               membersLength++;
-                              c.membersId.add(res);
-                              setState(() {});
+                              viewmodel.notifyListeners();
                             }
                           },
                         ),
@@ -115,6 +115,7 @@ class _CalendarCollaboratorScreenState
                     ],
                   );
                 }
+                print("sian$index");
                 return ListTile(
                   leading: CircleAvatar(
                     child: Icon(Icons.portrait),
@@ -122,11 +123,11 @@ class _CalendarCollaboratorScreenState
                   trailing: OutlineButton(
                     child: Icon(Icons.delete),
                     onPressed: () async {
-                      await calendarDependency.deleteCalendarCollaborator(
+                      viewmodel.deleteCalendarCollaborator(
                           calendar: c, member: memberLists[index - 2]);
-                      c.membersId.removeAt(index - 2);
+                      viewmodel.members.removeAt(index - 2);
                       membersLength--;
-                      setState(() {});
+                      viewmodel.notifyListeners();
                     },
                   ),
                   title: Text(memberLists[index - 2].name),

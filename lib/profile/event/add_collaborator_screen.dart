@@ -4,6 +4,8 @@ import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
+import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 
 class AddCollaboratorScreen extends StatefulWidget {
   @override
@@ -40,7 +42,7 @@ class _AddCollaboratorScreenState extends State<AddCollaboratorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    users = Provider.of<List<User>>(context);
+    users = di.dependency<LoginViewmodel>().users;
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -114,9 +116,8 @@ class _AddCollaboratorScreenState extends State<AddCollaboratorScreen> {
                 onPressedCallback: () async {
                   // form validation
                   if (_emailFormKey.currentState.validate()) {
-                    Calendar c = Provider.of<ValueNotifier<Calendar>>(context,
-                            listen: false)
-                        .value;
+                    Calendar c = di.dependency<HomeViewmodel>().currentCalendar;
+
                     final result =
                         await calendarDependency.addCalendarCollaborator(
                             calendar: c, member: invitedUser);
