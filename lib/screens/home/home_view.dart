@@ -297,8 +297,9 @@ class DrawerScreen extends StatelessWidget {
                       Navigator.pushNamed(context, eventSearchRoute);
                     } else if (index == 5) {
                       final response = await Navigator.pushNamed(
-                          context, calendarSettingsRoute,
-                          arguments: viewmodel.currentCalendar);
+                        context,
+                        calendarSettingsRoute,
+                      );
                       viewmodel.notifyListeners();
                     }
                   },

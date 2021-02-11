@@ -1,12 +1,15 @@
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_setting/calendar_setting_viewmodel.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/app/dependencies.dart' as di;
 
 class CalendarSettingScreen extends StatefulWidget {
-  final calender;
-  CalendarSettingScreen({this.calender});
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => CalendarSettingScreen());
+
   @override
   _CalendarSettingScreenState createState() => _CalendarSettingScreenState();
 }
@@ -18,14 +21,14 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
   Color tempColor, tempColor1;
   List<Color> _colorTheme = [Colors.blue[50], Colors.green[50]];
   bool assigned = false;
-
+  Calendar calendar = di.dependency<HomeViewmodel>().currentCalendar;
   final _formkey = GlobalKey<FormState>();
 
   Widget _buildCalendarName() {
     return Container(
       margin: EdgeInsets.only(bottom: 25),
       child: TextFormField(
-        initialValue: "${widget.calender.calendarName}",
+        initialValue: "${calendar.calendarName}",
         maxLines: null,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
@@ -49,7 +52,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
     return Container(
       margin: EdgeInsets.only(bottom: 25),
       child: TextFormField(
-        initialValue: "${widget.calender.description}",
+        initialValue: "${calendar.description}",
         maxLines: null,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
@@ -79,7 +82,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
           elevation: 2,
           icon: Icon(Icons.arrow_drop_down),
           isExpanded: true,
-          value: widget.calender.color,
+          value: calendar.color,
           onChanged: (value) => setState(() {
             tempColor = value;
           }),
@@ -95,7 +98,7 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    tempColor1 = widget.calender.color;
+    tempColor1 = calendar.color;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -127,18 +130,18 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                     ),
                     onPressed: () async {
                       if (_formkey.currentState.validate()) {
-                        widget.calender.description = calendarDescription;
-                        widget.calender.calendarName = calendarName;
+                        calendar.description = calendarDescription;
+                        calendar.calendarName = calendarName;
                         if (tempColor1 != tempColor && tempColor != null) {
-                          widget.calender.color = tempColor;
+                          calendar.color = tempColor;
                         } else {
-                          widget.calender.color = tempColor1;
+                          calendar.color = tempColor1;
                         }
 
-                        if (widget.calender.color == Color(0xffe3f2fd)) {
-                          widget.calender.color = Colors.blue[50];
+                        if (calendar.color == Color(0xffe3f2fd)) {
+                          calendar.color = Colors.blue[50];
                         } else {
-                          widget.calender.color = Colors.green[50];
+                          calendar.color = Colors.green[50];
                         }
 
                         // viewmodel.updateCalendar(

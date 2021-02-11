@@ -4,6 +4,7 @@ import 'package:alpha_schedule/screens/event/event_summary/event_summary_view.da
 import 'package:alpha_schedule/screens/login/login_view.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_create/calendar_create_view.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_setting/calendar_setting_view.dart';
+import 'package:alpha_schedule/screens/calendar/calendar_collaborator/calendar_collaborator_view.dart';
 
 import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/auth/logout_screen.dart';
@@ -11,7 +12,6 @@ import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/landing/welcome_screen.dart';
 
 import 'package:alpha_schedule/profile/event/add_collaborator_screen.dart';
-import 'package:alpha_schedule/profile/event/calendar_collaborator_screen.dart';
 import 'package:alpha_schedule/profile/event/event_create_screen.dart';
 import 'package:alpha_schedule/profile/event/event_details_screen.dart';
 import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
@@ -47,17 +47,14 @@ Route<dynamic> createRoute(settings) {
       );
     //Profile routes
     case calendarCollaboratorRoute:
-      return MaterialPageRoute(
-        builder: (context) => CalendarCollaboratorScreen(),
-      );
+      return CalendarCollaboratorScreen.route();
+
     case calendarCreateRoute:
       return CalendarCreateScreen.route();
 
     case calendarSettingsRoute:
-      return MaterialPageRoute(
-        builder: (context) =>
-            CalendarSettingScreen(calender: settings.arguments),
-      );
+      return CalendarSettingScreen.route();
+
     case eventCreateRoute:
       return MaterialPageRoute(
         builder: (context) => EventCreateScreen(

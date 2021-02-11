@@ -3,8 +3,9 @@ import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../constants.dart';
+import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 
 class CalendarCollaboratorScreen extends StatefulWidget {
   CalendarCollaboratorScreen();
@@ -18,8 +19,8 @@ class _CalendarCollaboratorScreenState
   int membersLength;
   @override
   Widget build(BuildContext context) {
-    Calendar c = Provider.of<ValueNotifier<Calendar>>(context).value;
-    User owner = Provider.of<ValueNotifier<User>>(context).value;
+    Calendar c = di.dependency<HomeViewmodel>().currentCalendar;
+    User owner = di.dependency<LoginViewmodel>().user;
 
     CalendarService calendarDependency = di.dependency();
     return Scaffold(
