@@ -33,6 +33,8 @@ class DrawerScreen extends StatelessWidget {
                     itemCount: 1 + viewmodel.dayEvents.length,
                     separatorBuilder: (_, index) => Divider(),
                     itemBuilder: (_, index) {
+                      viewmodel.getDayEventList(_controller.selectedDay);
+                      print(viewmodel.dayEvents);
                       List<Event> dayEventList = viewmodel.dayEvents;
                       if (index == 0) {
                         return TableCalendar(
@@ -237,6 +239,11 @@ class DrawerScreen extends StatelessWidget {
                         ),
                       ]),
                 ),
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    print(_controller.selectedDay);
+                  },
+                ),
                 bottomNavigationBar: BottomNavigationBar(
                   selectedItemColor: Colors.black54,
                   currentIndex: _currentIndex,
@@ -274,7 +281,7 @@ class DrawerScreen extends StatelessWidget {
                           context, eventCreateRoute,
                           arguments: [_controller.selectedDay]);
 
-                      viewmodel.rebuild();
+                      viewmodel.notifyListeners();
                     } else if (index == 4) {
                       Navigator.pushNamed(context, eventSearchRoute);
                     } else if (index == 5) {

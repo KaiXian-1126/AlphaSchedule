@@ -1,10 +1,14 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/screens/event/event_create/event_create_viewmodel.dart';
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../app/dependencies.dart';
+import '../../../app/dependencies.dart';
 
 class EventCreateScreen extends StatefulWidget {
   final date;
@@ -22,9 +26,6 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Calendar c =
-        Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
-
     return Scaffold(
         appBar: AppBar(
           title: Text("Add Event"),
@@ -102,17 +103,21 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                               startTime != null &&
                               endTime != null &&
                               description != "") {
+                            Calendar c =
+                                dependency<HomeViewmodel>().currentCalendar;
+                            Event newEvent = Event(
+                                calendarId: c.calendarId,
+                                eventId: null,
+                                eventName: titleController.text,
+                                calendar: widget.date[0],
+                                startTime: startTime,
+                                endTime: endTime,
+                                description: descController.text);
                             viewmodel.createEvent(
-                                id: c.calendarId,
-                                event: Event(
-                                    calendarId: c.calendarId,
-                                    eventId: null,
-                                    eventName: titleController.text,
-                                    calendar: widget.date[0],
-                                    startTime: startTime,
-                                    endTime: endTime,
-                                    description: descController.text));
+                                id: c.calendarId, event: newEvent);
+                            dependency<HomeViewmodel>().dayEvents.add(newEvent);
                           }
+
                           Navigator.pop(
                             context,
                           );
