@@ -39,6 +39,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<ValueNotifier<User>>(context).value;
+    Provider.of<ValueNotifier<User>>(context).value = user;
 
     DateTime time = DateTime.now();
 
