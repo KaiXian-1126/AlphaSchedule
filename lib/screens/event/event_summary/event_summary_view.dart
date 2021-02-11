@@ -1,6 +1,8 @@
+import 'package:alpha_schedule/app/dependencies.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/screens/event/event_summary/event_summary_viewmodel.dart';
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -24,9 +26,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
     List<Event> eventList;
     bool assigned = false;
 
-    final Calendar c =
-        Provider.of<ValueNotifier<Calendar>>(context, listen: false).value;
-
+    Calendar c = dependency<HomeViewmodel>().currentCalendar;
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(

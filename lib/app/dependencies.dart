@@ -1,6 +1,7 @@
 import 'package:alpha_schedule/screens/event/event_create/event_create_viewmodel.dart';
 import 'package:alpha_schedule/screens/event/event_detail/event_detail_viewmodel.dart';
 import 'package:alpha_schedule/screens/event/event_search/event_search_viewmodel.dart';
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/event/event_summary/event_summary_viewmodel.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/services/calendar/calendar_service.dart';
@@ -24,6 +25,7 @@ void init() {
 
   //Viewmodels
   dependency.registerLazySingleton(() => LoginViewmodel());
+  dependency.registerLazySingleton(() => HomeViewmodel());
   dependency.registerLazySingleton(() => EventSearchViewmodel());
   dependency.registerLazySingleton(() => EventSummaryViewmodel());
   dependency.registerLazySingleton(() => EventCreateViewmodel());
