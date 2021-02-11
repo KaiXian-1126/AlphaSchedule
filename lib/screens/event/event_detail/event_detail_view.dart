@@ -1,3 +1,4 @@
+import 'package:alpha_schedule/app/dependencies.dart';
 import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/screens/event/event_detail/event_detail_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
@@ -6,31 +7,25 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class EventDetailsScreen extends StatelessWidget {
-  final event;
-  EventDetailsScreen({this.event});
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => EventDetailsScreen());
 
-  bool assigned = false;
-  Event events;
+  final Event c = dependency<EventDetailsViewmodel>().currentEvent;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text(event.eventName),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context, events),
-            ),
-          ),
-          body: View<EventDetailsViewmodel>(
-            initViewmodel: (viewmodel) => viewmodel.getEvent(id: event.eventId),
-            builder: (context, viewmodel, _) {
-              if (!assigned) {
-                events = viewmodel.events;
-                assigned = true;
-              }
-              return Container(
+    return View<EventDetailsViewmodel>(
+      builder: (context, viewmodel, _) {
+        return Container(
+          child: Scaffold(
+              appBar: AppBar(
+                title: Text(c.eventName),
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              body: Container(
                 // set margin of body
                 margin:
                     EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 12),
@@ -45,9 +40,9 @@ class EventDetailsScreen extends StatelessWidget {
                           maxLines: 1,
                           enabled: false,
                           decoration: InputDecoration(
-                            hintText: "${viewmodel.getDate(events.calendar)}" +
+                            hintText: "${viewmodel.getDate(c.calendar)}" +
                                 "\t     " +
-                                "${viewmodel.getDay(events.calendar)}",
+                                "${viewmodel.getDay(c.calendar)}",
                             hintStyle: TextStyle(color: Colors.black),
                             border: OutlineInputBorder(),
                           ),
@@ -64,7 +59,7 @@ class EventDetailsScreen extends StatelessWidget {
                           enabled: false,
                           decoration: InputDecoration(
                             hintText:
-                                "${Event().timeToStringConverter(events.startTime)} to ${Event().timeToStringConverter(events.endTime)}",
+                                "${Event().timeToStringConverter(c.startTime)} to ${Event().timeToStringConverter(c.endTime)}",
                             hintStyle: TextStyle(color: Colors.black),
                             border: OutlineInputBorder(),
                           ),
@@ -80,7 +75,7 @@ class EventDetailsScreen extends StatelessWidget {
                           enabled: false,
                           maxLines: 15,
                           decoration: InputDecoration(
-                            hintText: events.description,
+                            hintText: c.description,
                             hintStyle: TextStyle(color: Colors.black),
                             border: OutlineInputBorder(),
                           ),
@@ -94,26 +89,22 @@ class EventDetailsScreen extends StatelessWidget {
                             text: 'Edit',
                             color: Colors.blue,
                             onPressedCallback: () async {
-                              final res = await Navigator.pushNamed(
-                                  context, eventEditRoute,
-                                  arguments: events.eventId);
-                              if (res != null) {
-                                viewmodel.rebuild;
-                              }
+                              await Navigator.pushNamed(
+                                  context, eventEditRoute);
+                              viewmodel.rebuild();
                             }),
                         BuildFlatButton(
                           text: 'Cancel',
                           color: Colors.red,
-                          onPressedCallback: () =>
-                              Navigator.pop(context, events),
+                          onPressedCallback: () => Navigator.pop(context),
                         ),
                       ],
                     ),
                   ],
                 ),
-              );
-            },
-          )),
+              )),
+        );
+      },
     );
   }
 }

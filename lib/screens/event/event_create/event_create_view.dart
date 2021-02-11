@@ -27,112 +27,118 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Add Event"),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-          ),
+      appBar: AppBar(
+        title: Text("Add Event"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: View<EventCreateViewmodel>(
-          builder: (context, viewmodel, _) {
-            return ListView(
-              children: [
-                BuildText("Title"),
-                BuildTextField(
-                  controller: titleController,
-                  textFieldContent: null,
+      ),
+      body: View<EventCreateViewmodel>(
+        builder: (context, viewmodel, _) {
+          return ListView(
+            children: [
+              BuildText("Title"),
+              BuildTextField(
+                controller: titleController,
+                textFieldContent: null,
+              ),
+              BuildText("Start Time"),
+              Container(
+                margin: EdgeInsets.all(4.0),
+                child: Card(
+                  child: ListTile(
+                      title: Text(startTime == null
+                          ? "Choose the start time"
+                          : Event().timeToStringConverter(startTime)),
+                      onTap: () async {
+                        final selectedTime = await showTimePicker(
+                          initialTime:
+                              startTime == null ? TimeOfDay.now() : startTime,
+                          context: context,
+                        );
+                        if (selectedTime != null) {
+                          setState(() {
+                            startTime = selectedTime;
+                          });
+                        }
+                      }),
                 ),
-                BuildText("Start Time"),
-                Container(
-                  margin: EdgeInsets.all(4.0),
-                  child: Card(
-                    child: ListTile(
-                        title: Text(startTime == null
-                            ? "Choose the start time"
-                            : Event().timeToStringConverter(startTime)),
-                        onTap: () async {
-                          final selectedTime = await showTimePicker(
-                            initialTime:
-                                startTime == null ? TimeOfDay.now() : startTime,
-                            context: context,
-                          );
-                          if (selectedTime != null) {
-                            setState(() {
-                              startTime = selectedTime;
-                            });
-                          }
-                        }),
-                  ),
+              ),
+              BuildText("End Time"),
+              Container(
+                margin: EdgeInsets.all(4.0),
+                child: Card(
+                  child: ListTile(
+                      title: Text(endTime == null
+                          ? "Choose the end time"
+                          : Event().timeToStringConverter(endTime)),
+                      onTap: () async {
+                        final selectedTime = await showTimePicker(
+                          initialTime:
+                              endTime == null ? TimeOfDay.now() : endTime,
+                          context: context,
+                        );
+                        if (selectedTime != null) {
+                          setState(() {
+                            endTime = selectedTime;
+                          });
+                        }
+                      }),
                 ),
-                BuildText("End Time"),
-                Container(
-                  margin: EdgeInsets.all(4.0),
-                  child: Card(
-                    child: ListTile(
-                        title: Text(endTime == null
-                            ? "Choose the end time"
-                            : Event().timeToStringConverter(endTime)),
-                        onTap: () async {
-                          final selectedTime = await showTimePicker(
-                            initialTime:
-                                endTime == null ? TimeOfDay.now() : endTime,
-                            context: context,
-                          );
-                          if (selectedTime != null) {
-                            setState(() {
-                              endTime = selectedTime;
-                            });
-                          }
-                        }),
-                  ),
-                ),
-                BuildText("Description"),
-                BuildTextField(
-                    maxLines: 15,
-                    controller: descController,
-                    textFieldContent: null),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    BuildFlatButton(
-                        text: "Add",
-                        color: Colors.blue,
-                        onPressedCallback: () async {
-                          if (titleController.text != "" &&
-                              startTime != null &&
-                              endTime != null &&
-                              description != "") {
-                            Calendar c =
-                                dependency<HomeViewmodel>().currentCalendar;
-                            Event newEvent = Event(
-                                calendarId: c.calendarId,
-                                eventId: null,
-                                eventName: titleController.text,
-                                calendar: widget.date[0],
-                                startTime: startTime,
-                                endTime: endTime,
-                                description: descController.text);
-                            viewmodel.createEvent(
-                                id: c.calendarId, event: newEvent);
-                            dependency<HomeViewmodel>().dayEvents.add(newEvent);
-                          }
+              ),
+              BuildText("Description"),
+              BuildTextField(
+                  maxLines: 15,
+                  controller: descController,
+                  textFieldContent: null),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  BuildFlatButton(
+                      text: "Add",
+                      color: Colors.blue,
+                      onPressedCallback: () async {
+                        if (titleController.text != "" &&
+                            startTime != null &&
+                            endTime != null &&
+                            description != "") {
+                          Calendar c =
+                              dependency<HomeViewmodel>().currentCalendar;
+                          Event newEvent = Event(
+                              calendarId: c.calendarId,
+                              eventId: null,
+                              eventName: titleController.text,
+                              calendar: widget.date[0],
+                              startTime: startTime,
+                              endTime: endTime,
+                              description: descController.text);
+                          viewmodel.createEvent(
+                              id: c.calendarId, event: newEvent);
+                          dependency<HomeViewmodel>().dayEvents.add(newEvent);
+                        }
 
-                          Navigator.pop(
-                            context,
-                          );
-                        }),
-                    BuildFlatButton(
-                      text: "Cancel",
-                      color: Colors.grey,
-                      onPressedCallback: () => Navigator.pop(context),
-                    ),
-                  ],
-                )
-              ],
-            );
-          },
-        ));
+                        Navigator.pop(
+                          context,
+                        );
+                      }),
+                  BuildFlatButton(
+                    text: "Cancel",
+                    color: Colors.grey,
+                    onPressedCallback: () => Navigator.pop(context),
+                  ),
+                ],
+              )
+            ],
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print(startTime);
+        },
+      ),
+    );
   }
 }
 

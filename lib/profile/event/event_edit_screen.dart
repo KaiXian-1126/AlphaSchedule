@@ -9,7 +9,7 @@ class EventEditScreen extends StatefulWidget {
 }
 
 class _EventEditScreenState extends State<EventEditScreen> {
-  dynamic tempStartTime, tempEndTime, tempTitle, tempDescription;
+  dynamic tempStartTime, tempEndTime;
   TextEditingController titleController, descriptionController;
   _EventEditScreenState(event) {
     tempStartTime = event.startTime;

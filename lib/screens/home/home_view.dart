@@ -1,6 +1,8 @@
+import 'package:alpha_schedule/app/dependencies.dart';
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Event.dart';
+import 'package:alpha_schedule/screens/event/event_detail/event_detail_viewmodel.dart';
 import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
@@ -79,12 +81,11 @@ class DrawerScreen extends StatelessWidget {
                             },
                           ),
                           onTap: () async {
+                            dependency<EventDetailsViewmodel>().currentEvent =
+                                dayEventList[index - 1];
                             final respond = await Navigator.pushNamed(
-                                context, eventDetailsRoute,
-                                arguments: dayEventList[index - 1]);
-                            if (respond != null) {
-                              viewmodel.rebuild();
-                            }
+                                context, eventDetailsRoute);
+                            viewmodel.rebuild();
                           },
                         );
                       }
