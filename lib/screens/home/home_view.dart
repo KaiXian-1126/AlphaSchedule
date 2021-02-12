@@ -83,7 +83,7 @@ class DrawerScreen extends StatelessWidget {
                           onTap: () async {
                             dependency<EventDetailsViewmodel>().currentEvent =
                                 dayEventList[index - 1];
-                            final respond = await Navigator.pushNamed(
+                            await Navigator.pushNamed(
                                 context, eventDetailsRoute);
                             viewmodel.rebuild();
                           },
