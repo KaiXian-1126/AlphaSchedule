@@ -1,11 +1,16 @@
+import 'package:alpha_schedule/app/dependencies.dart';
+import 'package:alpha_schedule/models/User.dart';
+import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
+import 'package:alpha_schedule/screens/useredit/passwordedit/password_edit_viewmodel.dart';
 import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 
-class PasswordEditScreen extends StatefulWidget {
-  final _data;
-  PasswordEditScreen(this._data);
+import '../../view.dart';
 
+class PasswordEditScreen extends StatefulWidget {
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => PasswordEditScreen());
   @override
   _PasswordEditScreenState createState() => _PasswordEditScreenState();
 }
@@ -31,93 +36,95 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Change Password'),
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
+    return View<PasswordEditViewmodel>(builder: (context, viewmodel, _) {
+      User user = dependency<LoginViewmodel>().user;
+      return Container(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Change Password'),
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+              ),
+              onPressed: () => Navigator.pop(context),
             ),
-            onPressed: () => Navigator.pop(context),
           ),
-        ),
-        body: Container(
-          // set margin of body
-          margin: EdgeInsets.all(20),
-          child: ListView(
-            children: [
-              // old password
-              BuildText("Enter current password"),
-              UserInputbar(
-                keys: _pwCurrentFormKey,
-                controllers: _pwCurrentController,
-                datas: widget._data.password,
-                secures: _secureCurrent,
-                index: 1,
-                states: this,
-              ),
-              // new password
-              BuildText("Enter new password"),
-              UserInputbar(
-                keys: _pwNewFormKey,
-                controllers: _pwNewController,
-                datas: widget._data.password,
-                secures: _secureNew,
-                index: 2,
-                states: this,
-              ),
-              // Comfirm password
-              BuildText("Comfirm new password"),
-              Container(
-                  padding: EdgeInsets.only(bottom: 15),
-                  child: Form(
-                      key: _pwComfirmFormKey,
-                      child: TextFormField(
-                        obscureText: secureComfirm,
-                        controller: _pwComfirmController,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                              icon: Icon(secureComfirm
-                                  ? Icons.remove_red_eye
-                                  : Icons.security),
-                              onPressed: () {
-                                secureComfirm = _secureComfirm;
-                              }),
-                          border: OutlineInputBorder(),
-                        ),
-                        validator: (value) {
-                          return comfirmPassword(value, _pwNewController.text);
-                        },
-                      )))
-            ],
+          body: Container(
+            // set margin of body
+            margin: EdgeInsets.all(20),
+            child: ListView(
+              children: [
+                // old password
+                BuildText("Enter current password"),
+                UserInputbar(
+                  keys: _pwCurrentFormKey,
+                  controllers: _pwCurrentController,
+                  datas: user.password,
+                  secures: _secureCurrent,
+                  index: 1,
+                  states: this,
+                ),
+                // new password
+                BuildText("Enter new password"),
+                UserInputbar(
+                  keys: _pwNewFormKey,
+                  controllers: _pwNewController,
+                  datas: user.password,
+                  secures: _secureNew,
+                  index: 2,
+                  states: this,
+                ),
+                // Comfirm password
+                BuildText("Comfirm new password"),
+                Container(
+                    padding: EdgeInsets.only(bottom: 15),
+                    child: Form(
+                        key: _pwComfirmFormKey,
+                        child: TextFormField(
+                          obscureText: secureComfirm,
+                          controller: _pwComfirmController,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                                icon: Icon(secureComfirm
+                                    ? Icons.remove_red_eye
+                                    : Icons.security),
+                                onPressed: () {
+                                  secureComfirm = _secureComfirm;
+                                }),
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            return comfirmPassword(
+                                value, _pwNewController.text);
+                          },
+                        )))
+              ],
+            ),
           ),
-        ),
-        bottomNavigationBar: BuildFlatButton(
-          text: 'Save',
-          color: Colors.blue,
-          onPressedCallback: () async {
-            // form validation
-            if (_pwCurrentFormKey.currentState.validate()) {
-              if (_pwNewFormKey.currentState.validate()) {
-                if (_pwComfirmFormKey.currentState.validate()) {
-                  widget._data.password = _pwNewController.text;
-                  // Navigator.pop(context, widget._data);
-                  await userdependency.updateUserPassword(
-                    id: "${widget._data.userId}",
-                    password: widget._data.password,
-                  );
-
-                  Navigator.pop(context, widget._data);
-                  // later make a alert box to prompt user
+          bottomNavigationBar: BuildFlatButton(
+            text: 'Save',
+            color: Colors.blue,
+            onPressedCallback: () async {
+              // form validation
+              if (_pwCurrentFormKey.currentState.validate()) {
+                if (_pwNewFormKey.currentState.validate()) {
+                  if (_pwComfirmFormKey.currentState.validate()) {
+                    user.password = _pwNewController.text;
+                    viewmodel.updateUserPassword(
+                      id: "${user.userId}",
+                      password: user.password,
+                    );
+                    dependency<LoginViewmodel>().user.password = user.password;
+                    Navigator.pop(context, user);
+                  }
                 }
               }
-            }
-          },
+            },
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 

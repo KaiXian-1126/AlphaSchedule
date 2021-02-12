@@ -133,11 +133,6 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print(startTime);
-        },
-      ),
     );
   }
 }

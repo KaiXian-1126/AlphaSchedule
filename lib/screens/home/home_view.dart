@@ -216,9 +216,10 @@ class DrawerScreen extends StatelessWidget {
                           child: FloatingActionButton(
                             heroTag: null,
                             onPressed: () async {
-                              await Navigator.pushNamed(
+                              final response = await Navigator.pushNamed(
                                   context, calendarCreateRoute);
-                              viewmodel.rebuild();
+
+                              viewmodel.notifyListeners();
                             },
                             child: Icon(Icons.add),
                           ),
@@ -239,11 +240,6 @@ class DrawerScreen extends StatelessWidget {
                           ),
                         ),
                       ]),
-                ),
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    print(_controller.selectedDay);
-                  },
                 ),
                 bottomNavigationBar: BottomNavigationBar(
                   selectedItemColor: Colors.black54,
@@ -287,9 +283,10 @@ class DrawerScreen extends StatelessWidget {
                       Navigator.pushNamed(context, eventSearchRoute);
                     } else if (index == 5) {
                       final response = await Navigator.pushNamed(
-                          context, calendarSettingsRoute,
-                          arguments: viewmodel.currentCalendar);
-                      viewmodel.rebuild();
+                        context,
+                        calendarSettingsRoute,
+                      );
+                      viewmodel.notifyListeners();
                     }
                   },
                 ),

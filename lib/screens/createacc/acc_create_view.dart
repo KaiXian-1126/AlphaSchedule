@@ -1,35 +1,36 @@
+import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/User.dart';
-import 'package:alpha_schedule/services/user/user_service.dart';
+import 'package:alpha_schedule/screens/createacc/acc_create_viewmodel.dart';
+import 'package:alpha_schedule/screens/view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:alpha_schedule/app/dependencies.dart' as di;
-
-import '../constants.dart';
 
 class AccountCreateScreen extends StatefulWidget {
-  AccountCreateScreen();
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => AccountCreateScreen());
 
   @override
-  _AccountCreateScreen createState() => _AccountCreateScreen();
+  _AccountCreateScreenState createState() => _AccountCreateScreenState();
 }
 
-class _AccountCreateScreen extends State<AccountCreateScreen> {
-  String username, uemail, uphone, upassword, ugender = "Male";
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmpasswordController = TextEditingController();
-  final _nameFormKey = GlobalKey<FormState>();
-  final _emailFormKey = GlobalKey<FormState>();
-  final _phoneFormKey = GlobalKey<FormState>();
-  final _passwordFormKey = GlobalKey<FormState>();
-  final _confirmpasswordFormKey = GlobalKey<FormState>();
-  List _genderDropDown = ['Male', 'Female'];
-  UserService userService = di.dependency();
+class _AccountCreateScreenState extends State<AccountCreateScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
+    String username, uemail, uphone, upassword, ugender = "Male";
+    TextEditingController _nameController = TextEditingController();
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _phoneController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+    TextEditingController _confirmpasswordController = TextEditingController();
+    final _nameFormKey = GlobalKey<FormState>();
+    final _emailFormKey = GlobalKey<FormState>();
+    final _phoneFormKey = GlobalKey<FormState>();
+    final _passwordFormKey = GlobalKey<FormState>();
+    final _confirmpasswordFormKey = GlobalKey<FormState>();
+    List _genderDropDown = ['Male', 'Female'];
+
+    return View<AccountCreateViewmodel>(builder: (context, viewmodel, _) {
+      return Scaffold(
         appBar: AppBar(
           title: Text('Create an Account'),
           leading: IconButton(
@@ -134,7 +135,7 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                 icon: Icon(Icons.arrow_drop_down),
                 isExpanded: true,
                 value: ugender,
-                onChanged: (value) => setState(() => ugender = value),
+                onChanged: (value) => ugender = value,
                 items: _genderDropDown.map((value) {
                   return DropdownMenuItem(
                     value: value,
@@ -211,17 +212,17 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
                       _passwordFormKey.currentState.save();
                       _confirmpasswordFormKey.currentState.save();
 
-                      await userService.createUser(
-                        user: User(
-                          name: username,
-                          email: uemail,
-                          password: upassword,
-                          phone: uphone,
-                          gender: ugender,
-                          calendarList: [],
-                          collaboratorCalendarList: [],
-                        ),
-                      );
+                      viewmodel.createUser(
+                          user: User(
+                        name: username,
+                        email: uemail,
+                        password: upassword,
+                        phone: uphone,
+                        gender: ugender,
+                        calendarList: [],
+                        collaboratorCalendarList: [],
+                      ));
+
                       Navigator.popAndPushNamed(context, loginRoute);
                     }
                   }
@@ -230,8 +231,8 @@ class _AccountCreateScreen extends State<AccountCreateScreen> {
             }
           },
         ),
-      ),
-    );
+      );
+    });
   }
 }
 

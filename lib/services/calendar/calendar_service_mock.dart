@@ -1,6 +1,6 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
-import '../../models/user.dart';
+import '../../models/User.dart';
 
 class CalendarServiceMock {
   List<Calendar> getCalendarList(User u) {
