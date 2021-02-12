@@ -138,11 +138,8 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                             style: TextStyle(fontSize: 20),
                           ),
                           onTap: () async {
-                            final respond = await Navigator.pushNamed(
-                              context,
-                              eventDetailsRoute,
-                              arguments: a[index],
-                            );
+                            final respond = await Navigator.popAndPushNamed(
+                                context, eventDetailsRoute);
                             if (respond != null) {
                               setState(() {});
                             }

@@ -3,6 +3,7 @@ import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:alpha_schedule/services/rest_service.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
+import 'package:flutter/material.dart';
 
 class EventServiceRest implements EventService {
   RestService rest = di.dependency();
@@ -10,7 +11,7 @@ class EventServiceRest implements EventService {
   Future<List<Event>> getEventList(
       {Calendar c, DateTime date, DateTime currentTime}) async {
     //Get the event information in json form
-    final result = await rest.get("/event/getList/${c.calendarId}");
+    final result = await rest.get("event/getList/${c.calendarId}");
     //Get the event information and push to list
     List<Event> list = (result as List).map((e) => Event.fromJson(e)).toList();
     if (date == null) date = DateTime.now();
@@ -27,12 +28,22 @@ class EventServiceRest implements EventService {
   }
 
   Future<Event> getEvent({String id}) async {
-    final json = await rest.get("/event/get/$id");
+    final json = await rest.get("event/get/$id");
     return Event.fromJson(json);
   }
 
-  Future<Event> updateEvent({String id, Event event}) async {
-    final json = await rest.patch("/event/update/$id", data: event);
+  Future<Event> updateEvent(
+      {String id,
+      String name,
+      String startTime,
+      String endTime,
+      String desc}) async {
+    final json = await rest.patch("event/update/$id", data: {
+      'eventName': name,
+      'startTime': startTime,
+      'endTime': endTime,
+      'description': desc
+    });
     return Event.fromJson(json);
   }
 

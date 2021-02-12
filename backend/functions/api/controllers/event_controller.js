@@ -28,6 +28,11 @@ async function createEvent(req, res, next) {
         calendar.eventList.push(result.id);
         const updateCalendar = await calendarModel.update(calendarid, calendar);
         if (!updateCalendar) return res.sendStatus(404);
+
+        const event = await eventModel.getById(result.id);
+        event.id = result.id;
+        const update = await eventModel.update(result.id, event);
+        if (!update) return res.sendStatus(404);
         return res.status(201).json(result);
     } catch (e) {
         return next(e);

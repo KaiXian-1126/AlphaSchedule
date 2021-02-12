@@ -1,3 +1,6 @@
+import 'package:alpha_schedule/screens/event/event_create/event_create_view.dart';
+import 'package:alpha_schedule/screens/event/event_detail/event_detail_view.dart';
+import 'package:alpha_schedule/screens/event/event_edit/event_edit_view.dart';
 import 'package:alpha_schedule/screens/event/event_search/event_search_view.dart';
 import 'package:alpha_schedule/screens/home/home_view.dart';
 import 'package:alpha_schedule/screens/event/event_summary/event_summary_view.dart';
@@ -12,9 +15,6 @@ import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/landing/welcome_screen.dart';
 
-import 'package:alpha_schedule/profile/event/event_create_screen.dart';
-import 'package:alpha_schedule/profile/event/event_details_screen.dart';
-import 'package:alpha_schedule/profile/event/event_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
 import 'package:alpha_schedule/profile/user/user_profile_screen.dart';
@@ -62,13 +62,9 @@ Route<dynamic> createRoute(settings) {
         ),
       );
     case eventDetailsRoute:
-      return MaterialPageRoute(
-        builder: (context) => EventDetailsScreen(event: settings.arguments),
-      );
+      return EventDetailsScreen.route();
     case eventEditRoute:
-      return MaterialPageRoute(
-        builder: (context) => EventEditScreen(event: settings.arguments),
-      );
+      return EventEditScreen.route();
     case eventSearchRoute:
       return EventSearchScreen.route();
 
