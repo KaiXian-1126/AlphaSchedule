@@ -9,15 +9,15 @@ import 'package:alpha_schedule/screens/calendar/calendar_create/calendar_create_
 import 'package:alpha_schedule/screens/calendar/calendar_setting/calendar_setting_view.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_collaborator/calendar_collaborator_view.dart';
 import 'package:alpha_schedule/screens/calendar/add_collaborator/add_collaborator_view.dart';
+import 'package:alpha_schedule/screens/createacc/acc_create_view.dart';
+import 'package:alpha_schedule/screens/useredit/passwordedit/password_edit_view.dart';
+import 'package:alpha_schedule/screens/userprofile/profile_view.dart';
+import 'package:alpha_schedule/screens/useredit/profileedit/profile_edit_view.dart';
 
-import 'package:alpha_schedule/auth/account_create_screen.dart';
 import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/landing/splash_screen.dart';
 import 'package:alpha_schedule/landing/welcome_screen.dart';
 
-import 'package:alpha_schedule/profile/user/password_edit_screen.dart';
-import 'package:alpha_schedule/profile/user/profile_edit_screen.dart';
-import 'package:alpha_schedule/profile/user/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
@@ -36,9 +36,7 @@ Route<dynamic> createRoute(settings) {
       return DrawerScreen.route();
     //Auth routes
     case accountCreateRoute:
-      return MaterialPageRoute(
-        builder: (context) => AccountCreateScreen(),
-      );
+      return AccountCreateScreen.route();
     case loginRoute:
       return LoginScreen.route();
     case logoutRoute:
@@ -71,17 +69,11 @@ Route<dynamic> createRoute(settings) {
     case eventSummaryRoute:
       return EventSummaryScreen.route();
     case passwordEditRoute:
-      return MaterialPageRoute(
-        builder: (context) => PasswordEditScreen(settings.arguments),
-      );
+      return PasswordEditScreen.route();
     case profileEditRoute:
-      return MaterialPageRoute(
-        builder: (context) => ProfileEditScreen(settings.arguments),
-      );
+      return ProfileEditScreen.route();
     case userProfileRoute:
-      return MaterialPageRoute(
-        builder: (context) => ProfileScreen(),
-      );
+      return ProfileScreen.route();
     case addCollaboratorRoute:
       return AddCollaboratorScreen.route();
 
