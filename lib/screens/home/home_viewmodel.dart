@@ -73,5 +73,7 @@ class HomeViewmodel extends Viewmodel {
     notifyListeners();
   }
 
-  get rebuild => notifyListeners();
+  void rebuild() {
+    notifyListeners();
+  }
 }

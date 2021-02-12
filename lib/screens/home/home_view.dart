@@ -241,11 +241,6 @@ class DrawerScreen extends StatelessWidget {
                         ),
                       ]),
                 ),
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    print(_controller.selectedDay);
-                  },
-                ),
                 bottomNavigationBar: BottomNavigationBar(
                   selectedItemColor: Colors.black54,
                   currentIndex: _currentIndex,

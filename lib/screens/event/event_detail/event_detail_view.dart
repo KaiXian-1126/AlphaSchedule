@@ -11,7 +11,6 @@ class EventDetailsScreen extends StatelessWidget {
       MaterialPageRoute(builder: (_) => EventDetailsScreen());
 
   final Event c = dependency<EventDetailsViewmodel>().currentEvent;
-
   @override
   Widget build(BuildContext context) {
     return View<EventDetailsViewmodel>(
