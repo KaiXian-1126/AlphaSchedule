@@ -1,6 +1,5 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
-import 'package:alpha_schedule/profile/event/add_collaborator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
