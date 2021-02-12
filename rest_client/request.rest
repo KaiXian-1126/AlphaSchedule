@@ -1,4 +1,4 @@
-@baseUrl = https://us-central1-alpha-schedule-bae8b.cloudfunctions.net/api
+@baseUrl = https://us-central1-map-deliver4.cloudfunctions.net/api
 ### Create a new calendar with user id
 POST {{baseUrl}}/calendar/eNXlTphqgVT0TmKA5MC4
 Content-Type: application/json
@@ -65,7 +65,7 @@ Content-Type: application/json
 DELETE {{baseUrl}}/user/delete/jtCjtuOowozN64OyGgXV
 
 ### Add collaborator to the calendar
-PATCH {{baseUrl}}/calendar/add/1qR1LKkv7QPFJur0a5re/HRY8BzxjRlYLloTtTyja
+PATCH {{baseUrl}}/calendar/add/z2W10lloDyUqIhCYD4Mo/8hjC6PshmdwjVtZHsdS9
 
 ### Delete collaborator from the calendar
 PATCH {{baseUrl}}/calendar/delete/vhPcaks6uYN7GdpFda3O/WzGvsIq5gLBV7LZXRJh3
