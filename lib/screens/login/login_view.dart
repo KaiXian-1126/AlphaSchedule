@@ -103,12 +103,6 @@ class LoginScreen extends StatelessWidget {
                                 email: emailController.text,
                                 password: passwordController.text);
                             if (validated) {
-                              // Will delete after the home page develop the viewmodel
-                              // just to make the apps able to access to the home page
-                              Provider.of<ValueNotifier<User>>(context,
-                                      listen: false)
-                                  .value = viewmodel.user;
-                              ////////////////////////////////////////////////////////
                               Navigator.popAndPushNamed(context, homeRoute);
                             } else {
                               viewmodel.rebuild();

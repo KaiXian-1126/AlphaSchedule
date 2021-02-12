@@ -11,6 +11,7 @@ class UserServiceRest implements UserService {
   CalendarService calendarService = di.dependency();
   Future<List<User>> getUserList() async {
     final result = await rest.get("user");
+    if (result == null) return [];
     return (result as List).map((e) => User.fromJson(e)).toList();
   }
 

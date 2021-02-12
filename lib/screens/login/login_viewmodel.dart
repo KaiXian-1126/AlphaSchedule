@@ -4,7 +4,7 @@ import '../../services/user/user_service.dart';
 import '../../models/User.dart';
 
 class LoginViewmodel extends Viewmodel {
-  List<User> users;
+  List<User> users = [];
   int _selected;
   UserService get dataService => dependency();
 
