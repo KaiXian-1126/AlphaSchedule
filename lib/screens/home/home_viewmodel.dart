@@ -20,7 +20,7 @@ class HomeViewmodel extends Viewmodel {
   void getCalendarList() async {
     turnBusy();
     ownCalendars = await calendarService.getCalendarList(user: user);
-
+    allCalendars = [];
     currentCalendar = ownCalendars[currentCalendarIndex];
 
     collaboratorCalendars =
