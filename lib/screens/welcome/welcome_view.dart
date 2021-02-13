@@ -3,6 +3,8 @@ import 'package:alpha_schedule/constants.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => WelcomeScreen());
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }

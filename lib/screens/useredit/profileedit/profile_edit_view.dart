@@ -2,9 +2,7 @@ import 'package:alpha_schedule/app/dependencies.dart';
 import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/useredit/profileedit/profile_edit_viewmodel.dart';
-import 'package:alpha_schedule/services/user/user_service.dart';
 import 'package:flutter/material.dart';
-import 'package:alpha_schedule/app/dependencies.dart' as di;
 
 import '../../view.dart';
 

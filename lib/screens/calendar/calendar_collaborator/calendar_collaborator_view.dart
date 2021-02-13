@@ -1,7 +1,6 @@
 import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/User.dart';
-import 'package:alpha_schedule/services/calendar/calendar_service.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
@@ -28,8 +27,6 @@ class _CalendarCollaboratorScreenState
     bool assigned = false;
     Calendar c = di.dependency<HomeViewmodel>().currentCalendar;
     User owner = di.dependency<LoginViewmodel>().user;
-
-    CalendarService calendarDependency = di.dependency();
     return Scaffold(
       appBar: AppBar(
         title: Text("${c.calendarName}"),
@@ -80,9 +77,6 @@ class _CalendarCollaboratorScreenState
                                 c: c, accessibility: e);
                             c.accessibility = e;
                             viewmodel.notifyListeners();
-                            // setState(() {
-                            //   c.accessibility = e;
-                            // });
                           },
                           value: c.accessibility,
                           items: ['View Only', 'Editable'].map((String value) {
@@ -104,7 +98,6 @@ class _CalendarCollaboratorScreenState
                             final res = await Navigator.pushNamed(
                                 context, addCollaboratorRoute);
                             if (res != null) {
-                              // c.membersId.add(res);
                               viewmodel.members.add(res);
                               membersLength++;
                               viewmodel.notifyListeners();
@@ -115,7 +108,6 @@ class _CalendarCollaboratorScreenState
                     ],
                   );
                 }
-                print("sian$index");
                 return ListTile(
                   leading: CircleAvatar(
                     child: Icon(Icons.portrait),

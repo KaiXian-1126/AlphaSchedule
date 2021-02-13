@@ -149,7 +149,13 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                               di
                                   .dependency<HomeViewmodel>()
                                   .allCalendars
-                                  .add(newCalendar);
+                                  .insert(
+                                      di
+                                              .dependency<HomeViewmodel>()
+                                              .ownCalendars
+                                              .length -
+                                          1,
+                                      newCalendar);
 
                               Navigator.pop(context);
                             }

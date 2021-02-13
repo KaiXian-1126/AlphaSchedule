@@ -3,11 +3,7 @@ import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/screens/event/event_create/event_create_viewmodel.dart';
 import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../../app/dependencies.dart';
 import '../../../app/dependencies.dart';
 
 class EventCreateScreen extends StatefulWidget {
@@ -113,14 +109,11 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                               startTime: startTime,
                               endTime: endTime,
                               description: descController.text);
-                          viewmodel.createEvent(
+                          await viewmodel.createEvent(
                               id: c.calendarId, event: newEvent);
-                          dependency<HomeViewmodel>().dayEvents.add(newEvent);
                         }
 
-                        Navigator.pop(
-                          context,
-                        );
+                        Navigator.pop(context);
                       }),
                   BuildFlatButton(
                     text: "Cancel",

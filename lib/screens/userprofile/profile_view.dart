@@ -1,10 +1,7 @@
 import 'package:alpha_schedule/app/dependencies.dart';
-import 'package:alpha_schedule/models/User.dart';
-import 'package:alpha_schedule/screens/createacc/acc_create_viewmodel.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/userprofile/profile_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../view.dart';
 

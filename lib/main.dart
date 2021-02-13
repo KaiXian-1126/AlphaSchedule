@@ -13,30 +13,7 @@ import 'package:provider/provider.dart';
 void main() {
   di.init();
   runApp(
-    MultiProvider(
-      providers: [
-        FutureProvider<List<User>>(
-            create: (_) => di.dependency<UserService>().getUserList()),
-        ChangeNotifierProvider<ValueNotifier<User>>(
-          create: (_) => ValueNotifier<User>(null),
-        ),
-        ChangeNotifierProvider<ValueNotifier<Calendar>>(
-          create: (_) => ValueNotifier<Calendar>(null),
-        ),
-        ChangeNotifierProvider<ValueNotifier<List<Event>>>(
-          create: (_) => ValueNotifier<List<Event>>(null),
-        ),
-        // used to detect the calendar accessibility
-        ChangeNotifierProvider<ValueNotifier<String>>(
-          create: (_) => ValueNotifier<String>("View Only"),
-        ),
-        // used for detect the calendar whether in collaborator mode
-        ChangeNotifierProvider<ValueNotifier<bool>>(
-          create: (_) => ValueNotifier<bool>(false),
-        )
-      ],
-      child: MyApp(),
-    ),
+    MyApp(),
   );
 }
 

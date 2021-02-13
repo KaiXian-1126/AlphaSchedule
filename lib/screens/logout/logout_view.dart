@@ -1,8 +1,9 @@
-import 'package:alpha_schedule/landing/welcome_screen.dart';
-
+import 'package:alpha_schedule/constants.dart';
 import 'package:flutter/material.dart';
 
 class LogoutScreen extends StatefulWidget {
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => LogoutScreen());
   @override
   _LogoutScreenState createState() => _LogoutScreenState();
 }
@@ -32,10 +33,8 @@ class _LogoutScreenState extends State<LogoutScreen> {
                   text: 'Return to Home Page',
                   color: Colors.white,
                   onpressedcallback: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WelcomeScreen()));
+                    Navigator.popUntil(
+                        context, ModalRoute.withName('/landing/welcome'));
                   }),
             ]),
           ),

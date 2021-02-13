@@ -3,7 +3,6 @@ import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/services/event/event_service.dart';
 import 'package:alpha_schedule/services/rest_service.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
-import 'package:flutter/material.dart';
 
 class EventServiceRest implements EventService {
   RestService rest = di.dependency();

@@ -1,6 +1,5 @@
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/models/Event.dart';
-import 'package:flutter/material.dart';
 
 abstract class EventService {
   Future<List<Event>> getEventList(

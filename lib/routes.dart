@@ -10,13 +10,12 @@ import 'package:alpha_schedule/screens/calendar/calendar_setting/calendar_settin
 import 'package:alpha_schedule/screens/calendar/calendar_collaborator/calendar_collaborator_view.dart';
 import 'package:alpha_schedule/screens/calendar/add_collaborator/add_collaborator_view.dart';
 import 'package:alpha_schedule/screens/createacc/acc_create_view.dart';
+import 'package:alpha_schedule/screens/logout/logout_view.dart';
+import 'package:alpha_schedule/screens/splash/splash_view.dart';
 import 'package:alpha_schedule/screens/useredit/passwordedit/password_edit_view.dart';
 import 'package:alpha_schedule/screens/userprofile/profile_view.dart';
 import 'package:alpha_schedule/screens/useredit/profileedit/profile_edit_view.dart';
-
-import 'package:alpha_schedule/auth/logout_screen.dart';
-import 'package:alpha_schedule/landing/splash_screen.dart';
-import 'package:alpha_schedule/landing/welcome_screen.dart';
+import 'package:alpha_schedule/screens/welcome/welcome_view.dart';
 
 import 'package:flutter/material.dart';
 import 'constants.dart';
@@ -25,13 +24,9 @@ Route<dynamic> createRoute(settings) {
   switch (settings.name) {
     //Landing routes
     case splashRoute:
-      return MaterialPageRoute(
-        builder: (context) => AlphaSplashScreen(),
-      );
+      return AlphaSplashScreen.route();
     case welcomeRoute:
-      return MaterialPageRoute(
-        builder: (context) => WelcomeScreen(),
-      );
+      return WelcomeScreen.route();
     case homeRoute:
       return DrawerScreen.route();
     //Auth routes
@@ -40,9 +35,7 @@ Route<dynamic> createRoute(settings) {
     case loginRoute:
       return LoginScreen.route();
     case logoutRoute:
-      return MaterialPageRoute(
-        builder: (context) => LogoutScreen(),
-      );
+      return LogoutScreen.route();
     //Profile routes
     case calendarCollaboratorRoute:
       return CalendarCollaboratorScreen.route();

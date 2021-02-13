@@ -6,8 +6,6 @@ import 'package:alpha_schedule/screens/event/event_summary/event_summary_viewmod
 import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-
 import '../../../constants.dart';
 import '../../view.dart';
 
@@ -126,7 +124,6 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                             child: Container(
                               width: 120,
                               child: Text(
-                                // "${widget.event.timeToStringConverter(widget.event.startTime)} to ${widget.event.timeToStringConverter(widget.event.endTime)}",
                                 '${a[index].timeToStringConverter(a[index].startTime)}' +
                                     "\nto\n" +
                                     '${a[index].timeToStringConverter(a[index].endTime)}',
@@ -141,7 +138,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                           onTap: () async {
                             dependency<EventDetailsViewmodel>().currentEvent =
                                 a[index];
-                            final respond = await Navigator.popAndPushNamed(
+                            final respond = await Navigator.pushNamed(
                                 context, eventDetailsRoute);
                             if (respond != null) {
                               setState(() {});

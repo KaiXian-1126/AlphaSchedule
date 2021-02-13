@@ -1,7 +1,6 @@
 import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:alpha_schedule/screens/calendar/calendar_setting/calendar_setting_viewmodel.dart';
 import 'package:alpha_schedule/models/Calendar.dart';
 import 'package:alpha_schedule/app/dependencies.dart' as di;
@@ -143,31 +142,13 @@ class _CalendarSettingScreenState extends State<CalendarSettingScreen> {
                         } else {
                           calendar.color = Colors.green[50];
                         }
-
-                        // viewmodel.updateCalendar(
-                        //     id: "${widget.calender.calendarId}",
-                        //     name: widget.calender.calendarName,
-                        //     description: widget.calender.description,
-                        //     color: widget.calender.color == Colors.blue[50]
-                        //         ? "Light Blue"
-                        //         : "Light Green");
-
-                        // final calendarList =
-                        //     Provider.of<List<Calendar>>(context, listen: false);
-
-                        // if (calendarList != null) {
-                        //   for (int i = 0; i < calendarList.length; i++) {
-                        //     if (widget.calender.calendarId ==
-                        //         calendarList[i].calendarId) {
-                        //       Calendar calendarSetting =
-                        //           Provider.of<ValueNotifier<Calendar>>(context,
-                        //                   listen: false)
-                        //               .value;
-                        //       calendarSetting = widget.calender;
-                        //     }
-                        //   }
-                        // }
-
+                        viewmodel.updateCalendar(
+                            id: calendar.calendarId,
+                            name: calendar.calendarName,
+                            description: calendar.description,
+                            color: calendar.color == Colors.blue[50]
+                                ? "Light Blue"
+                                : "Light Green");
                         Navigator.pop(context);
                       }
 

@@ -1,5 +1,4 @@
 import 'package:alpha_schedule/app/dependencies.dart';
-import 'package:alpha_schedule/auth/logout_screen.dart';
 import 'package:alpha_schedule/constants.dart';
 import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/screens/event/event_detail/event_detail_viewmodel.dart';
@@ -13,6 +12,7 @@ import 'package:alpha_schedule/app/dependencies.dart' as di;
 class DrawerScreen extends StatelessWidget {
   static Route<dynamic> route() =>
       MaterialPageRoute(builder: (_) => DrawerScreen());
+
   @override
   Widget build(BuildContext context) {
     return WidgetView<HomeViewmodel>(
@@ -21,6 +21,7 @@ class DrawerScreen extends StatelessWidget {
       builder: (context, viewmodel, _) {
         CalendarController _controller = CalendarController();
         int _currentIndex = 0;
+
         return View<HomeViewmodel>(
             initViewmodel: (homeViewmodel) => homeViewmodel.getCalendarList(),
             builder: (context, viewmodel, _) {
@@ -35,8 +36,6 @@ class DrawerScreen extends StatelessWidget {
                     itemCount: 1 + viewmodel.dayEvents.length,
                     separatorBuilder: (_, index) => Divider(),
                     itemBuilder: (_, index) {
-                      viewmodel.getDayEventList(_controller.selectedDay);
-                      print(viewmodel.dayEvents);
                       List<Event> dayEventList = viewmodel.dayEvents;
                       if (index == 0) {
                         return TableCalendar(
@@ -68,24 +67,26 @@ class DrawerScreen extends StatelessWidget {
                                 color: Colors.white,
                               )),
                           onDaySelected: (selectedDay, a, b) {
-                            viewmodel.rebuild();
+                            viewmodel.getDayEventList(selectedDay);
                           },
                         );
                       } else {
                         return ListTile(
                           title: Text(dayEventList[index - 1].eventName),
-                          trailing: IconButton(
-                            icon: Icon(Icons.cancel_rounded),
-                            onPressed: () async {
-                              viewmodel.deleteEvent(index);
-                            },
-                          ),
+                          trailing: viewmodel.onViewOnlyMode
+                              ? null
+                              : IconButton(
+                                  icon: Icon(Icons.cancel_rounded),
+                                  onPressed: () async {
+                                    viewmodel.deleteEvent(index);
+                                  },
+                                ),
                           onTap: () async {
                             dependency<EventDetailsViewmodel>().currentEvent =
                                 dayEventList[index - 1];
-                            final respond = await Navigator.pushNamed(
+                            await Navigator.pushNamed(
                                 context, eventDetailsRoute);
-                            viewmodel.rebuild();
+                            viewmodel.notifyListeners();
                           },
                         );
                       }
@@ -107,11 +108,10 @@ class DrawerScreen extends StatelessWidget {
                             child: ListTile(
                               leading: GestureDetector(
                                 onTap: () async {
-                                  final respond = await Navigator.pushNamed(
+                                  await Navigator.pushNamed(
                                       context, userProfileRoute);
-                                  if (respond != null) {
-                                    viewmodel.rebuild();
-                                  }
+
+                                  viewmodel.notifyListeners();
                                 },
                                 child: CircleAvatar(
                                   child: Icon(
@@ -146,10 +146,10 @@ class DrawerScreen extends StatelessWidget {
                               title: Text(
                                   viewmodel.ownCalendars[index].calendarName),
                               onTap: () {
-                                viewmodel.currentCalendar =
-                                    viewmodel.allCalendars[index];
+                                viewmodel.setCurrentCalendar(
+                                    calendar: viewmodel.allCalendars[index],
+                                    index: index);
                                 Navigator.pop(context);
-                                viewmodel.rebuild();
                               },
                               trailing: viewmodel.ownCalendars.length == 1
                                   ? null
@@ -186,11 +186,12 @@ class DrawerScreen extends StatelessWidget {
                                                 index]
                                         .calendarName),
                                     onTap: () {
-                                      viewmodel.currentCalendar =
-                                          viewmodel.allCalendars[
+                                      viewmodel.setCurrentCalendar(
+                                          calendar: viewmodel.allCalendars[
                                               viewmodel.ownCalendars.length +
-                                                  index];
-                                      viewmodel.rebuild();
+                                                  index],
+                                          index: viewmodel.ownCalendars.length +
+                                              index);
                                       Navigator.pop(context);
                                     },
                                     trailing: OutlineButton(
@@ -216,7 +217,7 @@ class DrawerScreen extends StatelessWidget {
                           child: FloatingActionButton(
                             heroTag: null,
                             onPressed: () async {
-                              final response = await Navigator.pushNamed(
+                              await Navigator.pushNamed(
                                   context, calendarCreateRoute);
 
                               viewmodel.notifyListeners();
@@ -229,10 +230,10 @@ class DrawerScreen extends StatelessWidget {
                           margin: EdgeInsets.only(top: 10),
                           child: RaisedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LogoutScreen()));
+                              Navigator.popAndPushNamed(
+                                context,
+                                logoutRoute,
+                              );
                             },
                             child: Text("Logout",
                                 style: TextStyle(color: Colors.white)),
@@ -262,27 +263,19 @@ class DrawerScreen extends StatelessWidget {
                   onTap: (index) async {
                     _currentIndex = index;
                     if (index == 1) {
-                      final response =
-                          await Navigator.pushNamed(context, eventSummaryRoute);
-                      if (response != null) {
-                        viewmodel.rebuild();
-                      }
+                      await Navigator.pushNamed(context, eventSummaryRoute);
                     } else if (index == 2) {
-                      final response = await Navigator.pushNamed(
-                          context, calendarCollaboratorRoute, arguments: [
-                        viewmodel.currentCalendar,
-                        viewmodel.user
-                      ]);
+                      await Navigator.pushNamed(
+                          context, calendarCollaboratorRoute);
                     } else if (index == 3) {
-                      final response = await Navigator.pushNamed(
-                          context, eventCreateRoute,
+                      await Navigator.pushNamed(context, eventCreateRoute,
                           arguments: [_controller.selectedDay]);
 
                       viewmodel.notifyListeners();
                     } else if (index == 4) {
-                      Navigator.pushNamed(context, eventSearchRoute);
+                      await Navigator.pushNamed(context, eventSearchRoute);
                     } else if (index == 5) {
-                      final response = await Navigator.pushNamed(
+                      await Navigator.pushNamed(
                         context,
                         calendarSettingsRoute,
                       );

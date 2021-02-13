@@ -32,7 +32,9 @@ class _EventEditScreenState extends State<EventEditScreen> {
         title: Text("Edit Event"),
         leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context)),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
       ),
       body: View<EventEditViewmodel>(
         builder: (context, viewmodel, _) {
@@ -129,6 +131,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
                         c.eventName = titleController.text;
                         c.startTime = tempStartTime;
                         c.endTime = tempEndTime;
+
                         c.description = descriptionController.text;
                         dependency<HomeViewmodel>()
                             .dayEvents
@@ -137,7 +140,6 @@ class _EventEditScreenState extends State<EventEditScreen> {
                             element.eventName = titleController.text;
                         });
                         Navigator.pop(context);
-                        viewmodel.rebuild();
                       },
                     ),
                   ),

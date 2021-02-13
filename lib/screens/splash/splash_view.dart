@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AlphaSplashScreen extends StatefulWidget {
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => AlphaSplashScreen());
   @override
   _AlphaSplashScreen createState() => _AlphaSplashScreen();
 }

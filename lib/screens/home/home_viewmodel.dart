@@ -16,7 +16,7 @@ class HomeViewmodel extends Viewmodel {
   List<Event> dayEvents = [], allEvents = [];
   CalendarService get calendarService => dependency();
   EventService get eventService => dependency();
-
+  bool onViewOnlyMode = false;
   void getCalendarList() async {
     turnBusy();
     ownCalendars = await calendarService.getCalendarList(user: user);
@@ -24,8 +24,12 @@ class HomeViewmodel extends Viewmodel {
 
     collaboratorCalendars =
         await calendarService.getCollaboratorCalendarList(user: user);
+
     ownCalendars.forEach((e) => allCalendars.add(e));
 
+    ownCalendars.forEach((e) => print(e.calendarName));
+
+    collaboratorCalendars.forEach((e) => print(e.calendarName));
     collaboratorCalendars.forEach((e) => allCalendars.add(e));
     dayEvents = await eventService.getEventList(
         c: currentCalendar, date: DateTime.now(), currentTime: DateTime.now());
@@ -42,6 +46,7 @@ class HomeViewmodel extends Viewmodel {
   void getDayEventList(DateTime selectedDay) async {
     dayEvents = await eventService.getEventList(
         c: currentCalendar, date: selectedDay, currentTime: selectedDay);
+    notifyListeners();
   }
 
   void deleteCalendar(int index) async {
@@ -65,11 +70,34 @@ class HomeViewmodel extends Viewmodel {
     notifyListeners();
   }
 
+  void printAllCalendar() {
+    ownCalendars.forEach((e) => print(e.calendarName));
+    print("---");
+    collaboratorCalendars.forEach((e) => print(e.calendarName));
+    print("all---");
+    allCalendars.forEach((e) => print(e.calendarName));
+  }
+
   void removeCollaborateCalendar(Calendar calendar, int index) async {
     await calendarService.removeSelfCollaboration(
         calendar: calendar, user: user);
     allCalendars.removeAt(ownCalendars.length + index);
     collaboratorCalendars.removeAt(index);
+    notifyListeners();
+  }
+
+  void setCurrentCalendar({Calendar calendar, int index}) {
+    currentCalendar = calendar;
+    print("OnChooseCalendar");
+    if (index > ownCalendars.length - 1) {
+      print("OnCollaborateCalender");
+      if (calendar.accessibility == "View Only") {
+        print("OnViewOnly");
+        onViewOnlyMode = true;
+      }
+    } else {
+      onViewOnlyMode = false;
+    }
     notifyListeners();
   }
 

@@ -1,10 +1,7 @@
-import 'package:alpha_schedule/app/dependencies.dart' as di;
 import 'package:alpha_schedule/constants.dart';
-import 'package:alpha_schedule/models/User.dart';
 import 'package:alpha_schedule/screens/login/login_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   static Route<dynamic> route() =>

@@ -90,7 +90,8 @@ class EventDetailsScreen extends StatelessWidget {
                             onPressedCallback: () async {
                               await Navigator.pushNamed(
                                   context, eventEditRoute);
-                              viewmodel.rebuild();
+
+                              viewmodel.notifyListeners();
                             }),
                         BuildFlatButton(
                           text: 'Cancel',
