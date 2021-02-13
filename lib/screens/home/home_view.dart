@@ -145,10 +145,11 @@ class DrawerScreen extends StatelessWidget {
                               ),
                               title: Text(
                                   viewmodel.ownCalendars[index].calendarName),
-                              onTap: () {
-                                viewmodel.setCurrentCalendar(
+                              onTap: () async {
+                                await viewmodel.setCurrentCalendar(
                                     calendar: viewmodel.allCalendars[index],
                                     index: index);
+
                                 Navigator.pop(context);
                               },
                               trailing: viewmodel.ownCalendars.length == 1
@@ -230,10 +231,8 @@ class DrawerScreen extends StatelessWidget {
                           margin: EdgeInsets.only(top: 10),
                           child: RaisedButton(
                             onPressed: () {
-                              Navigator.popAndPushNamed(
-                                context,
-                                logoutRoute,
-                              );
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  logoutRoute, ModalRoute.withName('/'));
                             },
                             child: Text("Logout",
                                 style: TextStyle(color: Colors.white)),
@@ -268,8 +267,13 @@ class DrawerScreen extends StatelessWidget {
                       await Navigator.pushNamed(
                           context, calendarCollaboratorRoute);
                     } else if (index == 3) {
-                      await Navigator.pushNamed(context, eventCreateRoute,
-                          arguments: [_controller.selectedDay]);
+                      if (!viewmodel.onViewOnlyMode) {
+                        await Navigator.pushNamed(context, eventCreateRoute,
+                            arguments: [_controller.selectedDay]);
+                      } else {
+                        await Navigator.pushNamed(
+                            context, eventCreateViewOnlyRoute);
+                      }
 
                       viewmodel.notifyListeners();
                     } else if (index == 4) {

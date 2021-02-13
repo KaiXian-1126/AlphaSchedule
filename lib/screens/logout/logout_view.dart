@@ -33,8 +33,7 @@ class _LogoutScreenState extends State<LogoutScreen> {
                   text: 'Return to Home Page',
                   color: Colors.white,
                   onpressedcallback: () {
-                    Navigator.popUntil(
-                        context, ModalRoute.withName('/landing/welcome'));
+                    Navigator.popAndPushNamed(context, welcomeRoute);
                   }),
             ]),
           ),

@@ -1,4 +1,5 @@
 import 'package:alpha_schedule/screens/event/event_create/event_create_view.dart';
+import 'package:alpha_schedule/screens/event/event_create/event_create_viewonly_view.dart';
 import 'package:alpha_schedule/screens/event/event_detail/event_detail_view.dart';
 import 'package:alpha_schedule/screens/event/event_edit/event_edit_view.dart';
 import 'package:alpha_schedule/screens/event/event_search/event_search_view.dart';
@@ -52,6 +53,8 @@ Route<dynamic> createRoute(settings) {
           date: settings.arguments,
         ),
       );
+    case eventCreateViewOnlyRoute:
+      return EventCreateViewOnlyScreen.route();
     case eventDetailsRoute:
       return EventDetailsScreen.route();
     case eventEditRoute:

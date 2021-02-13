@@ -17,6 +17,7 @@ class HomeViewmodel extends Viewmodel {
   CalendarService get calendarService => dependency();
   EventService get eventService => dependency();
   bool onViewOnlyMode = false;
+  DateTime selectedDate;
   void getCalendarList() async {
     turnBusy();
     ownCalendars = await calendarService.getCalendarList(user: user);
@@ -26,10 +27,6 @@ class HomeViewmodel extends Viewmodel {
         await calendarService.getCollaboratorCalendarList(user: user);
 
     ownCalendars.forEach((e) => allCalendars.add(e));
-
-    ownCalendars.forEach((e) => print(e.calendarName));
-
-    collaboratorCalendars.forEach((e) => print(e.calendarName));
     collaboratorCalendars.forEach((e) => allCalendars.add(e));
     dayEvents = await eventService.getEventList(
         c: currentCalendar, date: DateTime.now(), currentTime: DateTime.now());
@@ -44,6 +41,7 @@ class HomeViewmodel extends Viewmodel {
   }
 
   void getDayEventList(DateTime selectedDay) async {
+    selectedDate = selectedDay;
     dayEvents = await eventService.getEventList(
         c: currentCalendar, date: selectedDay, currentTime: selectedDay);
     notifyListeners();
@@ -86,14 +84,15 @@ class HomeViewmodel extends Viewmodel {
     notifyListeners();
   }
 
-  void setCurrentCalendar({Calendar calendar, int index}) {
+  Future<void> setCurrentCalendar({Calendar calendar, int index}) async {
     currentCalendar = calendar;
-    print("OnChooseCalendar");
+    dayEvents = await eventService.getEventList(
+        c: currentCalendar, date: selectedDate, currentTime: selectedDate);
     if (index > ownCalendars.length - 1) {
-      print("OnCollaborateCalender");
       if (calendar.accessibility == "View Only") {
-        print("OnViewOnly");
         onViewOnlyMode = true;
+      } else {
+        onViewOnlyMode = false;
       }
     } else {
       onViewOnlyMode = false;

@@ -1,6 +1,7 @@
 import 'package:alpha_schedule/app/dependencies.dart';
 import 'package:alpha_schedule/models/Event.dart';
 import 'package:alpha_schedule/screens/event/event_detail/event_detail_viewmodel.dart';
+import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
 import 'package:flutter/material.dart';
 
@@ -134,20 +135,25 @@ class BuildFlatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 20, top: 23),
-      height: 50,
-      width: 130,
-      child: FlatButton(
-        color: color,
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 20),
+    if (dependency<HomeViewmodel>().onViewOnlyMode) {
+      return Container();
+    } else {
+      return Container(
+        margin: EdgeInsets.only(left: 20, top: 23),
+        height: 50,
+        width: 130,
+        child: FlatButton(
+          color: color,
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 20),
+          ),
+          onPressed: onPressedCallback,
+          textColor: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         ),
-        onPressed: onPressedCallback,
-        textColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-      ),
-    );
+      );
+    }
   }
 }

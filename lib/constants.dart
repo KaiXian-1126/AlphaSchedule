@@ -18,5 +18,6 @@ const String passwordEditRoute = "/profile/user/passwordEdit";
 const String profileEditRoute = "/profile/user/profileEdit";
 const String userProfileRoute = "/profile/user/userProfile";
 const String addCollaboratorRoute = "/profile/event/collaboratorAdd";
+const String eventCreateViewOnlyRoute = "/profile/event/eventCreateViewOnly";
 //Home route
 const String homeRoute = "/home";
