@@ -25,7 +25,6 @@ class DrawerScreen extends StatelessWidget {
         return View<HomeViewmodel>(
             initViewmodel: (homeViewmodel) => homeViewmodel.getCalendarList(),
             builder: (context, viewmodel, _) {
-              print("building");
               return Scaffold(
                 appBar: AppBar(
                   title: Text(viewmodel.currentCalendar.calendarName),
