@@ -140,23 +140,8 @@ class _CalendarCreateScreenState extends State<CalendarCreateScreen> {
                                   ownerId: "",
                                   eventList: [],
                                   membersId: []);
-                              viewmodel.createCalendar(
+                              await viewmodel.createCalendar(
                                   id: "${user.userId}", data: newCalendar);
-                              di
-                                  .dependency<HomeViewmodel>()
-                                  .ownCalendars
-                                  .add(newCalendar);
-                              di
-                                  .dependency<HomeViewmodel>()
-                                  .allCalendars
-                                  .insert(
-                                      di
-                                              .dependency<HomeViewmodel>()
-                                              .ownCalendars
-                                              .length -
-                                          1,
-                                      newCalendar);
-
                               Navigator.pop(context);
                             }
                           },

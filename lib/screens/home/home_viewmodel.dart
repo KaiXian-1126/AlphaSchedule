@@ -25,7 +25,7 @@ class HomeViewmodel extends Viewmodel {
 
     collaboratorCalendars =
         await calendarService.getCollaboratorCalendarList(user: user);
-
+    allCalendars = [];
     ownCalendars.forEach((e) => allCalendars.add(e));
     collaboratorCalendars.forEach((e) => allCalendars.add(e));
     dayEvents = await eventService.getEventList(
