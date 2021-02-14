@@ -138,7 +138,7 @@ class _EventSummaryScreenState extends State<EventSummaryScreen> {
                           onTap: () async {
                             dependency<EventDetailsViewmodel>().currentEvent =
                                 a[index];
-                            final respond = await Navigator.pushNamed(
+                            final respond = await Navigator.popAndPushNamed(
                                 context, eventDetailsRoute);
                             if (respond != null) {
                               setState(() {});
