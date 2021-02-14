@@ -1,4 +1,5 @@
 import 'package:alpha_schedule/models/Calendar.dart';
+import 'package:alpha_schedule/screens/event/event_detail/event_detail_viewmodel.dart';
 import 'package:alpha_schedule/screens/event/event_search/event_search_viewmodel.dart';
 import 'package:alpha_schedule/screens/home/home_viewmodel.dart';
 import 'package:alpha_schedule/screens/view.dart';
@@ -53,11 +54,13 @@ class EventSearchScreen extends StatelessWidget {
                       );
                     } else {
                       return ListTile(
-                        title: Text(eventLists[index - 1].eventName),
-                        onTap: () => Navigator.popAndPushNamed(
-                            context, eventDetailsRoute,
-                            arguments: eventLists[index - 1]),
-                      );
+                          title: Text(eventLists[index - 1].eventName),
+                          onTap: () {
+                            dependency<EventDetailsViewmodel>().currentEvent =
+                                eventLists[index - 1];
+                            Navigator.popAndPushNamed(
+                                context, eventDetailsRoute);
+                          });
                     }
                   }),
             );
