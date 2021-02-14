@@ -13,6 +13,7 @@ class AccountCreateViewmodel extends Viewmodel {
     turnBusy();
     await dataService.createUser(user: user);
     turnIdle();
+    notifyListeners();
   }
 
   get rebuild => notifyListeners();
